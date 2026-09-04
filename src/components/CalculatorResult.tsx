@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ResultSummary } from './ResultSummary'
 import { AmortizationTable } from './AmortizationTable'
@@ -44,6 +44,7 @@ export function CalculatorResult({
   return (
     <>
       <LoanPrintReport title={scenarioLabel} result={result} />
+      <StickyPaymentBar payment={result.monthlyPayment} />
       <ResultSummary result={result} extraMonthly={extraMonthly} recurringExtra={recurringExtra} />
       <Actions result={result} scenarioLabel={scenarioLabel} />
       <div className="grid gap-5 lg:grid-cols-2">
@@ -52,6 +53,33 @@ export function CalculatorResult({
       </div>
       <AmortizationTable schedule={result.schedule} filename={filename} />
     </>
+  )
+}
+
+/** Keeps the headline number in view once the page is scrolled past the results card. */
+function StickyPaymentBar({ payment }: { payment: number }) {
+  const { money } = useFormat()
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 480)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  if (payment <= 0) return null
+
+  return (
+    <div
+      className={`no-print pointer-events-none fixed inset-x-0 top-16 z-20 flex justify-center transition-opacity ${
+        visible ? 'opacity-100' : 'pointer-events-none opacity-0'
+      }`}
+    >
+      <div className="pointer-events-auto flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-4 py-2 text-sm shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/95">
+        <span className="text-slate-500 dark:text-slate-400">Monthly payment</span>
+        <span className="font-bold text-indigo-700 dark:text-indigo-300">{money(payment)}</span>
+      </div>
+    </div>
   )
 }
 

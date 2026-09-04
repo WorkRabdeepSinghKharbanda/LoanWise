@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
 import { ShortcutsSheet } from './ShortcutsSheet'
+import { InstallPrompt } from './InstallPrompt'
 import { AdSlot } from './AdSlot'
 import { useSettings, useT } from '../context/SettingsContext'
 import { CURRENCIES } from '../utils/loanMath'
@@ -135,6 +136,7 @@ export function Layout() {
       </main>
 
       <ShortcutsSheet />
+      <InstallPrompt />
 
       <div className="mx-auto w-full max-w-5xl px-6">
         <AdSlot name="footer" className="mb-10" />

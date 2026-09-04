@@ -68,6 +68,13 @@ export function ComparePage() {
   const update = (id: string, patch: Partial<Scenario>) =>
     setScenarios((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)))
   const remove = (id: string) => setScenarios((prev) => prev.filter((s) => s.id !== id))
+  const duplicate = (id: string) =>
+    setScenarios((prev) => {
+      if (prev.length >= MAX_SCENARIOS) return prev
+      const source = prev.find((s) => s.id === id)
+      if (!source) return prev
+      return [...prev, { ...source, id: newId(), name: `${source.name} copy` }]
+    })
   const add = () =>
     setScenarios((prev) =>
       prev.length >= MAX_SCENARIOS
@@ -201,6 +208,16 @@ export function ComparePage() {
                       aria-label={`Name for scenario ${i + 1}`}
                       className="min-w-0 flex-1 rounded-lg bg-transparent font-semibold text-slate-900 outline-none hover:bg-slate-50 focus:bg-slate-50 dark:text-white dark:hover:bg-slate-800 dark:focus:bg-slate-800"
                     />
+                    {scenarios.length < MAX_SCENARIOS && (
+                      <button
+                        onClick={() => duplicate(scenario.id)}
+                        aria-label={`Duplicate ${scenario.name}`}
+                        title="Duplicate this scenario"
+                        className="rounded-md px-2 text-slate-400 transition hover:bg-slate-100 hover:text-indigo-600 dark:hover:bg-slate-800"
+                      >
+                        ⧉
+                      </button>
+                    )}
                     {scenarios.length > 1 && (
                       <button
                         onClick={() => remove(scenario.id)}
