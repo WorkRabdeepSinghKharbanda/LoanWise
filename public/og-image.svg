@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="LoanWise — Loan, Mortgage &amp; EMI Calculators">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef2ff" />
+      <stop offset="1" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1" />
+      <stop offset="1" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4f46e5" />
+      <stop offset="1" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1050" cy="80" r="220" fill="#818cf8" opacity="0.18" />
+  <circle cx="90" cy="560" r="180" fill="#a78bfa" opacity="0.15" />
+
+  <!-- Brand mark -->
+  <rect x="90" y="86" width="76" height="76" rx="18" fill="url(#mark)" />
+  <text x="128" y="136" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#ffffff" text-anchor="middle">LW</text>
+
+  <text x="182" y="140" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#0f172a">LoanWise</text>
+
+  <text x="90" y="270" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800" fill="#0f172a">Know the real cost</text>
+  <text x="90" y="340" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="800" fill="#4f46e5">before you sign</text>
+
+  <text x="90" y="410" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#475569">24 free loan, mortgage &amp; EMI calculators — full amortization schedules,</text>
+  <text x="90" y="446" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#475569">true APR, prepayment savings. Runs entirely in your browser.</text>
+
+  <rect x="90" y="500" width="3" height="34" fill="url(#accent)" />
+  <text x="112" y="526" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="600" fill="#334155">loan-calculator-ashen-six.vercel.app</text>
+</svg>

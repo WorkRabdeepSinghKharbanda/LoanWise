@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Class-based dark mode so the header toggle can override the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Chart roles — validated categorical slots 1 & 2, stepped per mode. */
+.viz {
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --surface-1: #ffffff;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --ink-muted: #898781;
+}
+.dark .viz {
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --surface-1: #0f172a;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --ink-muted: #898781;
+}
+
+/* Print / "Save as PDF": drop the chrome, let the schedule flow across pages. */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  .print-open {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  body {
+    background: #fff;
+  }
+}

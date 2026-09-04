@@ -1,0 +1,31 @@
+{
+  "name": "LoanWise — Loan & Mortgage Calculators",
+  "short_name": "LoanWise",
+  "description": "Twenty loan calculators with full amortization schedules. Works offline; nothing leaves your device.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#4f46e5",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Mortgage calculator", "url": "/mortgage" },
+    { "name": "EMI calculator", "url": "/emi" },
+    { "name": "Compare loans", "url": "/compare" },
+    { "name": "Debt payoff planner", "url": "/debt-payoff" }
+  ]
+}

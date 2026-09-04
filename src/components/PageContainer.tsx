@@ -1,0 +1,3 @@
+export function PageContainer({ children }: { children: React.ReactNode }) {
+  return <div className="mx-auto max-w-5xl px-6 py-10 sm:py-14">{children}</div>
+}

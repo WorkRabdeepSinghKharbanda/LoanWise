@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LoanWise">
+  <defs>
+    <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1" />
+      <stop offset="1" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+  <!-- Maskable icons get cropped to a circle: full bleed, art inside the safe zone. -->
+  <rect width="64" height="64" fill="url(#mg)" />
+  <g fill="#fff" opacity="0.95">
+    <rect x="21" y="19" width="22" height="8" rx="2.5" />
+    <rect x="21" y="31" width="6.5" height="6" rx="2" />
+    <rect x="28.75" y="31" width="6.5" height="6" rx="2" />
+    <rect x="36.5" y="31" width="6.5" height="6" rx="2" />
+    <rect x="21" y="39" width="6.5" height="6" rx="2" />
+    <rect x="28.75" y="39" width="14.25" height="6" rx="2" />
+  </g>
+</svg>
