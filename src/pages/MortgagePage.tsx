@@ -85,6 +85,14 @@ export function MortgagePage() {
         </div>
 
         <div className="flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <div className="flex justify-end">
+            <button
+              onClick={() => setInput(INITIAL)}
+              className="no-print rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <LoanForm input={input} onChange={(v) => setInput({ ...input, ...v })} typicalRateRange={[5.5, 7.5]} />
           <div className="border-t border-slate-100 pt-6 dark:border-slate-800">
             <MortgageExtraFields input={input} onChange={setInput} />

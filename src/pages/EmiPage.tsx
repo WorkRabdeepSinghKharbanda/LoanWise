@@ -8,13 +8,15 @@ import { RateSensitivity } from '../components/RateSensitivity'
 import { Seo } from '../components/Seo'
 import { Tabs } from '../components/Tabs'
 
+const DEFAULTS = {
+  principal: 500000,
+  annualRatePercent: 8.5,
+  termMonths: 60,
+  extraMonthlyPayment: 0,
+}
+
 export function EmiPage() {
-  const { input, setInput, result } = useLoanCalculator({
-    principal: 500000,
-    annualRatePercent: 8.5,
-    termMonths: 60,
-    extraMonthlyPayment: 0,
-  })
+  const { input, setInput, result } = useLoanCalculator(DEFAULTS)
 
   return (
     <PageContainer>
@@ -30,6 +32,14 @@ export function EmiPage() {
           </p>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <div className="mb-4 flex justify-end">
+            <button
+              onClick={() => setInput(DEFAULTS)}
+              className="no-print rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <LoanForm input={input} onChange={setInput} />
         </div>
 

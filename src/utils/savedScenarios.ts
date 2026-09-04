@@ -45,3 +45,10 @@ export function updateNote(id: string, note: string): SavedScenario[] {
   persist(next)
   return next
 }
+
+/** Puts a previously-deleted scenario back, for an undo action. */
+export function restoreScenario(scenario: SavedScenario): SavedScenario[] {
+  const next = [scenario, ...loadSaved().filter((s) => s.id !== scenario.id)].slice(0, 20)
+  persist(next)
+  return next
+}

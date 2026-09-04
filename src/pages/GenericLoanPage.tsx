@@ -11,12 +11,13 @@ import { Tabs } from '../components/Tabs'
 import type { LoanTypeConfig } from '../types/loan'
 
 export function GenericLoanPage({ config }: { config: LoanTypeConfig }) {
-  const { input, setInput, result } = useLoanCalculator({
+  const defaults = {
     principal: config.defaultPrincipal,
     annualRatePercent: config.defaultRatePercent,
     termMonths: config.defaultTermMonths,
     extraMonthlyPayment: 0,
-  })
+  }
+  const { input, setInput, result } = useLoanCalculator(defaults)
 
   return (
     <PageContainer>
@@ -30,6 +31,14 @@ export function GenericLoanPage({ config }: { config: LoanTypeConfig }) {
           </div>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <div className="mb-4 flex justify-end">
+            <button
+              onClick={() => setInput(defaults)}
+              className="no-print rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <LoanForm input={input} onChange={setInput} typicalRateRange={config.typicalRateRange} />
         </div>
 

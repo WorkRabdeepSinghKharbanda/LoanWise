@@ -3,10 +3,23 @@ import { Link } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import { PrintButton } from '../components/PrintButton'
 import { Seo } from '../components/Seo'
-import { deleteScenario, loadSaved, updateNote } from '../utils/savedScenarios'
+import { deleteScenario, loadSaved, restoreScenario, updateNote, type SavedScenario } from '../utils/savedScenarios'
 
 export function SavedPage() {
   const [scenarios, setScenarios] = useState(loadSaved)
+  const [lastDeleted, setLastDeleted] = useState<SavedScenario | null>(null)
+
+  const remove = (scenario: SavedScenario) => {
+    setScenarios(deleteScenario(scenario.id))
+    setLastDeleted(scenario)
+    setTimeout(() => setLastDeleted((current) => (current?.id === scenario.id ? null : current)), 6000)
+  }
+
+  const undo = () => {
+    if (!lastDeleted) return
+    setScenarios(restoreScenario(lastDeleted))
+    setLastDeleted(null)
+  }
 
   return (
     <PageContainer>
@@ -94,7 +107,7 @@ export function SavedPage() {
                       Open
                     </Link>
                     <button
-                      onClick={() => setScenarios(deleteScenario(s.id))}
+                      onClick={() => remove(s)}
                       className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-500 transition hover:bg-red-50 hover:text-red-600 dark:border-slate-600 dark:hover:bg-slate-800"
                     >
                       Delete
@@ -113,6 +126,17 @@ export function SavedPage() {
           </ul>
         )}
       </div>
+
+      {lastDeleted && (
+        <div className="no-print fixed inset-x-0 bottom-6 z-30 flex justify-center px-4">
+          <div className="flex items-center gap-4 rounded-xl bg-slate-900 px-5 py-3 text-sm text-white shadow-lg dark:bg-slate-100 dark:text-slate-900">
+            <span>Deleted "{lastDeleted.label}"</span>
+            <button onClick={undo} className="font-semibold text-indigo-300 hover:underline dark:text-indigo-600">
+              Undo
+            </button>
+          </div>
+        </div>
+      )}
     </PageContainer>
   )
 }

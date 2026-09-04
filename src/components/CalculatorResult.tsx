@@ -6,6 +6,7 @@ import { SplitBar } from './charts/SplitBar'
 import { BalanceChart } from './charts/BalanceChart'
 import { LoanPrintReport } from './PrintReport'
 import { useFormat } from '../context/SettingsContext'
+import { formatMonths, payoffDate } from '../utils/loanMath'
 import { saveScenario } from '../utils/savedScenarios'
 import type { LoanResult } from '../types/loan'
 
@@ -58,6 +59,7 @@ function Actions({ result, scenarioLabel }: { result: LoanResult; scenarioLabel:
   const { money } = useFormat()
   const location = useLocation()
   const [copied, setCopied] = useState(false)
+  const [summaryCopied, setSummaryCopied] = useState(false)
   const [saved, setSaved] = useState(false)
 
   const copy = async () => {
@@ -67,6 +69,24 @@ function Actions({ result, scenarioLabel }: { result: LoanResult; scenarioLabel:
       setTimeout(() => setCopied(false), 2000)
     } catch {
       // Clipboard blocked (insecure context / permissions) — the URL bar still has it.
+    }
+  }
+
+  const copySummary = async () => {
+    const lines = [
+      `${scenarioLabel} — LoanWise`,
+      `Monthly payment: ${money(result.monthlyPayment)}`,
+      `Total interest: ${money(result.totalInterest)}`,
+      `Total payment: ${money(result.totalPayment)}`,
+      `Paid off in: ${formatMonths(result.payoffMonths)} (${payoffDate(result.payoffMonths)})`,
+      window.location.href,
+    ]
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'))
+      setSummaryCopied(true)
+      setTimeout(() => setSummaryCopied(false), 2000)
+    } catch {
+      // Clipboard blocked — nothing to fall back to here, silently no-op.
     }
   }
 
@@ -95,6 +115,7 @@ function Actions({ result, scenarioLabel }: { result: LoanResult; scenarioLabel:
   return (
     <div className="no-print flex flex-wrap gap-2">
       <Button onClick={copy}>{copied ? '✓ Link copied' : '🔗 Copy shareable link'}</Button>
+      <Button onClick={copySummary}>{summaryCopied ? '✓ Summary copied' : '📋 Copy summary'}</Button>
       {typeof navigator !== 'undefined' && 'share' in navigator && <Button onClick={share}>📤 Share</Button>}
       <Button onClick={save}>{saved ? '✓ Saved' : '💾 Save this scenario'}</Button>
     </div>
