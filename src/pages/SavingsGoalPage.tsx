@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, formatMonths, payoffDate } from '../utils/loanMath'
 import { calculateSavingsGoal } from '../utils/advancedMath'
@@ -32,11 +34,23 @@ export function SavingsGoalPage() {
     <PageContainer>
       <Seo title="Down Payment Savings Goal" description="How long until you've saved your down payment — and what you'd need to contribute to hit a deadline." />
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏦 Savings Goal</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            Work out when your down payment is ready — or what it takes to be ready by a date.
-          </p>
+        <PrintReport
+          title="Savings Goal"
+          stats={[
+            { label: 'Target', value: money(input.target) },
+            { label: 'Time to Reach It', value: result.months === null ? 'Never' : formatMonths(result.months) },
+            { label: 'You Contribute', value: money(result.contributed) },
+            { label: 'Interest Earned', value: money(result.interestEarned) },
+          ]}
+        />
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏦 Savings Goal</h1>
+            <p className="mt-1 text-slate-500 dark:text-slate-400">
+              Work out when your down payment is ready — or what it takes to be ready by a date.
+            </p>
+          </div>
+          <PrintButton />
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 dark:border-slate-700 dark:bg-slate-900">

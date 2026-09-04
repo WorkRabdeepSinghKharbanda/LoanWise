@@ -3,6 +3,8 @@ import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { RentVsBuyChart } from '../components/charts/RentVsBuyChart'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, calculateRentVsBuy } from '../utils/loanMath'
 import type { RentVsBuyInput } from '../types/loan'
@@ -33,11 +35,24 @@ export function RentVsBuyPage() {
     <PageContainer>
       <Seo title="Rent vs Buy Calculator" description="Compare the true cost of renting against buying over time, including equity, appreciation, tax and insurance." />
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏘️ Rent vs Buy</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            Renting isn't just "throwing money away" and buying isn't automatically cheaper — it depends on how long you stay.
-          </p>
+        <PrintReport
+          title="Rent vs Buy"
+          stats={[
+            { label: 'Total Rent Cost', value: money(result.rentTotal) },
+            { label: 'Net Buy Cost', value: money(result.buyTotal) },
+            { label: 'Cheaper Option', value: buyingWins ? 'Buy' : 'Rent' },
+            { label: 'Break-Even Year', value: result.breakEvenYear ? `Year ${result.breakEvenYear}` : 'None' },
+          ]}
+        />
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏘️ Rent vs Buy</h1>
+            <p className="mt-1 text-slate-500 dark:text-slate-400">
+              Renting isn't just "throwing money away" and buying isn't automatically cheaper — it depends on how long
+              you stay.
+            </p>
+          </div>
+          <PrintButton />
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-3 dark:border-slate-700 dark:bg-slate-900">

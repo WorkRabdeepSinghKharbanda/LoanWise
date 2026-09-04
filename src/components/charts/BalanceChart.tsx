@@ -28,11 +28,14 @@ export function BalanceChart({ schedule, marker }: Props) {
     const x = (month: number) => PAD.left + ((month - 1) / Math.max(1, schedule.length - 1)) * plotW
     const y = (balance: number) => PAD.top + plotH - (balance / Math.max(1, maxBalance)) * plotH
     const points = schedule.map((row) => `${x(row.month)},${y(row.balance)}`).join(' ')
-    return { x, y, points, maxBalance, plotH, baseline: PAD.top + plotH }
+    // First month the balance drops to half its starting value — a milestone worth marking on its own.
+    const halfwayRow = schedule.find((row) => row.balance <= maxBalance / 2)
+    const halfway = schedule.length > 3 && halfwayRow ? halfwayRow.month : null
+    return { x, y, points, maxBalance, plotH, baseline: PAD.top + plotH, halfway }
   }, [schedule])
 
   if (!geometry) return null
-  const { x, y, points, maxBalance, baseline } = geometry
+  const { x, y, points, maxBalance, baseline, halfway } = geometry
   const hovered = hover !== null ? schedule[hover] : null
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -85,6 +88,15 @@ export function BalanceChart({ schedule, marker }: Props) {
             <line x1={x(marker.month)} x2={x(marker.month)} y1={PAD.top} y2={baseline} stroke="var(--series-2)" strokeWidth={2} strokeDasharray="4 3" />
             <text x={x(marker.month) + 6} y={PAD.top + 12} fontSize={11} fill="var(--series-2)">
               {marker.label}
+            </text>
+          </g>
+        )}
+
+        {halfway && halfway !== marker?.month && (
+          <g>
+            <line x1={x(halfway)} x2={x(halfway)} y1={PAD.top} y2={baseline} stroke="var(--ink-muted)" strokeWidth={1} strokeDasharray="2 3" opacity={0.6} />
+            <text x={x(halfway) + 6} y={baseline - 6} fontSize={11} fill="var(--ink-muted)">
+              Halfway paid off
             </text>
           </g>
         )}

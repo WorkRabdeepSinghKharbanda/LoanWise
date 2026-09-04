@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useFormat } from '../context/SettingsContext'
-import { rateSensitivity } from '../utils/loanMath'
+import { calculateMonthlyPayment, rateSensitivity } from '../utils/loanMath'
 import type { LoanInput } from '../types/loan'
 
 /** What a rate you negotiate — or don't — actually costs. */
@@ -7,6 +8,13 @@ export function RateSensitivity({ input }: { input: LoanInput }) {
   const { money } = useFormat()
   const rows = rateSensitivity(input)
   const worst = Math.max(...rows.map((r) => Math.abs(r.monthlyDelta)), 1)
+  const basePayment = calculateMonthlyPayment(input)
+
+  const sliderMin = Math.max(0, input.annualRatePercent - 3)
+  const sliderMax = input.annualRatePercent + 3
+  const [whatIfRate, setWhatIfRate] = useState(input.annualRatePercent)
+  const whatIfPayment = calculateMonthlyPayment({ ...input, annualRatePercent: whatIfRate })
+  const whatIfDelta = whatIfPayment - basePayment
 
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
@@ -15,6 +23,33 @@ export function RateSensitivity({ input }: { input: LoanInput }) {
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Quarter-point moves look small and add up to real money over the term.
         </p>
+      </div>
+
+      <div className="no-print mx-6 mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/60">
+        <div className="flex items-baseline justify-between gap-3">
+          <label htmlFor="what-if-rate" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            Try a rate: <span className="font-semibold text-slate-900 dark:text-white">{whatIfRate.toFixed(2)}%</span>
+          </label>
+          <p className="text-sm">
+            <span className="font-semibold text-slate-900 dark:text-white">{money(whatIfPayment)}</span>/mo
+            {whatIfDelta !== 0 && (
+              <span className={whatIfDelta > 0 ? 'ml-1 text-red-600 dark:text-red-400' : 'ml-1 text-emerald-600 dark:text-emerald-400'}>
+                ({whatIfDelta > 0 ? '+' : '−'}
+                {money(Math.abs(whatIfDelta))})
+              </span>
+            )}
+          </p>
+        </div>
+        <input
+          id="what-if-rate"
+          type="range"
+          min={sliderMin}
+          max={sliderMax}
+          step={0.05}
+          value={whatIfRate}
+          onChange={(e) => setWhatIfRate(Number(e.target.value))}
+          className="mt-3 w-full accent-indigo-600"
+        />
       </div>
 
       <div className="mt-4 overflow-x-auto">

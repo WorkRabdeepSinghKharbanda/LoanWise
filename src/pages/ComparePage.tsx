@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { LoanForm } from '../components/LoanForm'
 import { Seo } from '../components/Seo'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat } from '../context/SettingsContext'
 import { calculateLoan, formatMonths } from '../utils/loanMath'
 import type { LoanInput, LoanResult } from '../types/loan'
@@ -85,6 +87,16 @@ export function ComparePage() {
     <div className="mx-auto max-w-7xl px-6 py-10 sm:py-14">
       <Seo title="Compare Loans" description="Compare up to four loan offers side by side — monthly payment, total interest, payoff time and the true difference between them." />
 
+      <PrintReport
+        title="Loan Comparison"
+        stats={[
+          { label: 'Scenarios Compared', value: String(scenarios.length) },
+          { label: 'Cheapest Monthly', value: money(results[bestMonthly]?.monthlyPayment ?? 0) },
+          { label: 'Cheapest Overall', value: scenarios[bestInterest]?.name ?? '—' },
+          { label: 'Lowest Total Cost', value: money(cheapestTotal) },
+        ]}
+      />
+
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">⚖️ Compare Loans</h1>
@@ -114,6 +126,7 @@ export function ComparePage() {
           >
             Reset
           </button>
+          <PrintButton />
           <button
             onClick={add}
             disabled={scenarios.length >= MAX_SCENARIOS}

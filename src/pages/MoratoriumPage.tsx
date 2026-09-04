@@ -3,6 +3,7 @@ import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AmortizationTable } from '../components/AmortizationTable'
+import { PrintReport } from '../components/PrintReport'
 import { BalanceChart } from '../components/charts/BalanceChart'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, formatMonths } from '../utils/loanMath'
@@ -34,6 +35,15 @@ export function MoratoriumPage() {
         description="See the real cost of a payment holiday — the capitalized interest, the higher EMI afterward, and the total extra interest it adds."
       />
       <div className="flex flex-col gap-6">
+        <PrintReport
+          title="EMI Holiday / Moratorium"
+          stats={[
+            { label: 'Original EMI', value: money(result.originalMonthlyPayment) },
+            { label: 'EMI After Holiday', value: money(result.revisedMonthlyPayment) },
+            { label: 'Capitalized Interest', value: money(result.capitalizedInterest) },
+            { label: 'Extra Interest Total', value: money(extraInterest) },
+          ]}
+        />
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">⏸️ EMI Holiday / Moratorium</h1>
           <p className="mt-1 text-slate-500 dark:text-slate-400">

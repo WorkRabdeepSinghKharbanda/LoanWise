@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, calculateRefinance, formatMonths } from '../utils/loanMath'
 import type { RefinanceInput } from '../types/loan'
@@ -30,11 +32,23 @@ export function RefinancePage() {
     <PageContainer>
       <Seo title="Refinance Calculator" description="Should you refinance? See the monthly saving, the break-even month on closing costs, and whether a longer term wipes out the gain." />
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🔄 Refinance Calculator</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            A lower monthly payment isn't automatically a win — stretching the term can cost more interest overall.
-          </p>
+        <PrintReport
+          title="Refinance"
+          stats={[
+            { label: 'Current Payment', value: money(result.currentMonthlyPayment) },
+            { label: 'New Payment', value: money(result.newMonthlyPayment) },
+            { label: 'Monthly Saving', value: money(result.monthlySaving) },
+            { label: 'Lifetime Saving', value: money(result.lifetimeSaving) },
+          ]}
+        />
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🔄 Refinance Calculator</h1>
+            <p className="mt-1 text-slate-500 dark:text-slate-400">
+              A lower monthly payment isn't automatically a win — stretching the term can cost more interest overall.
+            </p>
+          </div>
+          <PrintButton />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">

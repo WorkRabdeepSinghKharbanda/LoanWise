@@ -6,6 +6,7 @@ import { PageContainer } from '../components/PageContainer'
 import { PrepaymentPanel } from '../components/PrepaymentPanel'
 import { RateSensitivity } from '../components/RateSensitivity'
 import { Seo } from '../components/Seo'
+import { Tabs } from '../components/Tabs'
 
 export function EmiPage() {
   const { input, setInput, result } = useLoanCalculator({
@@ -31,14 +32,33 @@ export function EmiPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <LoanForm input={input} onChange={setInput} />
         </div>
-        <CalculatorResult
-          result={result}
-          recurringExtra={input.extraMonthlyPayment ?? 0}
-          filename="emi-schedule.csv"
-          scenarioLabel="EMI"
+
+        <Tabs
+          tabs={[
+            {
+              id: 'results',
+              label: 'Results',
+              content: (
+                <CalculatorResult
+                  result={result}
+                  recurringExtra={input.extraMonthlyPayment ?? 0}
+                  filename="emi-schedule.csv"
+                  scenarioLabel="EMI"
+                />
+              ),
+            },
+            {
+              id: 'prepayment',
+              label: 'Pay It Off Faster',
+              content: <PrepaymentPanel input={input} onChange={setInput} result={result} />,
+            },
+            {
+              id: 'advanced',
+              label: 'Advanced',
+              content: <RateSensitivity input={input} />,
+            },
+          ]}
         />
-        <PrepaymentPanel input={input} onChange={setInput} result={result} />
-        <RateSensitivity input={input} />
       </div>
     </PageContainer>
   )

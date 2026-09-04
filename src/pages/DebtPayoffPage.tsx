@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { NumberField } from '../components/NumberField'
 import { Seo } from '../components/Seo'
 import { PayoffChart } from '../components/charts/PayoffChart'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, calculateDebtPayoff, formatMonths } from '../utils/loanMath'
 import type { Debt, PayoffStrategy } from '../types/loan'
@@ -44,12 +46,24 @@ export function DebtPayoffPage() {
       <Seo title="Debt Payoff Planner" description="Snowball vs avalanche debt payoff planner — see which order clears your debts faster and cheaper." />
 
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏔️ Debt Payoff Planner</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            List your debts, set a monthly budget, and compare the two strategies. Every debt gets its minimum; the
-            leftover attacks one target, and freed-up minimums roll forward.
-          </p>
+        <PrintReport
+          title="Debt Payoff Planner"
+          stats={[
+            { label: 'Total Debt', value: money(totalBalance) },
+            { label: `Avalanche Payoff`, value: stalled ? '—' : formatMonths(avalanche.months) },
+            { label: `Snowball Payoff`, value: stalled ? '—' : formatMonths(snowball.months) },
+            { label: 'Interest Gap', value: money(Math.abs(interestGap)) },
+          ]}
+        />
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🏔️ Debt Payoff Planner</h1>
+            <p className="mt-1 text-slate-500 dark:text-slate-400">
+              List your debts, set a monthly budget, and compare the two strategies. Every debt gets its minimum; the
+              leftover attacks one target, and freed-up minimums roll forward.
+            </p>
+          </div>
+          <PrintButton />
         </div>
 
         {/* Debts */}

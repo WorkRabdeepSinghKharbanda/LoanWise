@@ -4,6 +4,8 @@ import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { Term } from '../components/Term'
+import { PrintReport } from '../components/PrintReport'
+import { PrintButton } from '../components/PrintButton'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, calculateAffordability } from '../utils/loanMath'
 import type { AffordabilityInput } from '../types/loan'
@@ -37,11 +39,24 @@ export function AffordabilityPage() {
     <PageContainer>
       <Seo title="Affordability Calculator" description="Work out how much you can borrow from your income, existing debts and debt-to-income limit." />
       <div className="flex flex-col gap-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🎯 How Much Can I Borrow?</h1>
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            Works backwards from your income and existing debts using a <Term>DTI</Term> limit — the same test lenders apply.
-          </p>
+        <PrintReport
+          title="Affordability"
+          stats={[
+            { label: 'Max Loan Amount', value: money(result.maxLoanAmount) },
+            { label: 'Max Home Price', value: money(result.maxHomePrice) },
+            { label: 'Max Monthly Payment', value: money(result.maxMonthlyPayment) },
+            { label: 'Gross Monthly Income', value: money(combinedInput.monthlyIncome) },
+          ]}
+        />
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🎯 How Much Can I Borrow?</h1>
+            <p className="mt-1 text-slate-500 dark:text-slate-400">
+              Works backwards from your income and existing debts using a <Term>DTI</Term> limit — the same test
+              lenders apply.
+            </p>
+          </div>
+          <PrintButton />
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">

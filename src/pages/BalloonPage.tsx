@@ -3,6 +3,7 @@ import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AmortizationTable } from '../components/AmortizationTable'
+import { PrintReport } from '../components/PrintReport'
 import { BalanceChart } from '../components/charts/BalanceChart'
 import { Term } from '../components/Term'
 import { useFormat, useSettings } from '../context/SettingsContext'
@@ -36,6 +37,15 @@ export function BalloonPage() {
         description="Model an interest-only period and a balloon payment — see the lower monthly cost and the bill waiting at the end."
       />
       <div className="flex flex-col gap-6">
+        <PrintReport
+          title="Interest-Only & Balloon Loan"
+          stats={[
+            { label: 'Interest-Only Payment', value: money(result.interestOnlyPayment) },
+            { label: 'Payment After', value: money(result.amortizingPayment) },
+            { label: 'Balloon Due', value: money(result.balloonDue) },
+            { label: 'Total Interest', value: money(result.totalInterest) },
+          ]}
+        />
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">🎈 Interest-Only & Balloon Loan</h1>
           <p className="mt-1 text-slate-500 dark:text-slate-400">

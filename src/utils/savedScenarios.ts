@@ -7,6 +7,7 @@ export interface SavedScenario {
   href: string
   monthlyPayment: string
   savedAt: number
+  note?: string
 }
 
 export function loadSaved(): SavedScenario[] {
@@ -35,6 +36,12 @@ export function saveScenario(scenario: Omit<SavedScenario, 'id' | 'savedAt'>): S
 
 export function deleteScenario(id: string): SavedScenario[] {
   const next = loadSaved().filter((s) => s.id !== id)
+  persist(next)
+  return next
+}
+
+export function updateNote(id: string, note: string): SavedScenario[] {
+  const next = loadSaved().map((s) => (s.id === id ? { ...s, note } : s))
   persist(next)
   return next
 }

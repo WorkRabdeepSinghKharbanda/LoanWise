@@ -3,6 +3,7 @@ import { NumberField } from '../components/NumberField'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AmortizationTable } from '../components/AmortizationTable'
+import { PrintReport } from '../components/PrintReport'
 import { TwoSeriesChart } from '../components/charts/TwoSeriesChart'
 import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, buildAmortizationSchedule, calculateLoan, formatMonths } from '../utils/loanMath'
@@ -55,6 +56,15 @@ export function ArmPage() {
         description="Model an adjustable-rate mortgage: the teaser payment, the capped reset, and exactly how much the payment jumps."
       />
       <div className="flex flex-col gap-6">
+        <PrintReport
+          title="ARM Payment Shock"
+          stats={[
+            { label: 'Fixed-Period Payment', value: money(result.initialPayment) },
+            { label: 'Payment After Reset', value: money(result.resetPayment) },
+            { label: 'Payment Shock', value: money(result.paymentShock) },
+            { label: 'ARM Total Interest', value: money(result.totalInterest) },
+          ]}
+        />
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">📉 Adjustable Rate (ARM) Stress Test</h1>
           <p className="mt-1 text-slate-500 dark:text-slate-400">

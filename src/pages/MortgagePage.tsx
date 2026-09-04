@@ -11,6 +11,7 @@ import { PointsBuydownPanel } from '../components/PointsBuydownPanel'
 import { TaxReliefPanel } from '../components/TaxReliefPanel'
 import { AdSlot } from '../components/AdSlot'
 import { Seo } from '../components/Seo'
+import { Tabs } from '../components/Tabs'
 import { useFormat } from '../context/SettingsContext'
 import { calculateLoan, formatMonths, pmiDropOffMonth } from '../utils/loanMath'
 import type { MortgageInput } from '../types/loan'
@@ -104,25 +105,50 @@ export function MortgagePage() {
           </div>
         </div>
 
-        <CalculatorResult
-          result={result}
-          extraMonthly={extraMonthly}
-          recurringExtra={input.extraMonthlyPayment ?? 0}
-          marker={pmiMonth ? { month: pmiMonth, label: 'PMI drops off' } : null}
-          filename="mortgage-schedule.csv"
-          scenarioLabel="Mortgage"
+        <Tabs
+          tabs={[
+            {
+              id: 'results',
+              label: 'Results',
+              content: (
+                <CalculatorResult
+                  result={result}
+                  extraMonthly={extraMonthly}
+                  recurringExtra={input.extraMonthlyPayment ?? 0}
+                  marker={pmiMonth ? { month: pmiMonth, label: 'PMI drops off' } : null}
+                  filename="mortgage-schedule.csv"
+                  scenarioLabel="Mortgage"
+                />
+              ),
+            },
+            {
+              id: 'prepayment',
+              label: 'Pay It Off Faster',
+              content: (
+                <PrepaymentPanel
+                  input={loanInput}
+                  // The panel edits the loan behind the mortgage, so keep the mortgage's
+                  // own principal (the property price) rather than the financed amount.
+                  onChange={(v) => setInput({ ...input, ...v, principal: input.principal })}
+                  result={result}
+                />
+              ),
+            },
+            {
+              id: 'advanced',
+              label: 'Advanced',
+              content: (
+                <>
+                  <AprPanel input={loanShape} />
+                  <PointsBuydownPanel input={loanShape} />
+                  <TaxReliefPanel schedule={result.schedule} />
+                  <RateSensitivity input={loanShape} />
+                </>
+              ),
+            },
+          ]}
         />
-        <PrepaymentPanel
-          input={loanInput}
-          // The panel edits the loan behind the mortgage, so keep the mortgage's
-          // own principal (the property price) rather than the financed amount.
-          onChange={(v) => setInput({ ...input, ...v, principal: input.principal })}
-          result={result}
-        />
-        <AprPanel input={loanShape} />
-        <PointsBuydownPanel input={loanShape} />
-        <TaxReliefPanel schedule={result.schedule} />
-        <RateSensitivity input={loanShape} />
+
         <AdSlot name="resultsBottom" />
       </div>
     </PageContainer>

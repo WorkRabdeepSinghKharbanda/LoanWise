@@ -43,4 +43,23 @@ html {
   body {
     background: #fff;
   }
+  /* Browsers strip backgrounds/gradients from print output by default —
+     the branded report header needs them forced on to keep its identity. */
+  .print-report,
+  .print-report * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  /* Never split the branded header awkwardly across a page break. */
+  .print-report {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* A tabbed calculator only shows one tab on screen — printing should still
+     produce the full report (results + prepayment + advanced tools), not
+     just whichever tab happened to be open. */
+  .tab-panel[hidden] {
+    display: flex !important;
+  }
 }
