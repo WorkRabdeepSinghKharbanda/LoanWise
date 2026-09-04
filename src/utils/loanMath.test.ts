@@ -10,6 +10,7 @@ import {
   calculateStepUpLoan,
   comparePrepayVsInvest,
   extraForTargetMonths,
+  monthsElapsedSince,
   pmiDropOffMonth,
   rateSensitivity,
   summarizeByYear,
@@ -317,5 +318,19 @@ describe('comparePrepayVsInvest', () => {
 
   it('always reports a positive gap', () => {
     expect(comparePrepayVsInvest(input, 400, 6.5).difference).toBeGreaterThanOrEqual(0)
+  })
+})
+
+describe('monthsElapsedSince', () => {
+  it('counts whole months between the start date and now', () => {
+    expect(monthsElapsedSince('2025-01', new Date('2025-06-15'))).toBe(5)
+  })
+
+  it('is negative when the schedule has not started yet', () => {
+    expect(monthsElapsedSince('2026-01', new Date('2025-06-15'))).toBe(-7)
+  })
+
+  it('is zero in the starting month itself', () => {
+    expect(monthsElapsedSince('2025-06', new Date('2025-06-30'))).toBe(0)
   })
 })

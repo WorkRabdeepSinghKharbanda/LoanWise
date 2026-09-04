@@ -80,9 +80,22 @@ function Actions({ result, scenarioLabel }: { result: LoanResult; scenarioLabel:
     setTimeout(() => setSaved(false), 2000)
   }
 
+  const share = async () => {
+    try {
+      await navigator.share({
+        title: `${scenarioLabel} — LoanWise`,
+        text: `${scenarioLabel}: ${money(result.monthlyPayment)}/mo`,
+        url: window.location.href,
+      })
+    } catch {
+      // User cancelled the share sheet, or it's unsupported despite the feature check — either way, no-op.
+    }
+  }
+
   return (
     <div className="no-print flex flex-wrap gap-2">
       <Button onClick={copy}>{copied ? '✓ Link copied' : '🔗 Copy shareable link'}</Button>
+      {typeof navigator !== 'undefined' && 'share' in navigator && <Button onClick={share}>📤 Share</Button>}
       <Button onClick={save}>{saved ? '✓ Saved' : '💾 Save this scenario'}</Button>
     </div>
   )

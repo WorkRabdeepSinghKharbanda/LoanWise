@@ -492,3 +492,10 @@ export function monthLabel(monthIndex: number, startDate: string): string {
 export function currentMonthValue(from = new Date()): string {
   return `${from.getFullYear()}-${String(from.getMonth() + 1).padStart(2, '0')}`
 }
+
+/** Whole months from startDate to `from` — negative if the schedule hasn't started yet. */
+export function monthsElapsedSince(startDate: string, from = new Date()): number {
+  const start = new Date(`${startDate}-01T00:00:00`)
+  if (Number.isNaN(start.getTime())) return NaN
+  return (from.getFullYear() - start.getFullYear()) * 12 + (from.getMonth() - start.getMonth())
+}

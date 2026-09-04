@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useFormat, useT } from '../context/SettingsContext'
 import { downloadScheduleCsv } from '../utils/exportSchedule'
-import { currentMonthValue, monthLabel, summarizeByYear } from '../utils/loanMath'
+import { currentMonthValue, monthLabel, monthsElapsedSince, summarizeByYear } from '../utils/loanMath'
 import { realValue } from '../utils/advancedMath'
 import type { AmortizationRow } from '../types/loan'
 
@@ -14,10 +14,17 @@ export function AmortizationTable({ schedule, filename }: { schedule: Amortizati
   const [view, setView] = useState<'monthly' | 'yearly'>(schedule.length > 60 ? 'yearly' : 'monthly')
   const [startDate, setStartDate] = useState(currentMonthValue)
   const [inflationAdjusted, setInflationAdjusted] = useState(false)
+  const [jumpMonth, setJumpMonth] = useState('')
 
   const years = summarizeByYear(schedule)
   // In real terms, a payment made in year 20 costs less than the same payment today.
   const adjust = (value: number, month: number) => (inflationAdjusted ? realValue(value, INFLATION_PERCENT, month) : value)
+
+  // "You are here" — the schedule row for the real calendar month, if the loan has started and hasn't finished.
+  const elapsed = monthsElapsedSince(startDate) + 1
+  const todayMonth = view === 'monthly' && elapsed >= 1 && elapsed <= schedule.length ? elapsed : null
+
+  const jumpTo = (month: number) => document.getElementById(`amort-row-${month}`)?.scrollIntoView({ block: 'center' })
 
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
@@ -68,6 +75,40 @@ export function AmortizationTable({ schedule, filename }: { schedule: Amortizati
                   </button>
                 ))}
               </div>
+              {view === 'monthly' && (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    const month = Number(jumpMonth)
+                    if (month >= 1 && month <= schedule.length) jumpTo(month)
+                  }}
+                  className="flex items-center gap-1"
+                >
+                  <input
+                    type="number"
+                    min={1}
+                    max={schedule.length}
+                    value={jumpMonth}
+                    onChange={(e) => setJumpMonth(e.target.value)}
+                    placeholder="Jump to #"
+                    className="w-24 rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                  >
+                    Go
+                  </button>
+                </form>
+              )}
+              {todayMonth && (
+                <button
+                  onClick={() => jumpTo(todayMonth)}
+                  className="rounded-lg border border-indigo-300 px-2.5 py-1.5 text-xs font-medium text-indigo-700 transition hover:bg-indigo-50 dark:border-indigo-700 dark:text-indigo-300 dark:hover:bg-indigo-950"
+                >
+                  📍 Jump to today
+                </button>
+              )}
             </>
           )}
           <button
@@ -115,6 +156,8 @@ export function AmortizationTable({ schedule, filename }: { schedule: Amortizati
                 : schedule.map((row) => (
                     <Row
                       key={row.month}
+                      id={`amort-row-${row.month}`}
+                      isToday={row.month === todayMonth}
                       label={monthLabel(row.month, startDate)}
                       payment={money(adjust(row.payment, row.month))}
                       principal={money(adjust(row.principalPaid, row.month))}
@@ -131,12 +174,16 @@ export function AmortizationTable({ schedule, filename }: { schedule: Amortizati
 }
 
 function Row({
+  id,
+  isToday,
   label,
   payment,
   principal,
   interest,
   balance,
 }: {
+  id?: string
+  isToday?: boolean
   label: string
   payment: string
   principal: string
@@ -144,8 +191,16 @@ function Row({
   balance: string
 }) {
   return (
-    <tr className="border-t border-slate-100 even:bg-slate-50/50 dark:border-slate-800 dark:even:bg-slate-800/40">
-      <td className="px-5 py-2.5 text-slate-500 dark:text-slate-400">{label}</td>
+    <tr
+      id={id}
+      className={`border-t border-slate-100 dark:border-slate-800 ${
+        isToday ? 'bg-indigo-50/70 dark:bg-indigo-950/40' : 'even:bg-slate-50/50 dark:even:bg-slate-800/40'
+      }`}
+    >
+      <td className="px-5 py-2.5 text-slate-500 dark:text-slate-400">
+        {label}
+        {isToday && <span className="ml-2 rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">today</span>}
+      </td>
       <td className="px-5 py-2.5 font-medium text-slate-900 dark:text-white">{payment}</td>
       <td className="px-5 py-2.5 text-slate-600 dark:text-slate-300">{principal}</td>
       <td className="px-5 py-2.5 text-slate-600 dark:text-slate-300">{interest}</td>
