@@ -37,6 +37,12 @@ export function PrepaymentPanel({ input, onChange, result }: Props) {
   const biweeklyOn = Math.abs((input.extraMonthlyPayment ?? 0) - biweeklyExtra) < 0.01
   const extra = input.extraMonthlyPayment ?? 0
 
+  // Round the scheduled payment up to the next round number — an easy habit that quietly prepays.
+  const roundTo = scheduled < 200 ? 10 : scheduled < 2000 ? 50 : 500
+  const roundedPayment = Math.ceil(scheduled / roundTo) * roundTo
+  const roundUpExtra = roundedPayment - scheduled
+  const roundUpOn = roundUpExtra > 0.01 && Math.abs(extra - roundUpExtra) < 0.01
+
   const goalExtra = extraForTargetMonths(input, target)
   const investComparison = extra > 0 ? comparePrepayVsInvest(input, extra, returnPercent) : null
 
@@ -108,6 +114,28 @@ export function PrepaymentPanel({ input, onChange, result }: Props) {
           {biweeklyOn ? '✓ Applied' : 'Apply biweekly'}
         </button>
       </div>
+
+      {/* Round-up trick */}
+      {roundUpExtra > 0.01 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+          <div>
+            <p className="text-sm font-medium text-slate-800 dark:text-slate-200">Round your payment up</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {money(scheduled)} → {money(roundedPayment)}/mo, an extra {money(roundUpExtra)} you'll barely notice.
+            </p>
+          </div>
+          <button
+            onClick={() => onChange({ ...input, extraMonthlyPayment: roundUpOn ? 0 : roundUpExtra })}
+            className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              roundUpOn
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                : 'border border-slate-300 text-slate-700 hover:bg-white dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800'
+            }`}
+          >
+            {roundUpOn ? '✓ Applied' : 'Round up'}
+          </button>
+        </div>
+      )}
 
       {/* Payoff goal solver */}
       <div className="border-t border-slate-100 pt-5 dark:border-slate-800">
