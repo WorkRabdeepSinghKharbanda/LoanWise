@@ -5,6 +5,7 @@ import { PrintReport } from '../components/PrintReport'
 import { PrintButton } from '../components/PrintButton'
 import { useFormat } from '../context/SettingsContext'
 import { calculateLoan, formatMonths } from '../utils/loanMath'
+import { loadSaved } from '../utils/savedScenarios'
 import type { LoanInput, LoanResult } from '../types/loan'
 
 /** A scenario carries a stable id so removing one never remounts the others. */
@@ -18,6 +19,21 @@ const MAX_SCENARIOS = 4
 const ACCENTS = ['bg-indigo-500', 'bg-emerald-500', 'bg-amber-500', 'bg-violet-500']
 
 const BASE: LoanInput = { principal: 20000, annualRatePercent: 8, termMonths: 48, extraMonthlyPayment: 0 }
+
+/** Saved scenarios keep their inputs in the URL query string (see useLoanCalculator) — pull them back out. */
+function parseSavedHref(href: string): LoanInput {
+  const params = new URLSearchParams(href.split('?')[1] ?? '')
+  const read = (key: string, fallback: number) => {
+    const n = Number(params.get(key))
+    return Number.isFinite(n) ? n : fallback
+  }
+  return {
+    principal: read('amount', BASE.principal),
+    annualRatePercent: read('rate', BASE.annualRatePercent),
+    termMonths: read('term', BASE.termMonths),
+    extraMonthlyPayment: read('extra', 0),
+  }
+}
 
 function newId() {
   // randomUUID needs a secure context; Date-based ids are a fine fallback.
@@ -111,6 +127,13 @@ export function ComparePage() {
         : [...prev, { ...(prev[prev.length - 1] ?? BASE), id: newId(), name: `Scenario ${prev.length + 1}` }],
     )
   const reset = () => setScenarios(defaults())
+  const importSaved = (savedId: string) => {
+    const saved = loadSaved().find((s) => s.id === savedId)
+    if (!saved) return
+    setScenarios((prev) =>
+      prev.length >= MAX_SCENARIOS ? prev : [...prev, { ...parseSavedHref(saved.href), id: newId(), name: saved.label }],
+    )
+  }
 
   const results: LoanResult[] = scenarios.map(calculateLoan)
   const bestMonthly = results.reduce((best, r, i) => (r.monthlyPayment < results[best].monthlyPayment ? i : best), 0)
@@ -169,6 +192,21 @@ export function ComparePage() {
             {linkCopied ? '✓ Link copied' : '🔗 Share comparison'}
           </button>
           <PrintButton />
+          {scenarios.length < MAX_SCENARIOS && loadSaved().length > 0 && (
+            <select
+              value=""
+              onChange={(e) => e.target.value && importSaved(e.target.value)}
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-600 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300"
+              aria-label="Import a saved scenario"
+            >
+              <option value="">Import saved…</option>
+              {loadSaved().map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.label} ({s.monthlyPayment}/mo)
+                </option>
+              ))}
+            </select>
+          )}
           <button
             onClick={add}
             disabled={scenarios.length >= MAX_SCENARIOS}

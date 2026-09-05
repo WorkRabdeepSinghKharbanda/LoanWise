@@ -18,9 +18,39 @@ export function DebtPayoffPage() {
   const [debts, setDebts] = useState<Debt[]>(INITIAL_DEBTS)
   const [budget, setBudget] = useState(600)
   const [strategy, setStrategy] = useState<PayoffStrategy>('avalanche')
+  const [pasteOpen, setPasteOpen] = useState(false)
+  const [pasteText, setPasteText] = useState('')
+  const [pasteError, setPasteError] = useState('')
   const { money } = useFormat()
   const { currency } = useSettings()
   const symbol = CURRENCIES[currency].symbol
+
+  // One debt per line: name, balance, rate, minimum payment.
+  const importPasted = () => {
+    const rows = pasteText
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => line.split(',').map((cell) => cell.trim()))
+
+    const parsed: Debt[] = []
+    for (const row of rows) {
+      if (row.length < 4) continue
+      const [name, balance, rate, minimumPayment] = row
+      const nums = [balance, rate, minimumPayment].map(Number)
+      if (nums.some((n) => !Number.isFinite(n))) continue
+      parsed.push({ id: crypto.randomUUID(), name: name || `Debt ${parsed.length + 1}`, balance: nums[0], annualRatePercent: nums[1], minimumPayment: nums[2] })
+    }
+
+    if (parsed.length === 0) {
+      setPasteError('No valid rows found — each line needs name, balance, rate, minimum payment.')
+      return
+    }
+    setDebts(parsed)
+    setPasteText('')
+    setPasteError('')
+    setPasteOpen(false)
+  }
 
   const snowball = useMemo(() => calculateDebtPayoff(debts, budget, 'snowball'), [debts, budget])
   const avalanche = useMemo(() => calculateDebtPayoff(debts, budget, 'avalanche'), [debts, budget])
@@ -70,13 +100,43 @@ export function DebtPayoffPage() {
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-6 py-4 dark:border-slate-800">
             <h2 className="font-semibold text-slate-900 dark:text-white">Your debts · {money(totalBalance)} total</h2>
-            <button
-              onClick={add}
-              className="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
-            >
-              + Add debt
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setPasteOpen((v) => !v)}
+                className="no-print rounded-lg border border-slate-300 px-3.5 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+              >
+                📋 Paste list
+              </button>
+              <button
+                onClick={add}
+                className="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+              >
+                + Add debt
+              </button>
+            </div>
           </div>
+
+          {pasteOpen && (
+            <div className="no-print border-b border-slate-100 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-800/60">
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                One debt per line: <code className="rounded bg-white px-1 py-0.5 text-xs dark:bg-slate-900">name, balance, rate, minimum payment</code> — replaces the list below.
+              </p>
+              <textarea
+                value={pasteText}
+                onChange={(e) => setPasteText(e.target.value)}
+                placeholder={'Credit card, 4200, 22.9, 95\nCar loan, 9800, 7.2, 210'}
+                rows={4}
+                className="mt-3 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-600 dark:bg-slate-900 dark:text-white"
+              />
+              {pasteError && <p className="mt-2 text-xs text-red-600 dark:text-red-400">{pasteError}</p>}
+              <button
+                onClick={importPasted}
+                className="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+              >
+                Import
+              </button>
+            </div>
+          )}
 
           <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
             {debts.map((debt) => (

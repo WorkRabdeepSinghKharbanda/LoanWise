@@ -51,6 +51,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
+    // Browser chrome (mobile status bar, PWA task switcher) should match the app, not stay stuck on light.
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0f172a' : '#4f46e5')
     try {
       localStorage.setItem('theme', theme)
     } catch {
