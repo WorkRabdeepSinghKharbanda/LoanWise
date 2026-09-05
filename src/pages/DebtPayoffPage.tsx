@@ -8,6 +8,35 @@ import { useFormat, useSettings } from '../context/SettingsContext'
 import { CURRENCIES, calculateDebtPayoff, formatMonths } from '../utils/loanMath'
 import type { Debt, PayoffStrategy } from '../types/loan'
 
+/** Splits one CSV line into cells, respecting "quoted, values" so a debt name with a comma in it doesn't break. */
+function parseCsvRow(line: string): string[] {
+  const cells: string[] = []
+  let cur = ''
+  let inQuotes = false
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i]
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cur += '"'
+        i++
+      } else if (ch === '"') {
+        inQuotes = false
+      } else {
+        cur += ch
+      }
+    } else if (ch === '"') {
+      inQuotes = true
+    } else if (ch === ',') {
+      cells.push(cur.trim())
+      cur = ''
+    } else {
+      cur += ch
+    }
+  }
+  cells.push(cur.trim())
+  return cells
+}
+
 const INITIAL_DEBTS: Debt[] = [
   { id: 'd1', name: 'Credit card', balance: 4200, annualRatePercent: 22.9, minimumPayment: 95 },
   { id: 'd2', name: 'Car loan', balance: 9800, annualRatePercent: 7.2, minimumPayment: 210 },
@@ -27,18 +56,26 @@ export function DebtPayoffPage() {
 
   // One debt per line: name, balance, rate, minimum payment.
   const importPasted = () => {
-    const rows = pasteText
+    const lines = pasteText
       .split('\n')
       .map((line) => line.trim())
       .filter(Boolean)
-      .map((line) => line.split(',').map((cell) => cell.trim()))
 
     const parsed: Debt[] = []
-    for (const row of rows) {
-      if (row.length < 4) continue
+    let skipped = 0
+    for (const line of lines) {
+      const row = parseCsvRow(line)
       const [name, balance, rate, minimumPayment] = row
+      // Number('') is 0, not NaN — reject blank cells explicitly instead of importing a fabricated $0 debt.
+      if (row.length < 4 || [balance, rate, minimumPayment].some((cell) => cell.trim() === '')) {
+        skipped++
+        continue
+      }
       const nums = [balance, rate, minimumPayment].map(Number)
-      if (nums.some((n) => !Number.isFinite(n))) continue
+      if (nums.some((n) => !Number.isFinite(n))) {
+        skipped++
+        continue
+      }
       parsed.push({ id: crypto.randomUUID(), name: name || `Debt ${parsed.length + 1}`, balance: nums[0], annualRatePercent: nums[1], minimumPayment: nums[2] })
     }
 
@@ -48,8 +85,13 @@ export function DebtPayoffPage() {
     }
     setDebts(parsed)
     setPasteText('')
-    setPasteError('')
-    setPasteOpen(false)
+    if (skipped > 0) {
+      // Leave the paste box open so the "skipped N rows" warning stays visible instead of vanishing.
+      setPasteError(`Imported ${parsed.length}, skipped ${skipped} row(s) that were missing or invalid.`)
+    } else {
+      setPasteError('')
+      setPasteOpen(false)
+    }
   }
 
   const snowball = useMemo(() => calculateDebtPayoff(debts, budget, 'snowball'), [debts, budget])

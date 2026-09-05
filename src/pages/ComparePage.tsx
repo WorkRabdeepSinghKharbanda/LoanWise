@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LoanForm } from '../components/LoanForm'
 import { Seo } from '../components/Seo'
 import { PrintReport } from '../components/PrintReport'
@@ -24,9 +24,14 @@ const ACCENTS = ['bg-indigo-500', 'bg-emerald-500', 'bg-amber-500', 'bg-violet-5
 
 const BASE: LoanInput = { principal: 20000, annualRatePercent: 8, termMonths: 48, extraMonthlyPayment: 0 }
 
-/** Saved scenarios keep their inputs in the URL query string (see useLoanCalculator) — pull them back out. */
-function parseSavedHref(href: string): LoanInput {
+/**
+ * Saved scenarios keep their inputs in the URL query string (see useLoanCalculator) — pull them
+ * back out. Returns null when the href has none of those params at all (e.g. Mortgage, which
+ * uses local state rather than the URL) rather than silently fabricating numbers from BASE.
+ */
+function parseSavedHref(href: string): LoanInput | null {
   const params = new URLSearchParams(href.split('?')[1] ?? '')
+  if (!params.has('amount') && !params.has('rate') && !params.has('term')) return null
   const read = (key: string, fallback: number) => {
     const n = Number(params.get(key))
     return Number.isFinite(n) ? n : fallback
@@ -94,8 +99,13 @@ export function ComparePage() {
   const [view, setView] = useState<'cards' | 'table'>('cards')
   const [linkCopied, setLinkCopied] = useState(false)
   const [inflationAdjusted, setInflationAdjusted] = useState(false)
+  const [importError, setImportError] = useState('')
   // A single total is a lump sum, not a stream — discount it at the point the loan actually finishes.
   const adjustTotal = (total: number, payoffMonths: number) => (inflationAdjusted ? realValue(total, INFLATION_PERCENT, payoffMonths) : total)
+  // Skip the very first persist when scenarios came from a shared ?data= link — viewing someone
+  // else's comparison shouldn't silently overwrite what was already saved in this browser. Once
+  // the viewer actually edits it (any state change after that), it's treated as their own.
+  const skipNextPersist = useRef(loadFromUrl() !== null)
 
   const copyLink = async () => {
     const data = btoa(JSON.stringify(scenarios))
@@ -110,6 +120,10 @@ export function ComparePage() {
   }
 
   useEffect(() => {
+    if (skipNextPersist.current) {
+      skipNextPersist.current = false
+      return
+    }
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(scenarios))
     } catch {
@@ -137,9 +151,13 @@ export function ComparePage() {
   const importSaved = (savedId: string) => {
     const saved = loadSaved().find((s) => s.id === savedId)
     if (!saved) return
-    setScenarios((prev) =>
-      prev.length >= MAX_SCENARIOS ? prev : [...prev, { ...parseSavedHref(saved.href), id: newId(), name: saved.label }],
-    )
+    const input = parseSavedHref(saved.href)
+    if (!input) {
+      setImportError(`"${saved.label}" wasn't saved with loan details this page can read, so it can't be imported.`)
+      setTimeout(() => setImportError(''), 4000)
+      return
+    }
+    setScenarios((prev) => (prev.length >= MAX_SCENARIOS ? prev : [...prev, { ...input, id: newId(), name: saved.label }]))
   }
 
   const results: LoanResult[] = scenarios.map(calculateLoan)
@@ -147,8 +165,9 @@ export function ComparePage() {
   const bestInterest = results.reduce((best, r, i) => (r.totalInterest < results[best].totalInterest ? i : best), 0)
   const maxMonthly = Math.max(...results.map((r) => r.monthlyPayment), 0)
   const adjustedTotals = results.map((r) => adjustTotal(r.totalPayment, r.payoffMonths))
-  // Everything is compared against the cheapest total cost.
-  const cheapestTotal = Math.min(...adjustedTotals)
+  // Everything is compared against the cheapest total cost — same figure the "vs cheapest" column and print stat use.
+  const bestOverall = adjustedTotals.reduce((best, total, i) => (total < adjustedTotals[best] ? i : best), 0)
+  const cheapestTotal = adjustedTotals[bestOverall]
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10 sm:py-14">
@@ -159,7 +178,7 @@ export function ComparePage() {
         stats={[
           { label: 'Scenarios Compared', value: String(scenarios.length) },
           { label: 'Cheapest Monthly', value: money(results[bestMonthly]?.monthlyPayment ?? 0) },
-          { label: 'Cheapest Overall', value: scenarios[bestInterest]?.name ?? '—' },
+          { label: 'Cheapest Overall', value: scenarios[bestOverall]?.name ?? '—' },
           { label: 'Lowest Total Cost', value: money(cheapestTotal) },
         ]}
       />
@@ -253,6 +272,12 @@ export function ComparePage() {
           </button>
         </div>
       </div>
+
+      {importError && (
+        <p className="no-print -mt-4 mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
+          {importError}
+        </p>
+      )}
 
       {view === 'table' ? (
         <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">

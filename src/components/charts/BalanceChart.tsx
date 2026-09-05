@@ -33,7 +33,7 @@ export function BalanceChart({ schedule, marker }: Props) {
     const halfway = schedule.length > 3 && halfwayRow ? halfwayRow.month : null
     // First month where more of the payment goes to principal than interest — the "crossover" point.
     const crossoverRow = schedule.find((row) => row.principalPaid > row.interestPaid)
-    const crossover = schedule.length > 3 && crossoverRow && crossoverRow.month > 1 ? crossoverRow.month : null
+    const crossover = schedule.length > 3 && crossoverRow ? crossoverRow.month : null
     return { x, y, points, maxBalance, plotH, baseline: PAD.top + plotH, halfway, crossover }
   }, [schedule])
 

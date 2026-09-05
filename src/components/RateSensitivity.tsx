@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormat } from '../context/SettingsContext'
 import { calculateMonthlyPayment, rateSensitivity } from '../utils/loanMath'
 import type { LoanInput } from '../types/loan'
@@ -13,6 +13,9 @@ export function RateSensitivity({ input }: { input: LoanInput }) {
   const sliderMin = Math.max(0, input.annualRatePercent - 3)
   const sliderMax = input.annualRatePercent + 3
   const [whatIfRate, setWhatIfRate] = useState(input.annualRatePercent)
+  // The slider re-centers on the loan's own rate whenever it changes elsewhere (e.g. the form),
+  // otherwise a stale whatIfRate could sit outside the newly-computed min/max entirely.
+  useEffect(() => setWhatIfRate(input.annualRatePercent), [input.annualRatePercent])
   const whatIfPayment = calculateMonthlyPayment({ ...input, annualRatePercent: whatIfRate })
   const whatIfDelta = whatIfPayment - basePayment
 
