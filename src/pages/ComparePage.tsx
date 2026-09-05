@@ -34,18 +34,34 @@ function defaults(): Scenario[] {
   ]
 }
 
-function loadScenarios(): Scenario[] {
+function normalize(parsed: unknown): Scenario[] | null {
+  if (!Array.isArray(parsed) || parsed.length === 0) return null
+  // Older saves had no id/name — backfill rather than discard them.
+  return parsed.slice(0, MAX_SCENARIOS).map((s, i) => ({
+    ...BASE,
+    ...s,
+    id: typeof s.id === 'string' ? s.id : newId(),
+    name: typeof s.name === 'string' ? s.name : `Scenario ${i + 1}`,
+  }))
+}
+
+/** A `?data=` link takes priority — that's someone sharing their comparison with you. */
+function loadFromUrl(): Scenario[] | null {
   try {
-    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null')
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      // Older saves had no id/name — backfill rather than discard them.
-      return parsed.slice(0, MAX_SCENARIOS).map((s, i) => ({
-        ...BASE,
-        ...s,
-        id: typeof s.id === 'string' ? s.id : newId(),
-        name: typeof s.name === 'string' ? s.name : `Scenario ${i + 1}`,
-      }))
-    }
+    const data = new URLSearchParams(window.location.search).get('data')
+    if (!data) return null
+    return normalize(JSON.parse(atob(data)))
+  } catch {
+    return null
+  }
+}
+
+function loadScenarios(): Scenario[] {
+  const shared = loadFromUrl()
+  if (shared) return shared
+  try {
+    const normalized = normalize(JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null'))
+    if (normalized) return normalized
   } catch {
     // Corrupt or blocked storage — fall through to defaults.
   }
@@ -56,6 +72,19 @@ export function ComparePage() {
   const { money } = useFormat()
   const [scenarios, setScenarios] = useState<Scenario[]>(loadScenarios)
   const [view, setView] = useState<'cards' | 'table'>('cards')
+  const [linkCopied, setLinkCopied] = useState(false)
+
+  const copyLink = async () => {
+    const data = btoa(JSON.stringify(scenarios))
+    const url = `${window.location.origin}${window.location.pathname}?data=${data}`
+    try {
+      await navigator.clipboard.writeText(url)
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    } catch {
+      // Clipboard blocked — nothing to fall back to here.
+    }
+  }
 
   useEffect(() => {
     try {
@@ -132,6 +161,12 @@ export function ComparePage() {
             className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             Reset
+          </button>
+          <button
+            onClick={copyLink}
+            className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+          >
+            {linkCopied ? '✓ Link copied' : '🔗 Share comparison'}
           </button>
           <PrintButton />
           <button

@@ -31,11 +31,14 @@ export function BalanceChart({ schedule, marker }: Props) {
     // First month the balance drops to half its starting value — a milestone worth marking on its own.
     const halfwayRow = schedule.find((row) => row.balance <= maxBalance / 2)
     const halfway = schedule.length > 3 && halfwayRow ? halfwayRow.month : null
-    return { x, y, points, maxBalance, plotH, baseline: PAD.top + plotH, halfway }
+    // First month where more of the payment goes to principal than interest — the "crossover" point.
+    const crossoverRow = schedule.find((row) => row.principalPaid > row.interestPaid)
+    const crossover = schedule.length > 3 && crossoverRow && crossoverRow.month > 1 ? crossoverRow.month : null
+    return { x, y, points, maxBalance, plotH, baseline: PAD.top + plotH, halfway, crossover }
   }, [schedule])
 
   if (!geometry) return null
-  const { x, y, points, maxBalance, baseline, halfway } = geometry
+  const { x, y, points, maxBalance, baseline, halfway, crossover } = geometry
   const hovered = hover !== null ? schedule[hover] : null
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -97,6 +100,15 @@ export function BalanceChart({ schedule, marker }: Props) {
             <line x1={x(halfway)} x2={x(halfway)} y1={PAD.top} y2={baseline} stroke="var(--ink-muted)" strokeWidth={1} strokeDasharray="2 3" opacity={0.6} />
             <text x={x(halfway) + 6} y={baseline - 6} fontSize={11} fill="var(--ink-muted)">
               Halfway paid off
+            </text>
+          </g>
+        )}
+
+        {crossover && crossover !== halfway && crossover !== marker?.month && (
+          <g>
+            <line x1={x(crossover)} x2={x(crossover)} y1={PAD.top} y2={baseline} stroke="var(--series-1)" strokeWidth={1} strokeDasharray="2 3" opacity={0.5} />
+            <text x={x(crossover) + 6} y={PAD.top + 24} fontSize={11} fill="var(--series-1)">
+              More principal than interest
             </text>
           </g>
         )}

@@ -35,6 +35,7 @@ export function Term({ children }: { children: keyof typeof GLOSSARY }) {
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
         onClick={() => setOpen((v) => !v)}
+        onKeyDown={(e) => e.key === 'Escape' && (setOpen(false), e.currentTarget.blur())}
         className="cursor-help border-b border-dotted border-slate-400 font-inherit text-inherit outline-none"
       >
         {children}
