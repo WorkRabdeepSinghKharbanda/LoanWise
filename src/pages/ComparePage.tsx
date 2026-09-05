@@ -5,8 +5,12 @@ import { PrintReport } from '../components/PrintReport'
 import { PrintButton } from '../components/PrintButton'
 import { useFormat } from '../context/SettingsContext'
 import { calculateLoan, formatMonths } from '../utils/loanMath'
+import { realValue } from '../utils/advancedMath'
+import { downloadComparisonCsv } from '../utils/exportSchedule'
 import { loadSaved } from '../utils/savedScenarios'
 import type { LoanInput, LoanResult } from '../types/loan'
+
+const INFLATION_PERCENT = 3
 
 /** A scenario carries a stable id so removing one never remounts the others. */
 interface Scenario extends LoanInput {
@@ -89,6 +93,9 @@ export function ComparePage() {
   const [scenarios, setScenarios] = useState<Scenario[]>(loadScenarios)
   const [view, setView] = useState<'cards' | 'table'>('cards')
   const [linkCopied, setLinkCopied] = useState(false)
+  const [inflationAdjusted, setInflationAdjusted] = useState(false)
+  // A single total is a lump sum, not a stream — discount it at the point the loan actually finishes.
+  const adjustTotal = (total: number, payoffMonths: number) => (inflationAdjusted ? realValue(total, INFLATION_PERCENT, payoffMonths) : total)
 
   const copyLink = async () => {
     const data = btoa(JSON.stringify(scenarios))
@@ -139,8 +146,9 @@ export function ComparePage() {
   const bestMonthly = results.reduce((best, r, i) => (r.monthlyPayment < results[best].monthlyPayment ? i : best), 0)
   const bestInterest = results.reduce((best, r, i) => (r.totalInterest < results[best].totalInterest ? i : best), 0)
   const maxMonthly = Math.max(...results.map((r) => r.monthlyPayment), 0)
+  const adjustedTotals = results.map((r) => adjustTotal(r.totalPayment, r.payoffMonths))
   // Everything is compared against the cheapest total cost.
-  const cheapestTotal = Math.min(...results.map((r) => r.totalPayment))
+  const cheapestTotal = Math.min(...adjustedTotals)
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10 sm:py-14">
@@ -184,6 +192,35 @@ export function ComparePage() {
             className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             Reset
+          </button>
+          <button
+            onClick={() => setInflationAdjusted((v) => !v)}
+            title={`Show totals in today's money, assuming ${INFLATION_PERCENT}% inflation`}
+            className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition ${
+              inflationAdjusted
+                ? 'border-indigo-300 bg-indigo-50 text-indigo-700 dark:border-indigo-700 dark:bg-indigo-950 dark:text-indigo-300'
+                : 'border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800'
+            }`}
+          >
+            {inflationAdjusted ? "✓ Today's money" : "Today's money"}
+          </button>
+          <button
+            onClick={() =>
+              downloadComparisonCsv(
+                scenarios.map((s, i) => ({
+                  name: s.name,
+                  principal: s.principal,
+                  annualRatePercent: s.annualRatePercent,
+                  termMonths: s.termMonths,
+                  monthlyPayment: results[i].monthlyPayment,
+                  totalInterest: results[i].totalInterest,
+                  totalPayment: results[i].totalPayment,
+                })),
+              )
+            }
+            className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800"
+          >
+            ↓ CSV
           </button>
           <button
             onClick={copyLink}
@@ -235,7 +272,7 @@ export function ComparePage() {
             <tbody>
               {scenarios.map((scenario, i) => {
                 const result = results[i]
-                const gap = result.totalPayment - cheapestTotal
+                const gap = adjustedTotals[i] - cheapestTotal
                 return (
                   <tr key={scenario.id} className="border-t border-slate-100 dark:border-slate-800">
                     <td className="px-5 py-3 font-medium text-slate-900 dark:text-white">
@@ -247,7 +284,7 @@ export function ComparePage() {
                     <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{formatMonths(scenario.termMonths)}</td>
                     <td className="px-5 py-3 font-semibold text-slate-900 dark:text-white">{money(result.monthlyPayment)}</td>
                     <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{money(result.totalInterest)}</td>
-                    <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{money(result.totalPayment)}</td>
+                    <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{money(adjustedTotals[i])}</td>
                     <td className={`px-5 py-3 font-medium ${gap < 0.01 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
                       {gap < 0.01 ? 'cheapest' : `+${money(gap)}`}
                     </td>
@@ -322,7 +359,7 @@ export function ComparePage() {
 
                   <dl className="grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 text-sm dark:border-slate-800">
                     <Metric label="Total Interest" value={money(result.totalInterest)} />
-                    <Metric label="Total Payment" value={money(result.totalPayment)} />
+                    <Metric label="Total Payment" value={money(adjustedTotals[i])} />
                     <Metric label="Paid Off In" value={formatMonths(result.payoffMonths)} />
                     {result.interestSaved > 0 && <Metric label="Interest Saved" value={money(result.interestSaved)} />}
                   </dl>

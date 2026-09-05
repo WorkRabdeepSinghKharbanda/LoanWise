@@ -43,11 +43,22 @@ function readLocale(): Locale {
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrencyState] = useState<CurrencyCode>(readCurrency)
   const [locale, setLocaleState] = useState<Locale>(readLocale)
+  // Whether the viewer has ever explicitly toggled the theme — until they do, it should keep
+  // following the OS setting live, not just read it once at load.
+  const [explicitTheme, setExplicitTheme] = useState(() => readStored<string>('theme', '') !== '')
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = readStored<string>('theme', '')
     if (stored === 'dark' || stored === 'light') return stored
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   })
+
+  useEffect(() => {
+    if (explicitTheme || !window.matchMedia) return
+    const query = window.matchMedia('(prefers-color-scheme: dark)')
+    const onChange = (e: MediaQueryListEvent) => setTheme(e.matches ? 'dark' : 'light')
+    query.addEventListener('change', onChange)
+    return () => query.removeEventListener('change', onChange)
+  }, [explicitTheme])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
@@ -82,7 +93,10 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const toggleTheme = useCallback(() => setTheme((t) => (t === 'dark' ? 'light' : 'dark')), [])
+  const toggleTheme = useCallback(() => {
+    setExplicitTheme(true)
+    setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  }, [])
 
   return (
     <SettingsContext.Provider value={{ currency, setCurrency, theme, toggleTheme, locale, setLocale }}>
