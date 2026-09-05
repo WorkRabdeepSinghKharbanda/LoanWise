@@ -54,6 +54,14 @@ export function SavingsGoalPage() {
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 dark:border-slate-700 dark:bg-slate-900">
+          <div className="no-print col-span-full flex justify-end">
+            <button
+              onClick={() => setInput(INITIAL)}
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <NumberField label="Target Amount" prefix={symbol} value={input.target} min={1} slider sliderMax={300000} sliderStep={1000} onChange={set('target')} />
           <NumberField label="Already Saved" prefix={symbol} value={input.alreadySaved} min={0} slider sliderMax={Math.max(10000, input.target)} sliderStep={500} onChange={set('alreadySaved')} />
           <NumberField label="Monthly Contribution" prefix={symbol} value={input.monthlyContribution} min={0} slider sliderMax={5000} sliderStep={50} onChange={set('monthlyContribution')} />

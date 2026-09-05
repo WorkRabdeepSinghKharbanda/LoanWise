@@ -74,6 +74,14 @@ export function ArmPage() {
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-3 dark:border-slate-700 dark:bg-slate-900">
+          <div className="no-print col-span-full flex justify-end">
+            <button
+              onClick={() => setInput(INITIAL)}
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <NumberField label="Loan Amount" prefix={symbol} value={input.principal} min={1} slider sliderMax={1500000} sliderStep={5000} onChange={set('principal')} />
           <NumberField label="Starting Rate" suffix="% / yr" value={input.initialRatePercent} min={0} max={30} slider sliderMax={15} sliderStep={0.05} onChange={set('initialRatePercent')} />
           <NumberField label="Fixed For" suffix="months" value={input.fixedMonths} min={1} max={input.termMonths - 1} slider sliderMin={12} sliderMax={Math.max(12, input.termMonths - 12)} sliderStep={12} hint={formatMonths(input.fixedMonths)} onChange={set('fixedMonths')} />

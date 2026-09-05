@@ -3,6 +3,7 @@ import { LoanForm } from '../components/LoanForm'
 import { NumberField } from '../components/NumberField'
 import { CalculatorResult } from '../components/CalculatorResult'
 import { PageContainer } from '../components/PageContainer'
+import { RateSensitivity } from '../components/RateSensitivity'
 import { Seo } from '../components/Seo'
 import { useFormat } from '../context/SettingsContext'
 import { calculateMonthlyPayment, calculateStepUpLoan } from '../utils/loanMath'
@@ -62,6 +63,8 @@ export function StepUpEmiPage() {
         </div>
 
         <CalculatorResult result={result} filename="step-up-emi-schedule.csv" />
+
+        <RateSensitivity input={input} />
       </div>
     </PageContainer>
   )

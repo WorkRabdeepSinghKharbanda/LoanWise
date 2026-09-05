@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Seo } from '../components/Seo'
 import { AdSlot } from '../components/AdSlot'
 import { RecentlyViewed } from '../components/RecentlyViewed'
+import { QuickEstimate } from '../components/QuickEstimate'
 import { useT } from '../context/SettingsContext'
 import { NAV_GROUPS, ALL_NAV } from '../config/navigation'
 import type { NavItem } from '../config/navigation'
@@ -91,6 +92,10 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <div className="pt-10">
+        <QuickEstimate />
+      </div>
 
       <RecentlyViewed />
 
