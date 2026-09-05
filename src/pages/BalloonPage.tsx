@@ -55,6 +55,14 @@ export function BalloonPage() {
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-3 dark:border-slate-700 dark:bg-slate-900">
+          <div className="no-print col-span-full flex justify-end">
+            <button
+              onClick={() => setInput(INITIAL)}
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+          </div>
           <NumberField label="Loan Amount" prefix={symbol} value={input.principal} min={1} slider sliderMax={1000000} sliderStep={5000} onChange={set('principal')} />
           <NumberField label="Interest Rate" suffix="% / yr" value={input.annualRatePercent} min={0} max={50} slider sliderMax={20} sliderStep={0.05} onChange={set('annualRatePercent')} />
           <NumberField label="Term" suffix="months" value={input.termMonths} min={12} max={480} slider sliderMin={12} sliderMax={360} sliderStep={12} hint={formatMonths(input.termMonths)} onChange={set('termMonths')} />

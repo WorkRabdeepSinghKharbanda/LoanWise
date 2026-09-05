@@ -57,7 +57,15 @@ export function StudentLoanPage() {
               <Term>discretionary income</Term> and writes off whatever is left after the forgiveness window.
             </p>
           </div>
-          <PrintButton />
+          <div className="no-print flex gap-2">
+            <button
+              onClick={() => setInput(INITIAL)}
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+            <PrintButton />
+          </div>
         </div>
 
         <div className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-3 dark:border-slate-700 dark:bg-slate-900">

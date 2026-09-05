@@ -135,7 +135,18 @@ export function DebtPayoffPage() {
               leftover attacks one target, and freed-up minimums roll forward.
             </p>
           </div>
-          <PrintButton />
+          <div className="no-print flex gap-2">
+            <button
+              onClick={() => {
+                setDebts(INITIAL_DEBTS)
+                setBudget(600)
+              }}
+              className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+            >
+              ↺ Reset to defaults
+            </button>
+            <PrintButton />
+          </div>
         </div>
 
         {/* Debts */}
