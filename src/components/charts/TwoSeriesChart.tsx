@@ -92,7 +92,8 @@ export function TwoSeriesChart({ title, seriesA, seriesB, marker = null, xLabel 
           </table>
         </div>
       ) : (
-        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="mt-3 w-full" role="img" aria-label={`${title}: ${seriesA.label} versus ${seriesB.label}`}>
+        <div className="mt-3 overflow-x-auto">
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[480px]" role="img" aria-label={`${title}: ${seriesA.label} versus ${seriesB.label}`}>
           {[0, 0.25, 0.5, 0.75, 1].map((t) => {
             const value = min + (max - min) * t
             return (
@@ -132,6 +133,7 @@ export function TwoSeriesChart({ title, seriesA, seriesB, marker = null, xLabel 
             </text>
           ))}
         </svg>
+        </div>
       )}
     </div>
   )

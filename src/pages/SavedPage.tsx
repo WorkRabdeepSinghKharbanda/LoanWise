@@ -128,8 +128,8 @@ export function SavedPage() {
       </div>
 
       {lastDeleted && (
-        <div className="no-print fixed inset-x-0 bottom-6 z-30 flex justify-center px-4">
-          <div className="flex items-center gap-4 rounded-xl bg-slate-900 px-5 py-3 text-sm text-white shadow-lg dark:bg-slate-100 dark:text-slate-900">
+        <div className="no-print fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex justify-center px-4">
+          <div className="flex flex-wrap items-center gap-3 rounded-xl bg-slate-900 px-5 py-3 text-sm text-white shadow-lg dark:bg-slate-100 dark:text-slate-900">
             <span>Deleted "{lastDeleted.label}"</span>
             <button onClick={undo} className="font-semibold text-indigo-300 hover:underline dark:text-indigo-600">
               Undo

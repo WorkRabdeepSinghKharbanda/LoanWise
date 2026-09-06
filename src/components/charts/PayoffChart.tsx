@@ -32,26 +32,29 @@ export function PayoffChart({ snowball, avalanche }: { snowball: number[]; avala
         <Legend color="var(--series-2)" label={`Snowball · ${snowball.length} mo`} />
       </div>
 
-      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="mt-3 w-full" role="img" aria-label="Debt remaining over time under each strategy">
-        {[0, 0.25, 0.5, 0.75, 1].map((t) => (
-          <g key={t}>
-            <line x1={PAD.left} x2={W - PAD.right} y1={y(max * t)} y2={y(max * t)} stroke="var(--grid)" strokeWidth={1} />
-            <text x={PAD.left - 8} y={y(max * t) + 4} textAnchor="end" fontSize={11} fill="var(--ink-muted)">
-              {compact(max * t)}
+      {/* Below ~480px the fixed viewBox shrinks axis text past legibility — scroll instead of squeezing it further. */}
+      <div className="mt-3 overflow-x-auto">
+        <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[480px]" role="img" aria-label="Debt remaining over time under each strategy">
+          {[0, 0.25, 0.5, 0.75, 1].map((t) => (
+            <g key={t}>
+              <line x1={PAD.left} x2={W - PAD.right} y1={y(max * t)} y2={y(max * t)} stroke="var(--grid)" strokeWidth={1} />
+              <text x={PAD.left - 8} y={y(max * t) + 4} textAnchor="end" fontSize={11} fill="var(--ink-muted)">
+                {compact(max * t)}
+              </text>
+            </g>
+          ))}
+
+          <polyline points={path(avalanche)} fill="none" stroke="var(--series-1)" strokeWidth={2} strokeLinejoin="round" />
+          <polyline points={path(snowball)} fill="none" stroke="var(--series-2)" strokeWidth={2} strokeLinejoin="round" strokeDasharray="5 3" />
+
+          <line x1={PAD.left} x2={W - PAD.right} y1={PAD.top + plotH} y2={PAD.top + plotH} stroke="var(--axis)" strokeWidth={1} />
+          {[...new Set([0, Math.floor(months / 2), months - 1])].map((m) => (
+            <text key={m} x={x(m)} y={H - 10} textAnchor="middle" fontSize={11} fill="var(--ink-muted)">
+              mo {m + 1}
             </text>
-          </g>
-        ))}
-
-        <polyline points={path(avalanche)} fill="none" stroke="var(--series-1)" strokeWidth={2} strokeLinejoin="round" />
-        <polyline points={path(snowball)} fill="none" stroke="var(--series-2)" strokeWidth={2} strokeLinejoin="round" strokeDasharray="5 3" />
-
-        <line x1={PAD.left} x2={W - PAD.right} y1={PAD.top + plotH} y2={PAD.top + plotH} stroke="var(--axis)" strokeWidth={1} />
-        {[...new Set([0, Math.floor(months / 2), months - 1])].map((m) => (
-          <text key={m} x={x(m)} y={H - 10} textAnchor="middle" fontSize={11} fill="var(--ink-muted)">
-            mo {m + 1}
-          </text>
-        ))}
-      </svg>
+          ))}
+        </svg>
+      </div>
     </div>
   )
 }

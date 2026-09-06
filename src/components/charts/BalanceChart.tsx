@@ -63,10 +63,12 @@ export function BalanceChart({ schedule, marker }: Props) {
         </div>
       </div>
 
+      {/* Below ~480px the fixed viewBox shrinks axis text past legibility — scroll instead of squeezing it further. */}
+      <div className="mt-4 overflow-x-auto">
       <svg
         ref={svgRef}
         viewBox={`0 0 ${W} ${H}`}
-        className="mt-4 w-full cursor-crosshair"
+        className="w-full min-w-[480px] cursor-crosshair"
         onMouseMove={onMove}
         onMouseLeave={() => setHover(null)}
         role="img"
@@ -129,6 +131,7 @@ export function BalanceChart({ schedule, marker }: Props) {
           </g>
         )}
       </svg>
+      </div>
     </div>
   )
 }

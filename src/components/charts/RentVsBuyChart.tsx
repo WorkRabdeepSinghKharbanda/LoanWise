@@ -45,7 +45,9 @@ export function RentVsBuyChart({ years, breakEvenYear }: { years: RentVsBuyYear[
         <LegendItem color="var(--series-2)" label="Buy" value={money(last.buyCost)} />
       </div>
 
-      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="mt-3 w-full" role="img" aria-label="Cumulative cost of renting versus buying over time">
+      {/* Below ~480px the fixed viewBox shrinks axis text past legibility — scroll instead of squeezing it further. */}
+      <div className="mt-3 overflow-x-auto">
+      <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[480px]" role="img" aria-label="Cumulative cost of renting versus buying over time">
         {[0, 0.25, 0.5, 0.75, 1].map((t) => {
           const value = min + (max - min) * t
           return (
@@ -88,6 +90,7 @@ export function RentVsBuyChart({ years, breakEvenYear }: { years: RentVsBuyYear[
             </text>
           ))}
       </svg>
+      </div>
     </div>
   )
 }
