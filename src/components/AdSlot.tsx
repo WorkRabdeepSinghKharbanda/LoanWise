@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import { ADS } from '../config/ads'
 import { ADSENSE_PUBLISHER_ID, isAdsConfigured } from '../config/adsense'
-import { getConsent } from '../utils/consent'
+import { getConsent, subscribeConsent } from '../utils/consent'
 
 type SlotName = keyof typeof ADS.slots
 
@@ -24,8 +24,11 @@ declare global {
  */
 export function AdSlot({ name, className = '' }: { name: SlotName; className?: string }) {
   const slot = ADS.slots[name]
-  const live = ADS.enabled && isAdsConfigured() && slot.adSlotId !== '' && getConsent() === 'accepted'
-  const insRef = useRef<HTMLModElement>(null)
+  // useSyncExternalStore (not a plain getConsent() call) so every mounted AdSlot re-renders the
+  // instant consent changes — a plain read would go stale for slots that are siblings of the
+  // banner rather than descendants, since nothing would otherwise trigger their re-render.
+  const consent = useSyncExternalStore(subscribeConsent, getConsent)
+  const live = ADS.enabled && isAdsConfigured() && slot.adSlotId !== '' && consent === 'accepted'
 
   useEffect(() => {
     if (!live) return
@@ -41,7 +44,6 @@ export function AdSlot({ name, className = '' }: { name: SlotName; className?: s
   if (live) {
     return (
       <ins
-        ref={insRef}
         className={`adsbygoogle no-print block ${className}`}
         style={{ display: 'block', minHeight: slot.height }}
         data-ad-client={ADSENSE_PUBLISHER_ID}

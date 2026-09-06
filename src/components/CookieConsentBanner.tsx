@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import { ADS } from '../config/ads'
 import { isAdsConfigured, loadAdsenseScript } from '../config/adsense'
-import { getConsent, setConsent } from '../utils/consent'
+import { getConsent, setConsent, subscribeConsent } from '../utils/consent'
 
 /**
  * Shown once until the visitor accepts or declines. The AdSense script is
  * never loaded before Accept — loading it pre-consent would itself be the
- * GDPR violation, not just showing ads without asking.
+ * GDPR violation, not just showing ads without asking. Reads the same
+ * external store as AdSlot (useSyncExternalStore, not local state) so both
+ * stay in lockstep — this banner isn't the only place consent can change.
  */
 export function CookieConsentBanner() {
-  const [choice, setChoice] = useState(getConsent)
+  const choice = useSyncExternalStore(subscribeConsent, getConsent)
 
   useEffect(() => {
     // A returning visitor who already accepted shouldn't have to click again for the script to load.
@@ -18,15 +20,6 @@ export function CookieConsentBanner() {
   }, [choice])
 
   if (choice !== null || !ADS.enabled) return null
-
-  const accept = () => {
-    setConsent('accepted')
-    setChoice('accepted')
-  }
-  const decline = () => {
-    setConsent('declined')
-    setChoice('declined')
-  }
 
   return (
     <div className="no-print fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex justify-center px-4">
@@ -38,10 +31,10 @@ export function CookieConsentBanner() {
           </Link>
         </span>
         <div className="ml-auto flex shrink-0 gap-2">
-          <button onClick={decline} className="rounded-lg border border-white/30 px-3 py-1.5 font-medium dark:border-slate-900/20">
+          <button onClick={() => setConsent('declined')} className="rounded-lg border border-white/30 px-3 py-1.5 font-medium dark:border-slate-900/20">
             Decline
           </button>
-          <button onClick={accept} className="rounded-lg bg-indigo-500 px-3 py-1.5 font-semibold text-white hover:bg-indigo-400">
+          <button onClick={() => setConsent('accepted')} className="rounded-lg bg-indigo-500 px-3 py-1.5 font-semibold text-white hover:bg-indigo-400">
             Accept
           </button>
         </div>
