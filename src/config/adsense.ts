@@ -5,7 +5,7 @@
  * visitor said yes" gate. The AdSense script must never load before both
  * are true (loading it pre-consent would itself be the GDPR violation).
  */
-export const ADSENSE_PUBLISHER_ID = 'ca-pub-0000000000000000'
+export const ADSENSE_PUBLISHER_ID: string = 'ca-pub-5852027898822024'
 
 /** True once the placeholder above has actually been replaced with a real id. */
 export function isAdsConfigured(): boolean {
