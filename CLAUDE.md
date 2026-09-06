@@ -4,13 +4,14 @@
 
 1. [README.md](./README.md) — what this app is, run/build/deploy commands
 2. This file — architecture, control flow, conventions
-3. [src/types/loan.ts](./src/types/loan.ts) — every data shape in the app
-4. [src/utils/loanMath.ts](./src/utils/loanMath.ts) — core amortization engine
-5. [src/utils/advancedMath.ts](./src/utils/advancedMath.ts) — the specialist calculators
-6. [src/config/navigation.ts](./src/config/navigation.ts) — the calculator registry; nav, footer, command palette and sitemap all derive from it
-7. The test files next to the math ([loanMath.test.ts](./src/utils/loanMath.test.ts), [advancedMath.test.ts](./src/utils/advancedMath.test.ts), [regressions.test.ts](./src/utils/regressions.test.ts)) — they are the contract any math change must keep green
+3. [.claude/brain/feature/000-index.md](./.claude/brain/feature/000-index.md) — one file per calculator/tool (route, category, one-line description); generated from `src/config/navigation.ts`, the actual source of truth — regenerate the brain from there if they disagree, never hand-edit the two out of sync
+4. [src/types/loan.ts](./src/types/loan.ts) — every data shape in the app
+5. [src/utils/loanMath.ts](./src/utils/loanMath.ts) — core amortization engine
+6. [src/utils/advancedMath.ts](./src/utils/advancedMath.ts) — the specialist calculators
+7. [src/config/navigation.ts](./src/config/navigation.ts) — the calculator registry; nav, footer, command palette and sitemap all derive from it
+8. The test files next to the math ([loanMath.test.ts](./src/utils/loanMath.test.ts), [advancedMath.test.ts](./src/utils/advancedMath.test.ts), [regressions.test.ts](./src/utils/regressions.test.ts)) — they are the contract any math change must keep green
 
-Never edit a calculator before reading #3–#5. Every page is a thin wrapper around those two math modules.
+Never edit a calculator before reading #4–#6. Every page is a thin wrapper around those two math modules.
 
 ## Stack
 
@@ -143,7 +144,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 - **Dark mode** is class-based (`.dark` on `<html>`, toggled by `SettingsContext`). Every surface, border and text color needs an explicit `dark:` counterpart — nothing inverts automatically.
 - **Charts are always inline SVG, never `<div>` bars** — this is what makes `ChartDownloadButton`'s PNG export work uniformly (SplitBar and CostBreakdownBar were specifically rewritten from divs to SVG rects for this reason). Colors come from `--series-1` / `--series-2` on `.viz` in `index.css` — the validated categorical slots (blue/orange, stepped per mode, passing CVD and contrast gates on both surfaces). New chart: put it in `src/components/charts/`, wrap the root in `.viz`, use the role variables rather than raw hex, add a `ChartDownloadButton` wired to a `useRef<SVGSVGElement>`, keep a legend for ≥2 series, offer a table view for accessibility, and never add a second y-axis.
 - **Glossary terms**: wrap a term in `<Term>word</Term>` (must be a key in `GLOSSARY`, exported from `Term.tsx`) to get a hover tooltip; adding a new entry to `GLOSSARY` makes it show up on `/glossary` automatically.
-- **Ads** are off. [src/config/ads.ts](./src/config/ads.ts) holds the flag and the reserved slot heights; `<AdSlot name="…"/>` renders nothing while disabled but reserves space, so switching ads on causes no layout shift. To go live: set `enabled: true`, add the network script to `index.html`, swap the placeholder inside `AdSlot` for the provider's tag.
+- **Ads (Google AdSense)** are off. [src/config/ads.ts](./src/config/ads.ts) holds the `enabled` flag, reserved slot heights, and each slot's real AdSense `adSlotId`; [src/config/adsense.ts](./src/config/adsense.ts) holds the publisher id (`ADSENSE_PUBLISHER_ID`, a placeholder until replaced), `isAdsConfigured()`, and `loadAdsenseScript()`. `<AdSlot name="…"/>` renders nothing while `ADS.enabled` is false, reserving space either way so switching ads on causes no layout shift; once enabled + configured + the visitor has accepted [CookieConsentBanner](./src/components/CookieConsentBanner.tsx) (tracked via [src/utils/consent.ts](./src/utils/consent.ts)), it renders a real `<ins class="adsbygoogle">` unit and pushes it — otherwise the placeholder box. The AdSense script itself is never loaded before consent (GDPR). To go live: replace `ADSENSE_PUBLISHER_ID`, fill in each slot's `adSlotId`, replace the placeholder ids in [public/ads.txt](./public/ads.txt) and the `google-adsense-account` meta tag in `index.html`, then set `ADS.enabled = true`. [Privacy policy](./src/pages/PrivacyPage.tsx) (`/privacy`, linked from the footer) covers what's stored and how ads use cookies.
 - **No global state beyond SettingsContext** (currency, locale, theme). Pages own their inputs.
 - **No backend.** All math is synchronous and local; never add a network call for something the math modules can do. This is also why accounts/cloud sync are explicitly out of scope — they'd break the "nothing leaves your browser" promise made on the homepage and in the footer.
 - Anything that shouldn't print gets `className="no-print"`; a schedule table's expanded body carries `print-open` so it expands across pages; `PrintReport`/`LoanPrintReport` carry `hidden print:flex` so they only exist in print output.

@@ -25,6 +25,7 @@ import { ArmPage } from './pages/ArmPage'
 import { BnplPage } from './pages/BnplPage'
 import { MoratoriumPage } from './pages/MoratoriumPage'
 import { GlossaryPage } from './pages/GlossaryPage'
+import { PrivacyPage } from './pages/PrivacyPage'
 import { LOAN_TYPES } from './config/loanTypes'
 
 /**
@@ -68,6 +69,7 @@ const PAGES: [string, React.ReactNode][] = [
   ['BNPL vs Loan', <BnplPage />],
   ['EMI Holiday', <MoratoriumPage />],
   ['Glossary', <GlossaryPage />],
+  ['Privacy', <PrivacyPage />],
   ...Object.values(LOAN_TYPES).map(
     (config) => [config.label, <GenericLoanPage config={config} />] as [string, React.ReactNode],
   ),

@@ -17,7 +17,8 @@ function sitemap() {
     closeBundle() {
       const today = new Date().toISOString().slice(0, 10)
       // noIndex pages (per-visitor localStorage state, nothing for a crawler to see) are excluded.
-      const urls = ['/', ...ALL_NAV.filter((item) => !item.noIndex).map((item) => item.to)]
+      // /privacy isn't a calculator so it's not in ALL_NAV, but it's real static content — include it.
+      const urls = ['/', '/privacy', ...ALL_NAV.filter((item) => !item.noIndex).map((item) => item.to)]
       const body = urls
         .map(
           (path) =>

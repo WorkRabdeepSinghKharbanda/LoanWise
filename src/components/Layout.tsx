@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { CommandPalette } from './CommandPalette'
 import { ShortcutsSheet } from './ShortcutsSheet'
 import { InstallPrompt } from './InstallPrompt'
+import { CookieConsentBanner } from './CookieConsentBanner'
 import { AdSlot } from './AdSlot'
 import { useSettings, useT } from '../context/SettingsContext'
 import { CURRENCIES } from '../utils/loanMath'
@@ -137,6 +138,7 @@ export function Layout() {
 
       <ShortcutsSheet />
       <InstallPrompt />
+      <CookieConsentBanner />
 
       <div className="mx-auto w-full max-w-5xl px-6">
         <AdSlot name="footer" className="mb-10" />
@@ -164,6 +166,9 @@ export function Layout() {
           <div className="mt-10 flex flex-col items-center gap-2 border-t border-slate-200 pt-8 text-center dark:border-slate-800">
             <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('brand')}</p>
             <p className="max-w-lg text-xs text-slate-400">{t('footerTagline')}</p>
+            <Link to="/privacy" className="text-xs text-slate-400 underline hover:text-slate-600 dark:hover:text-slate-200">
+              Privacy Policy
+            </Link>
           </div>
         </div>
       </footer>

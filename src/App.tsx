@@ -24,6 +24,7 @@ import { ArmPage } from './pages/ArmPage'
 import { BnplPage } from './pages/BnplPage'
 import { MoratoriumPage } from './pages/MoratoriumPage'
 import { GlossaryPage } from './pages/GlossaryPage'
+import { PrivacyPage } from './pages/PrivacyPage'
 import { LOAN_TYPES } from './config/loanTypes'
 
 function App() {
@@ -57,7 +58,8 @@ function App() {
               <Route path="/compare" element={<ComparePage />} />
               <Route path="/saved" element={<SavedPage />} />
               <Route path="/quiz" element={<QuizPage />} />
-            <Route path="/glossary" element={<GlossaryPage />} />
+              <Route path="/glossary" element={<GlossaryPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>
