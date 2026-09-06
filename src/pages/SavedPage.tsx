@@ -23,7 +23,7 @@ export function SavedPage() {
 
   return (
     <PageContainer>
-      <Seo title="Saved Scenarios" description="Every loan scenario you saved, stored in this browser only." />
+      <Seo title="Saved Scenarios" description="Every loan scenario you saved, stored in this browser only." noIndex />
       <div className="flex flex-col gap-6">
         {/* Print-only combined report — brand header, then every saved scenario as a row. */}
         <div className="print-report hidden flex-col overflow-hidden rounded-2xl border border-slate-300 print:flex">

@@ -16,7 +16,8 @@ function sitemap() {
     name: 'sitemap',
     closeBundle() {
       const today = new Date().toISOString().slice(0, 10)
-      const urls = ['/', ...ALL_NAV.map((item) => item.to)]
+      // noIndex pages (per-visitor localStorage state, nothing for a crawler to see) are excluded.
+      const urls = ['/', ...ALL_NAV.filter((item) => !item.noIndex).map((item) => item.to)]
       const body = urls
         .map(
           (path) =>

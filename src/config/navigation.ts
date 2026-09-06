@@ -5,6 +5,10 @@ export interface NavItem {
   icon: string
   desc: string
   keywords?: string
+  /** True for pages whose content is entirely per-visitor localStorage state (nothing for a
+   * crawler to see) — excluded from the sitemap and marked noindex so they don't read as thin
+   * or duplicate content across crawls. */
+  noIndex?: boolean
 }
 
 export const LOAN_NAV: NavItem[] = [
@@ -44,7 +48,7 @@ export const SHOPPING_NAV: NavItem[] = [
 
 export const UTILITY_NAV: NavItem[] = [
   { to: '/compare', label: 'Compare Loans', icon: '⚖️', desc: 'Four scenarios side by side.' },
-  { to: '/saved', label: 'Saved Scenarios', icon: '💾', desc: 'Everything you kept.' },
+  { to: '/saved', label: 'Saved Scenarios', icon: '💾', desc: 'Everything you kept.', noIndex: true },
   { to: '/quiz', label: 'Find My Calculator', icon: '🧭', desc: 'Two questions, one answer.', keywords: 'help which quiz' },
   { to: '/glossary', label: 'Glossary', icon: '📖', desc: 'Every term, plain English.', keywords: 'terms definitions apr pmi dti' },
 ]

@@ -151,7 +151,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 ## Platform bits
 
 - **PWA**: [public/manifest.webmanifest](./public/manifest.webmanifest) + [public/sw.js](./public/sw.js) (network-first for navigations, cache-first for hashed assets). Bump `CACHE` in `sw.js` when the shell changes shape.
-- **SEO**: `robots.txt` in `public/`; `sitemap.xml` is generated at build time by the `sitemap()` plugin in [vite.config.ts](./vite.config.ts) from `ALL_NAV`, so it can't go stale. Per-page `<title>`/`<meta>` come from the [Seo](./src/components/Seo.tsx) component (React 19 hoists them natively — no helmet library). JSON-LD for the app and an FAQ block live in `index.html`.
+- **SEO**: `robots.txt` in `public/`; `sitemap.xml` is generated at build time by the `sitemap()` plugin in [vite.config.ts](./vite.config.ts) from `ALL_NAV`, so it can't go stale — a `NavItem` marked `noIndex: true` (e.g. `/saved`, whose content is entirely per-visitor localStorage) is excluded from it. Per-page `<title>`/`<meta>`/canonical/OG/Twitter tags and a per-page `BreadcrumbList` JSON-LD come from the [Seo](./src/components/Seo.tsx) component (React 19 hoists title/meta/link natively — no helmet library); it renders `noindex, follow` when passed `noIndex`, and renders nothing at all on `/` since `index.html`'s static tags already cover the homepage identically — Seo duplicating them there would leave two of everything in `<head>`. Site-wide JSON-LD (`WebApplication`, `FAQPage`) and light/dark `theme-color` tags live in `index.html`.
 - **Command palette**: ⌘K / Ctrl-K, built from `ALL_NAV`. **Shortcuts sheet**: press `?` (ignored while typing in a field).
 
 ## Verifying changes
