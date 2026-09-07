@@ -221,4 +221,359 @@ export const GUIDES: Guide[] = [
       { to: '/mortgage', label: 'Mortgage Calculator' },
     ],
   },
+  {
+    slug: 'arm-guide',
+    title: 'Adjustable-Rate Mortgage (ARM) Guide: What Happens When the Rate Resets',
+    description: 'How an ARM\'s introductory rate, caps, and reset schedule work, and how to stress-test the payment shock before it happens.',
+    intro:
+      'An ARM trades a lower introductory rate for uncertainty later — the rate resets on a schedule, and the payment can rise (or fall) with it, within limits set by the loan\'s caps.',
+    sections: [
+      {
+        heading: 'How the reset works',
+        body: 'After the fixed introductory period (commonly 5, 7, or 10 years), the rate adjusts to an index plus a margin, then recasts the remaining balance over the rest of the term at the new rate — the payment can jump noticeably in a single reset.',
+      },
+      {
+        heading: 'Caps limit, but don\'t eliminate, the shock',
+        body: 'Periodic and lifetime caps bound how much the rate can move at each reset and over the life of the loan, but even a capped increase can raise the payment substantially if rates have moved a lot since origination.',
+      },
+      {
+        heading: 'Stress-test before you sign',
+        body: 'The only way to know if an ARM is affordable is to model the payment at the worst-case allowed rate under the caps — not just the appealing introductory rate — and compare that against your budget headroom.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is an ARM ever a good idea?',
+        a: 'It can be, if you\'re confident you\'ll sell or refinance before the first reset, or if the introductory savings are large enough to bank against a future increase.',
+      },
+      {
+        q: 'What\'s the difference between a 5/1 and a 7/1 ARM?',
+        a: 'The first number is the years the introductory rate holds; the second is how often it adjusts afterward (in years) — a 5/1 resets after year 5 then annually, a 7/1 after year 7.',
+      },
+    ],
+    related: [
+      { to: '/arm', label: 'ARM Stress Test Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/refinance', label: 'Refinance Calculator' },
+    ],
+  },
+  {
+    slug: 'refinance-guide',
+    title: 'Refinance Guide: When Closing Costs Actually Pay for Themselves',
+    description: 'How to find a refinance\'s break-even point, and why "rates dropped" isn\'t reason enough on its own.',
+    intro:
+      'Refinancing resets the loan: a new rate, a new term, and a new round of closing costs. It only wins if the monthly savings clear those costs before you\'d have moved on anyway.',
+    sections: [
+      {
+        heading: 'The break-even point',
+        body: 'Divide the closing costs by the monthly payment savings to get the number of months before the refinance pays for itself. Anything after that point is real savings; anything before it is a loss if you sell or refinance again first.',
+      },
+      {
+        heading: 'A lower payment isn\'t always a lower cost',
+        body: 'Refinancing into a fresh 30-year term can lower the monthly payment even at the same rate, simply by resetting the amortization clock — but it can raise total lifetime interest if it extends how long you\'re paying.',
+      },
+      {
+        heading: 'Rate-and-term vs. cash-out',
+        body: 'A rate-and-term refinance just changes the loan\'s terms; a cash-out refinance also borrows against home equity, increasing the balance — evaluate the added debt on its own merits, not folded into the rate comparison.',
+      },
+    ],
+    faq: [
+      {
+        q: 'How much do rates need to drop before refinancing is worth it?',
+        a: 'There\'s no fixed threshold — it depends entirely on the closing costs versus your monthly savings and how long you\'ll keep the loan. Run the break-even math for your specific numbers.',
+      },
+      {
+        q: 'Does refinancing restart my loan\'s amortization?',
+        a: 'Yes — a new loan starts back at mostly-interest payments, which is part of why extending the term can raise total interest even at a lower rate.',
+      },
+    ],
+    related: [
+      { to: '/refinance', label: 'Refinance Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/arm', label: 'ARM Stress Test Calculator' },
+    ],
+  },
+  {
+    slug: 'rent-vs-buy-guide',
+    title: 'Rent vs. Buy Guide: Finding the Real Crossover Point',
+    description: 'Why comparing rent to a mortgage payment alone misses most of the real cost of either choice.',
+    intro:
+      'Rent vs. buy isn\'t "mortgage payment vs. rent check" — buying carries maintenance, property tax, insurance, and transaction costs that renting doesn\'t, while buying also builds equity renting never does.',
+    sections: [
+      {
+        heading: 'What buying adds on top of the mortgage',
+        body: 'Property tax, homeowners insurance, maintenance (commonly budgeted around 1% of home value a year), and closing costs at both purchase and sale all add to buying\'s real cost — none of them show up in a bare mortgage-payment comparison.',
+      },
+      {
+        heading: 'Equity is buying\'s counterweight',
+        body: 'Every principal payment (and any appreciation) builds equity that\'s recovered at sale, net of selling costs — this is what eventually tips the comparison in buying\'s favor the longer you stay.',
+      },
+      {
+        heading: 'The crossover depends on how long you stay',
+        body: 'Because buying\'s upfront costs are fixed but amortize over time, and renting has none of them, the number of years you plan to stay is usually the single biggest lever on which option wins.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is buying always better if I stay long enough?',
+        a: 'Usually, but not always — it depends on local price-to-rent ratios, rate levels, and how home prices move relative to rent over that period.',
+      },
+      {
+        q: 'What\'s a reasonable maintenance budget for a home?',
+        a: 'A common rule of thumb is around 1% of the home\'s value per year, though older homes or ones with more square footage often run higher.',
+      },
+    ],
+    related: [
+      { to: '/rent-vs-buy', label: 'Rent vs Buy Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/affordability', label: 'Affordability Calculator' },
+    ],
+  },
+  {
+    slug: 'student-loan-guide',
+    title: 'Student Loan Guide: Income-Driven Repayment and Forgiveness, Explained',
+    description: 'How income-driven repayment plans size your payment, and how negative amortization and forgiveness interact.',
+    intro:
+      'Income-driven repayment (IDR) plans cap your monthly payment as a share of discretionary income rather than the loan balance — which can mean the balance grows before it shrinks.',
+    sections: [
+      {
+        heading: 'Payment is based on income, not balance',
+        body: 'IDR payments are calculated as a percentage of income above a poverty-line threshold, completely independent of how large the loan is — two borrowers with very different balances but the same income can owe the same monthly payment.',
+      },
+      {
+        heading: 'Negative amortization is a real possibility',
+        body: 'If the IDR payment is smaller than the interest accruing that month, the unpaid interest can be added to the balance — the loan grows even while payments are being made on time, until income rises enough to cover it.',
+      },
+      {
+        heading: 'Forgiveness closes the loop',
+        body: 'Most IDR plans forgive the remaining balance after a set number of qualifying payments (commonly 20-25 years) — tracking the forgiven amount separately from what was actually paid is the only way to see the plan\'s true cost.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Can my loan balance go up under IDR?',
+        a: 'Yes — if the required payment doesn\'t cover that month\'s interest, the shortfall can be added to the balance, a state called negative amortization.',
+      },
+      {
+        q: 'Is forgiven student debt taxable?',
+        a: 'Tax treatment of forgiven balances varies by program and has changed by law in recent years — check current rules for your specific plan before assuming either way.',
+      },
+    ],
+    related: [
+      { to: '/student-loan', label: 'Student Loan Calculator' },
+      { to: '/debt-payoff', label: 'Debt Payoff Planner' },
+    ],
+  },
+  {
+    slug: 'credit-card-payoff-guide',
+    title: 'Credit Card Payoff Guide: Escaping the Minimum-Payment Trap',
+    description: 'Why minimum payments barely move the balance, and what it actually takes to pay a card off on purpose.',
+    intro:
+      'A credit card\'s minimum payment is usually set just above that month\'s interest charge — enough to keep the account current, not enough to make real progress on the balance.',
+    sections: [
+      {
+        heading: 'Why the balance barely moves',
+        body: 'With interest compounding daily or monthly at a high APR, a minimum payment set at roughly 1-3% of the balance often barely exceeds the interest accrued — years can pass with the balance falling only slightly.',
+      },
+      {
+        heading: 'What a fixed payment above the minimum does',
+        body: 'Committing to a fixed payment well above the minimum — rather than letting it shrink as the balance falls — front-loads the payoff and can cut both the time and total interest dramatically compared to minimum-only payments.',
+      },
+      {
+        heading: 'When the minimum never clears the balance',
+        body: 'At a high enough rate relative to the minimum-payment formula, the balance can effectively never reach zero on minimums alone — this is the trap worth checking for before assuming "I\'m paying it off eventually" is true.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why does my card balance stay almost the same every month?',
+        a: 'The minimum payment is typically set just above the interest charged that month, so very little goes to principal — a small fixed increase above the minimum makes an outsized difference.',
+      },
+      {
+        q: 'Should I pay off my card or invest instead?',
+        a: 'Credit card APRs are usually far higher than typical investment returns, so paying down the card first is almost always the better guaranteed return.',
+      },
+    ],
+    related: [
+      { to: '/credit-card', label: 'Credit Card Payoff Calculator' },
+      { to: '/debt-payoff', label: 'Debt Payoff Planner' },
+      { to: '/bnpl', label: 'BNPL vs Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'interest-only-balloon-guide',
+    title: 'Interest-Only and Balloon Loans: The Payment Is Lower Because the Bill Is Later',
+    description: 'How interest-only and balloon loans defer principal — and what the payment jump (or lump sum) at the end actually looks like.',
+    intro:
+      'An interest-only or balloon loan trades a lower payment now for a bigger obligation later — either a lump-sum payoff at term end, or a recast payment that\'s noticeably higher than a vanilla amortizing loan\'s would have been.',
+    sections: [
+      {
+        heading: 'Interest-only period',
+        body: 'During the interest-only window, payments cover interest alone — the balance never falls. Every dollar of eventual principal repayment is simply deferred to later in the loan, not eliminated.',
+      },
+      {
+        heading: 'The balloon payment',
+        body: 'A balloon loan structures the shortfall as a single lump sum due at term end — refinancing, selling the asset, or having cash on hand to cover it are the only ways to meet that obligation when it arrives.',
+      },
+      {
+        heading: 'Comparing against a vanilla amortizing loan',
+        body: 'The honest comparison isn\'t the lower monthly payment alone — it\'s that lower payment against the size of the balloon or the recast payment, on the exact same rate and term, to see the total tradeoff.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What happens if I can\'t pay the balloon payment?',
+        a: 'Most borrowers plan to refinance, sell the asset, or have savings ready — failing to arrange one of these before the due date risks default, so it needs planning well before the term ends.',
+      },
+      {
+        q: 'Why would anyone choose interest-only?',
+        a: 'It frees up cash flow now, which can make sense for a short holding period, an investment property, or income that\'s expected to rise well before the balloon comes due.',
+      },
+    ],
+    related: [
+      { to: '/balloon', label: 'Interest-Only & Balloon Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+    ],
+  },
+  {
+    slug: 'emi-holiday-guide',
+    title: 'EMI Holiday (Moratorium) Guide: The Real Cost of Pausing Payments',
+    description: 'What a payment moratorium actually does to a loan\'s total life and cost, once the pause ends.',
+    intro:
+      'An EMI holiday pauses payments for a set period — useful during a genuine cash crunch — but the loan doesn\'t forget the interest that accrued during the pause.',
+    sections: [
+      {
+        heading: 'Interest keeps accruing during the pause',
+        body: 'Even with no payments due, interest typically continues to accrue on the outstanding balance through the moratorium — that accrued interest is added back into the loan once payments resume.',
+      },
+      {
+        heading: 'The loan\'s total life extends',
+        body: 'A moratorium extends the loan\'s total life by roughly the holiday\'s length, rather than shrinking the remaining term to fit the original end date — the schedule shifts outward, it doesn\'t compress.',
+      },
+      {
+        heading: 'When it\'s worth it',
+        body: 'A moratorium is a genuine tool for a temporary cash-flow gap, not a free pause — modeling the extra interest against the value of the breathing room is the only way to judge whether it\'s worth taking.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does a payment holiday hurt my credit score?',
+        a: 'A formally arranged moratorium with the lender is typically reported differently than a missed payment, but terms vary — confirm with the lender before assuming it\'s cost-free to your credit.',
+      },
+      {
+        q: 'Does the EMI go up after the holiday?',
+        a: 'It depends on the lender\'s terms — some extend the term and keep the EMI flat, others recast the EMI higher over the original remaining term. Check which applies before opting in.',
+      },
+    ],
+    related: [
+      { to: '/moratorium', label: 'EMI Holiday Calculator' },
+      { to: '/emi', label: 'EMI Calculator' },
+    ],
+  },
+  {
+    slug: 'step-up-emi-guide',
+    title: 'Step-Up EMI Guide: Starting Lower and Rising With Your Income',
+    description: 'How a step-up EMI schedule works, and who it actually suits.',
+    intro:
+      'A step-up EMI starts below a standard flat EMI and rises on a schedule — typically annually — designed to track an expected rise in income rather than staying flat for the whole term.',
+    sections: [
+      {
+        heading: 'Why start lower at all',
+        body: 'Early-career borrowers often have their lowest income relative to future earnings right when they take the loan — a step-up schedule matches the payment to that trajectory instead of sizing the loan around a flat payment the borrower may struggle with early on.',
+      },
+      {
+        heading: 'The tradeoff against a flat EMI',
+        body: 'Because early payments are smaller, more interest accrues on a higher balance for longer compared to a flat EMI on the same principal and rate — the total interest paid over the loan\'s life is typically higher.',
+      },
+      {
+        heading: 'Who it suits',
+        body: 'It fits borrowers confident their income will rise roughly on schedule — a step that outpaces actual income growth just recreates the affordability problem the plan was meant to solve, later.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is step-up EMI more expensive overall?',
+        a: 'Usually yes, in total interest, compared to a flat EMI on the same loan — the lower early payments mean the balance stays higher for longer.',
+      },
+      {
+        q: 'Can I switch from step-up back to a flat EMI later?',
+        a: 'That depends on the lender\'s terms — some allow restructuring, others don\'t. Confirm before assuming you can switch mid-term.',
+      },
+    ],
+    related: [
+      { to: '/emi/step-up', label: 'Step-Up EMI Calculator' },
+      { to: '/emi', label: 'EMI Calculator' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'gold-loan-guide',
+    title: 'Gold Loan Guide: Fast, Secured, and Usually Short-Term',
+    description: 'How gold loans price against unsecured borrowing, and what to watch for in the term and repayment structure.',
+    intro:
+      'A gold loan is secured against the gold itself, which typically means faster approval and a lower rate than an unsecured personal loan — in exchange for a shorter term and the collateral at risk.',
+    sections: [
+      {
+        heading: 'Why the rate is usually lower',
+        body: 'Because the loan is secured by gold the lender can recover value from directly, gold loans typically carry lower rates than unsecured personal loans of similar size — the collateral shifts risk away from the lender.',
+      },
+      {
+        heading: 'Term length and bullet repayment',
+        body: 'Gold loans are often short-term (months rather than years) and sometimes structured as bullet repayment — interest paid periodically, principal due at term end — which changes the cash-flow shape compared to a standard EMI.',
+      },
+      {
+        heading: 'The real risk: the collateral',
+        body: 'Defaulting on a gold loan risks losing the pledged gold, not just a credit-score hit — factoring that risk explicitly against the lower rate is the honest way to compare it to an unsecured alternative.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is a gold loan cheaper than a personal loan?',
+        a: 'Usually, in rate — but compare the full term and repayment structure, not the rate alone, since gold loans are often shorter and can be structured differently (e.g. bullet repayment).',
+      },
+      {
+        q: 'What happens if I can\'t repay a gold loan?',
+        a: 'The lender can typically auction the pledged gold to recover the outstanding amount — this is the collateral risk that offsets the loan\'s lower rate.',
+      },
+    ],
+    related: [
+      { to: '/loan/gold', label: 'Gold Loan Calculator' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'personal-loan-guide',
+    title: 'Personal Loan Guide: Unsecured Borrowing, Priced for the Risk',
+    description: 'Why personal loans carry higher rates than secured borrowing, and how to size one against what it\'s actually for.',
+    intro:
+      'A personal loan is unsecured — no collateral backs it — which is exactly why it carries a higher rate than a car, home, or gold loan of comparable size: the lender is pricing in more risk, not less flexibility.',
+    sections: [
+      {
+        heading: 'Why unsecured costs more',
+        body: 'With no asset to recover in default, the lender prices the rate around the borrower\'s creditworthiness alone — a stronger credit profile narrows the gap to secured rates, but rarely closes it.',
+      },
+      {
+        heading: 'What it\'s actually good for',
+        body: 'Personal loans suit needs with no natural collateral — debt consolidation, a one-off expense, bridging a gap — where a secured loan either isn\'t available or isn\'t the right structure.',
+      },
+      {
+        heading: 'Sizing the loan to the need',
+        body: 'Because the rate is already higher, borrowing more than the actual need "just in case" compounds the cost — running the EMI and total-interest numbers on the exact amount needed, not a rounded-up figure, keeps the real cost down.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why is my personal loan rate so much higher than my friend\'s car loan?',
+        a: 'A car loan is secured by the vehicle; a personal loan isn\'t secured by anything, so the lender prices in more risk — the gap reflects that, not just your credit profile.',
+      },
+      {
+        q: 'Does prepaying a personal loan early always save money?',
+        a: 'Yes, in interest — but check for prepayment penalties first, since some personal loans charge a fee for paying off ahead of schedule.',
+      },
+    ],
+    related: [
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/debt-payoff', label: 'Debt Payoff Planner' },
+    ],
+  },
 ]
