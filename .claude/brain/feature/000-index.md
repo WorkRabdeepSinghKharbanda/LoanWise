@@ -1,9 +1,6 @@
 # Feature index
 
-Generated from `src/config/navigation.ts` (`NAV_GROUPS`/`ALL_NAV`) — the single source of truth
-for nav, footer, command palette, and the sitemap. Regenerate this directory from that file if
-they ever disagree; do not hand-edit route/category/description here without updating navigation.ts too.
-
+Generated from `src/config/navigation.ts` — regenerate, never hand-edit out of sync.
 
 ## Loans
 
@@ -46,5 +43,6 @@ they ever disagree; do not hand-edit route/category/description here without upd
 - [Saved Scenarios](./022-saved-scenarios.md) — `/saved` — Everything you kept.
 - [Find My Calculator](./023-find-my-calculator.md) — `/quiz` — Two questions, one answer.
 - [Glossary](./024-glossary.md) — `/glossary` — Every term, plain English.
+- [Guides](./025-guides.md) — `/guides` — In-depth guides on EMI, mortgages, and debt payoff.
 
-Total: 24 entries.
+Total: 25 entries.

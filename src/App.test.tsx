@@ -26,7 +26,10 @@ import { BnplPage } from './pages/BnplPage'
 import { MoratoriumPage } from './pages/MoratoriumPage'
 import { GlossaryPage } from './pages/GlossaryPage'
 import { PrivacyPage } from './pages/PrivacyPage'
+import { GuidesIndexPage } from './pages/GuidesIndexPage'
+import { GuidePage } from './pages/GuidePage'
 import { LOAN_TYPES } from './config/loanTypes'
+import { GUIDES } from './config/guides'
 
 /**
  * Render smoke tests: every page mounted for real, so a runtime crash
@@ -70,6 +73,7 @@ const PAGES: [string, React.ReactNode][] = [
   ['EMI Holiday', <MoratoriumPage />],
   ['Glossary', <GlossaryPage />],
   ['Privacy', <PrivacyPage />],
+  ['Guides index', <GuidesIndexPage />],
   ...Object.values(LOAN_TYPES).map(
     (config) => [config.label, <GenericLoanPage config={config} />] as [string, React.ReactNode],
   ),
@@ -79,6 +83,23 @@ describe('every page renders', () => {
   it.each(PAGES)('%s mounts without crashing', (_name, element) => {
     const { container } = renderPage(element)
     // A crashed render leaves an empty tree; a real page has a heading.
+    expect(container.querySelector('h1, h2')).not.toBeNull()
+  })
+})
+
+describe('guide pages', () => {
+  it.each(GUIDES.map((g) => [g.slug] as const))('%s mounts without crashing', (slug) => {
+    const { container } = render(
+      <SettingsProvider>
+        <MemoryRouter initialEntries={[`/guides/${slug}`]}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/guides/:slug" element={<GuidePage />} />
+            </Route>
+          </Routes>
+        </MemoryRouter>
+      </SettingsProvider>,
+    )
     expect(container.querySelector('h1, h2')).not.toBeNull()
   })
 })

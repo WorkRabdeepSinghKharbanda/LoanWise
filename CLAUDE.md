@@ -105,6 +105,7 @@ Each of these is a self-contained slice — math in one of the two math modules,
 | i18n (partial) | `src/i18n/translations.ts` | `useT()` in `SettingsContext` | See **i18n** below — chrome only, not page prose |
 | Chart PNG export | `src/utils/exportChart.ts` | `ChartDownloadButton` | Every chart is inline SVG (SplitBar/CostBreakdownBar were rewritten from divs specifically so this works everywhere) |
 | Printable report | — | `PrintReport`, `LoanPrintReport`, `PrintButton` | Print-only (`hidden print:flex`); every calculator page has either an `AmortizationTable` (own print/PDF button) or an explicit `PrintButton` |
+| Landing guides | `src/config/guides.ts` | `GuidesIndexPage`, `GuidePage` | Long-form SEO content, distinct from the 24 calculators — one dynamic `/guides/:slug` page renders any entry; each ships Article + FAQPage JSON-LD and links back to its related calculators |
 | Command palette | — | `CommandPalette` (⌘K) | Built from `ALL_NAV`; also toggles theme |
 | Shortcuts sheet | — | `ShortcutsSheet` (`?` key) | Lists the palette shortcut |
 | Recently viewed | `src/utils/recentlyViewed.ts` | `RecentlyViewed` (Home only) | Recorded on every route change in `Layout` |
@@ -131,13 +132,14 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 | Debt | `/credit-card`, `/debt-payoff`, `/student-loan` |
 | Cars | `/lease-vs-buy`, `/car-cost` |
 | Shopping | `/bnpl` |
-| Tools | `/compare`, `/saved`, `/quiz`, `/glossary` |
+| Tools | `/compare`, `/saved`, `/quiz`, `/glossary`, `/guides`, `/guides/:slug` |
 | — | `/` landing, `*` → redirect home |
 
 ## Conventions
 
 - **Adding a loan type** (education loan, say): add an entry to `LOAN_TYPES` in [src/config/loanTypes.ts](./src/config/loanTypes.ts), including a `typicalRateRange` — the route is generated in `App.tsx`. Then add it to `LOAN_NAV` in `navigation.ts` so nav, footer, palette and sitemap pick it up. Never hand-write a page for this case.
 - **Adding a whole calculator**: pure function + tests in `advancedMath.ts` **first**, then the page, then a route in `App.tsx`, then an entry in `navigation.ts`, then a row in `PAGES` in [src/App.test.tsx](./src/App.test.tsx). If the page has no `AmortizationTable`, add a `<PrintReport>` + `<PrintButton>` so it still has an export path — see the **Feature index** row for print.
+- **Adding a landing guide**: it's just a new entry in the `GUIDES` array in [src/config/guides.ts](./src/config/guides.ts) — `GuidePage` renders it at `/guides/:slug` for free, and it's picked up by the sitemap, `llms.txt`, and the guide-page smoke test in `App.test.tsx` automatically. Never hand-write a page for this case.
 - **Money on screen** always goes through `useFormat().money()` (or `.compact()` for axis ticks) so the currency selector works. Never hardcode a currency in a component; never inline `toFixed` for money.
 - **UI text** that's part of shared chrome goes through `useT()` (see **i18n**); page-specific prose stays plain English for now — don't half-translate a single page, it's inconsistent with the rest.
 - **Numeric inputs** use [NumberField](./src/components/NumberField.tsx), never a raw `<input type="number">` — the number type adds spinners, rejects partially typed values, and turns an empty field into 0. NumberField holds raw keystrokes locally, validates against min/max, and only reports valid numbers upward. Pass `slider` for a drag control.
@@ -152,7 +154,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 ## Platform bits
 
 - **PWA**: [public/manifest.webmanifest](./public/manifest.webmanifest) + [public/sw.js](./public/sw.js) (network-first for navigations, cache-first for hashed assets). Bump `CACHE` in `sw.js` when the shell changes shape.
-- **SEO**: `robots.txt` in `public/`; `sitemap.xml` is generated at build time by the `sitemap()` plugin in [vite.config.ts](./vite.config.ts) from `ALL_NAV`, so it can't go stale — a `NavItem` marked `noIndex: true` (e.g. `/saved`, whose content is entirely per-visitor localStorage) is excluded from it. Per-page `<title>`/`<meta>`/canonical/OG/Twitter tags and a per-page `BreadcrumbList` JSON-LD come from the [Seo](./src/components/Seo.tsx) component (React 19 hoists title/meta/link natively — no helmet library); it renders `noindex, follow` when passed `noIndex`, and renders nothing at all on `/` since `index.html`'s static tags already cover the homepage identically — Seo duplicating them there would leave two of everything in `<head>`. Site-wide JSON-LD (`WebApplication`, `FAQPage`) and light/dark `theme-color` tags live in `index.html`.
+- **SEO**: `robots.txt` in `public/` explicitly allows the major AI-assistant crawlers (GPTBot, ClaudeBot, anthropic-ai, Google-Extended, PerplexityBot, CCBot) alongside `*`; `sitemap.xml` **and** `llms.txt` ([llmstxt.org](https://llmstxt.org)) are both generated at build time by the `sitemap()`/`llmsTxt()` functions in [vite.config.ts](./vite.config.ts) from `ALL_NAV` + `GUIDES`, so neither can go stale — a `NavItem` marked `noIndex: true` (e.g. `/saved`, whose content is entirely per-visitor localStorage) is excluded from both. Per-page `<title>`/`<meta>`/canonical/OG/Twitter tags and a per-page `BreadcrumbList` JSON-LD come from the [Seo](./src/components/Seo.tsx) component (React 19 hoists title/meta/link natively — no helmet library); it renders `noindex, follow` when passed `noIndex`, and renders nothing at all on `/` since `index.html`'s static tags already cover the homepage identically — Seo duplicating them there would leave two of everything in `<head>`. Site-wide JSON-LD (`Organization`, `WebApplication`, `FAQPage`) and light/dark `theme-color` tags live in `index.html`; each guide page adds its own `Article` + `FAQPage` JSON-LD on top.
 - **Command palette**: ⌘K / Ctrl-K, built from `ALL_NAV`. **Shortcuts sheet**: press `?` (ignored while typing in a field).
 
 ## Verifying changes

@@ -1,4 +1,32 @@
 User-agent: *
 Allow: /
 
+# AI assistants and answer-engine crawlers — explicitly allowed so this site
+# can be cited/summarized (GPTBot: ChatGPT, ClaudeBot/anthropic-ai: Claude,
+# Google-Extended: Gemini/AI Overviews, PerplexityBot: Perplexity,
+# CCBot: Common Crawl, used by many LLM training pipelines).
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://loan-calculator-ashen-six.vercel.app/sitemap.xml
+
+# https://llmstxt.org — a plain-English site map for AI assistants
+# https://loan-calculator-ashen-six.vercel.app/llms.txt
