@@ -44,5 +44,6 @@ Generated from `src/config/navigation.ts` — regenerate, never hand-edit out of
 - [Find My Calculator](./023-find-my-calculator.md) — `/quiz` — Two questions, one answer.
 - [Glossary](./024-glossary.md) — `/glossary` — Every term, plain English.
 - [Guides](./025-guides.md) — `/guides` — In-depth guides on EMI, mortgages, and debt payoff.
+- [Blog](./026-blog.md) — `/blog` — Short reads on the fine print that changes what a loan costs.
 
-Total: 25 entries.
+Total: 26 entries.

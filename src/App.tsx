@@ -27,6 +27,8 @@ import { GlossaryPage } from './pages/GlossaryPage'
 import { PrivacyPage } from './pages/PrivacyPage'
 import { GuidesIndexPage } from './pages/GuidesIndexPage'
 import { GuidePage } from './pages/GuidePage'
+import { BlogIndexPage } from './pages/BlogIndexPage'
+import { BlogPage } from './pages/BlogPage'
 import { LOAN_TYPES } from './config/loanTypes'
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/guides" element={<GuidesIndexPage />} />
               <Route path="/guides/:slug" element={<GuidePage />} />
+              <Route path="/blog" element={<BlogIndexPage />} />
+              <Route path="/blog/:slug" element={<BlogPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

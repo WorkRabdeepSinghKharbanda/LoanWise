@@ -52,6 +52,7 @@ export const UTILITY_NAV: NavItem[] = [
   { to: '/quiz', label: 'Find My Calculator', icon: '🧭', desc: 'Two questions, one answer.', keywords: 'help which quiz' },
   { to: '/glossary', label: 'Glossary', icon: '📖', desc: 'Every term, plain English.', keywords: 'terms definitions apr pmi dti' },
   { to: '/guides', label: 'Guides', icon: '📚', desc: 'In-depth guides on EMI, mortgages, and debt payoff.', keywords: 'guide article learn how to explain' },
+  { to: '/blog', label: 'Blog', icon: '✍️', desc: 'Short reads on the fine print that changes what a loan costs.', keywords: 'blog article post news' },
 ]
 
 export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [

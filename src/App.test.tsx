@@ -28,8 +28,11 @@ import { GlossaryPage } from './pages/GlossaryPage'
 import { PrivacyPage } from './pages/PrivacyPage'
 import { GuidesIndexPage } from './pages/GuidesIndexPage'
 import { GuidePage } from './pages/GuidePage'
+import { BlogIndexPage } from './pages/BlogIndexPage'
+import { BlogPage } from './pages/BlogPage'
 import { LOAN_TYPES } from './config/loanTypes'
 import { GUIDES } from './config/guides'
+import { BLOG_POSTS } from './config/blog'
 
 /**
  * Render smoke tests: every page mounted for real, so a runtime crash
@@ -74,6 +77,7 @@ const PAGES: [string, React.ReactNode][] = [
   ['Glossary', <GlossaryPage />],
   ['Privacy', <PrivacyPage />],
   ['Guides index', <GuidesIndexPage />],
+  ['Blog index', <BlogIndexPage />],
   ...Object.values(LOAN_TYPES).map(
     (config) => [config.label, <GenericLoanPage config={config} />] as [string, React.ReactNode],
   ),
@@ -87,20 +91,41 @@ describe('every page renders', () => {
   })
 })
 
+function renderAtParam(routePath: string, entry: string, element: React.ReactNode) {
+  return render(
+    <SettingsProvider>
+      <MemoryRouter initialEntries={[entry]}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path={routePath} element={element} />
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    </SettingsProvider>,
+  )
+}
+
 describe('guide pages', () => {
   it.each(GUIDES.map((g) => [g.slug] as const))('%s mounts without crashing', (slug) => {
-    const { container } = render(
-      <SettingsProvider>
-        <MemoryRouter initialEntries={[`/guides/${slug}`]}>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/guides/:slug" element={<GuidePage />} />
-            </Route>
-          </Routes>
-        </MemoryRouter>
-      </SettingsProvider>,
-    )
+    const { container } = renderAtParam('/guides/:slug', `/guides/${slug}`, <GuidePage />)
     expect(container.querySelector('h1, h2')).not.toBeNull()
+  })
+
+  it('redirects to /guides for an unknown slug', () => {
+    // No matching Route for the Navigate target here — this only asserts the redirect
+    // doesn't crash, not what renders after it (that's covered by the Guides index test).
+    expect(() => renderAtParam('/guides/:slug', '/guides/does-not-exist', <GuidePage />)).not.toThrow()
+  })
+})
+
+describe('blog posts', () => {
+  it.each(BLOG_POSTS.map((p) => [p.slug] as const))('%s mounts without crashing', (slug) => {
+    const { container } = renderAtParam('/blog/:slug', `/blog/${slug}`, <BlogPage />)
+    expect(container.querySelector('h1, h2')).not.toBeNull()
+  })
+
+  it('redirects to /blog for an unknown slug', () => {
+    expect(() => renderAtParam('/blog/:slug', '/blog/does-not-exist', <BlogPage />)).not.toThrow()
   })
 })
 

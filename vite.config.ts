@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitest/config'
 import { ALL_NAV } from './src/config/navigation.ts'
 import { GUIDES } from './src/config/guides.ts'
+import { BLOG_POSTS } from './src/config/blog.ts'
 
 const SITE = 'https://loan-calculator-ashen-six.vercel.app'
 
@@ -24,6 +25,7 @@ function sitemap() {
         '/privacy',
         ...ALL_NAV.filter((item) => !item.noIndex).map((item) => item.to),
         ...GUIDES.map((g) => `/guides/${g.slug}`),
+        ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
       ]
       const body = urls
         .map(
@@ -54,6 +56,7 @@ function llmsTxt() {
     .map((item) => `- [${item.label}](${SITE}${item.to}): ${item.desc}`)
     .join('\n')
   const guides = GUIDES.map((g) => `- [${g.title}](${SITE}/guides/${g.slug}): ${g.description}`).join('\n')
+  const posts = BLOG_POSTS.map((p) => `- [${p.title}](${SITE}/blog/${p.slug}): ${p.description}`).join('\n')
 
   return `# LoanWise
 
@@ -65,8 +68,10 @@ ${calculators}
 ## Guides
 ${guides}
 
+## Blog
+${posts}
+
 ## Other
-- [Compare loans, saved scenarios, quiz, glossary](${SITE}/compare)
 - [Privacy policy](${SITE}/privacy)
 `
 }

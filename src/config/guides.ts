@@ -147,4 +147,78 @@ export const GUIDES: Guide[] = [
       { to: '/student-loan', label: 'Student Loan Calculator' },
     ],
   },
+  {
+    slug: 'car-loan-guide',
+    title: 'Car Loan Guide: Financing, Leasing, and the True Cost of Owning',
+    description:
+      'How a car loan compares to leasing, and why depreciation — not the loan interest — is usually the biggest cost of owning a car.',
+    intro:
+      'A car loan payment is only part of what a car costs. Depreciation, insurance, fuel, and maintenance usually dwarf the interest, and leasing trades ownership for a different set of costs entirely.',
+    sections: [
+      {
+        heading: 'Depreciation is the real cost',
+        body: 'A new car typically loses 20-30% of its value in the first year alone. That loss happens whether you financed it, leased it, or paid cash — it just shows up differently on each option\'s bottom line.',
+      },
+      {
+        heading: 'Lease vs. buy',
+        body: 'Leasing pays for the car\'s depreciation over the lease term plus a finance charge, then hands it back. Buying pays off the whole car and keeps the (depreciated) asset — and the equity — at the end. Which wins depends on how long you\'d keep the car and how many miles you drive.',
+      },
+      {
+        heading: 'What a loan calculator won\'t show you',
+        body: 'A plain loan calculator only prices the financing. Insurance, fuel, maintenance, and depreciation all still apply on top, and together they\'re usually the larger share of what a car actually costs to own.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is it cheaper to lease or buy a car?',
+        a: 'Buying is usually cheaper over the long run since you keep the asset; leasing can cost less month-to-month and suits people who replace their car every few years.',
+      },
+      {
+        q: 'Why does a car loan\'s interest look small next to the total cost?',
+        a: 'Because depreciation, insurance, fuel, and maintenance are usually larger than the interest charged on the loan itself.',
+      },
+    ],
+    related: [
+      { to: '/loan/car', label: 'Car Loan Calculator' },
+      { to: '/lease-vs-buy', label: 'Lease vs Buy Calculator' },
+      { to: '/car-cost', label: 'True Cost of Ownership Calculator' },
+    ],
+  },
+  {
+    slug: 'affordability-savings-guide',
+    title: 'How Much Can I Borrow? Affordability and Saving for a Down Payment',
+    description:
+      'How lenders size up how much you can borrow, and how to plan a savings timeline for a down payment.',
+    intro:
+      'Affordability isn\'t just "what payment can I make" — it\'s what a lender will actually approve, based on income, existing debt, and how much you\'ve saved toward the purchase.',
+    sections: [
+      {
+        heading: 'Debt-to-income ratio',
+        body: 'Lenders cap how much of your gross monthly income can go toward debt payments, including the new loan. A lower DTI generally means qualifying for a larger loan, or a better rate on the same one.',
+      },
+      {
+        heading: 'The down payment tradeoff',
+        body: 'A larger down payment shrinks the loan itself and can clear mortgage-insurance thresholds, but the saving timeline to reach it is a real cost too — every extra month of saving is a month of rent or missed opportunity elsewhere.',
+      },
+      {
+        heading: 'Working backward from a deadline',
+        body: 'A savings goal calculator solves both directions: given a monthly amount, when do you hit the target — or given a deadline, how much do you need to save each month to get there.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What DTI ratio do lenders look for?',
+        a: 'Many lenders look for a total DTI (all debts including the new loan) under roughly 36-43%, though this varies by lender and loan type.',
+      },
+      {
+        q: 'Should I wait to save a bigger down payment or buy sooner?',
+        a: 'It depends on how fast prices and rates are moving versus how fast you can save — running both the affordability and savings-goal numbers side by side is the only way to compare them concretely.',
+      },
+    ],
+    related: [
+      { to: '/affordability', label: 'Affordability Calculator' },
+      { to: '/savings-goal', label: 'Savings Goal Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+    ],
+  },
 ]
