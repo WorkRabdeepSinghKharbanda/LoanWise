@@ -1,23 +1,16 @@
-import { useEffect, useSyncExternalStore } from 'react'
+import { useSyncExternalStore } from 'react'
 import { Link } from 'react-router-dom'
 import { ADS } from '../config/ads'
-import { isAdsConfigured, loadAdsenseScript } from '../config/adsense'
 import { getConsent, setConsent, subscribeConsent } from '../utils/consent'
 
 /**
- * Shown once until the visitor accepts or declines. The AdSense script is
- * never loaded before Accept — loading it pre-consent would itself be the
- * GDPR violation, not just showing ads without asking. Reads the same
- * external store as AdSlot (useSyncExternalStore, not local state) so both
- * stay in lockstep — this banner isn't the only place consent can change.
+ * Shown once until the visitor accepts or declines. Disclosure only — the
+ * AdSense loader (a static tag in index.html) and AdSlot's rendering both run
+ * unconditionally, so this choice doesn't gate anything; it's recorded via
+ * consent.ts purely so the banner doesn't reappear every visit.
  */
 export function CookieConsentBanner() {
   const choice = useSyncExternalStore(subscribeConsent, getConsent)
-
-  useEffect(() => {
-    // A returning visitor who already accepted shouldn't have to click again for the script to load.
-    if (choice === 'accepted' && ADS.enabled && isAdsConfigured()) loadAdsenseScript()
-  }, [choice])
 
   if (choice !== null || !ADS.enabled) return null
 
@@ -25,7 +18,7 @@ export function CookieConsentBanner() {
     <div className="no-print fixed inset-x-0 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex justify-center px-4">
       <div className="flex max-w-lg flex-wrap items-center gap-3 rounded-xl bg-slate-900 px-5 py-3 text-sm text-white shadow-lg dark:bg-slate-100 dark:text-slate-900">
         <span>
-          This site may show ads using cookies for personalization.{' '}
+          This site shows ads using cookies for personalization.{' '}
           <Link to="/privacy" className="underline">
             Privacy policy
           </Link>

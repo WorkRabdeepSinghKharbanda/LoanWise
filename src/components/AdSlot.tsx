@@ -1,7 +1,6 @@
-import { useEffect, useSyncExternalStore } from 'react'
+import { useEffect } from 'react'
 import { ADS } from '../config/ads'
 import { ADSENSE_PUBLISHER_ID, isAdsConfigured } from '../config/adsense'
-import { getConsent, subscribeConsent } from '../utils/consent'
 
 type SlotName = keyof typeof ADS.slots
 
@@ -16,19 +15,16 @@ declare global {
  * on in src/config/ads.ts, and reserves its height either way so turning ads
  * on doesn't shift the page (no layout shift, no CLS penalty).
  *
- * Once a slot has a real `adSlotId` (src/config/ads.ts), AdSense is
- * configured (src/config/adsense.ts), and the visitor has accepted the
- * cookie-consent banner, this renders a real AdSense unit and pushes it to
- * `adsbygoogle`. Until all three are true it falls back to the placeholder
- * box, so the page still looks right before launch or before consent.
+ * Once a slot has a real `adSlotId` (src/config/ads.ts) and AdSense is
+ * configured (src/config/adsense.ts), this renders a real AdSense unit and
+ * pushes it to `adsbygoogle` — unconditionally, not gated on cookie consent
+ * (the loader script itself is a static tag in index.html for the same
+ * reason). Until both are true it falls back to the placeholder box, so the
+ * page still looks right before launch.
  */
 export function AdSlot({ name, className = '' }: { name: SlotName; className?: string }) {
   const slot = ADS.slots[name]
-  // useSyncExternalStore (not a plain getConsent() call) so every mounted AdSlot re-renders the
-  // instant consent changes — a plain read would go stale for slots that are siblings of the
-  // banner rather than descendants, since nothing would otherwise trigger their re-render.
-  const consent = useSyncExternalStore(subscribeConsent, getConsent)
-  const live = ADS.enabled && isAdsConfigured() && slot.adSlotId !== '' && consent === 'accepted'
+  const live = ADS.enabled && isAdsConfigured() && slot.adSlotId !== ''
 
   useEffect(() => {
     if (!live) return

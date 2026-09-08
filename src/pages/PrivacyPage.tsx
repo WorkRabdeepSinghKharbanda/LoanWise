@@ -35,8 +35,7 @@ export function PrivacyPage() {
             <h2 className="font-semibold text-slate-900 dark:text-white">Advertising</h2>
             <p className="mt-1">
               If ads are enabled on this site, they're served through Google AdSense, which may use cookies to show
-              ads based on your visits here and to other sites. AdSense only loads after you accept the cookie
-              banner — declining means no ad cookies are set. You can opt out of personalized advertising, or see
+              ads based on your visits here and to other sites. You can opt out of personalized advertising, or see
               which companies are involved, at{' '}
               <a
                 href="https://adssettings.google.com"
