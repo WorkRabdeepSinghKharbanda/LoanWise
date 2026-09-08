@@ -2,7 +2,9 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AdSlot } from '../components/AdSlot'
+import { RelatedPosts } from '../components/RelatedPosts'
 import { GUIDES } from '../config/guides'
+import { relatedContent } from '../utils/relatedContent'
 
 const SITE_URL = 'https://loan-calculator-ashen-six.vercel.app'
 
@@ -84,6 +86,8 @@ export function GuidePage() {
             ))}
           </ul>
         </div>
+
+        <RelatedPosts items={relatedContent(guide)} />
       </div>
     </PageContainer>
   )
