@@ -68,7 +68,7 @@ export function BlogPage() {
           </ul>
         </div>
 
-        <RelatedPosts items={relatedContent(post)} />
+        <RelatedPosts items={relatedContent(post, 'Blog')} />
       </div>
     </PageContainer>
   )

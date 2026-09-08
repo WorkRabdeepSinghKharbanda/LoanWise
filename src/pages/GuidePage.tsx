@@ -87,7 +87,7 @@ export function GuidePage() {
           </ul>
         </div>
 
-        <RelatedPosts items={relatedContent(guide)} />
+        <RelatedPosts items={relatedContent(guide, 'Guide')} />
       </div>
     </PageContainer>
   )

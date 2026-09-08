@@ -19,13 +19,28 @@ function toEntry(item: Guide | BlogPost, kind: 'Guide' | 'Blog'): RelatedEntry {
  * denser internal-link graph for crawlers. Scored by how many calculator
  * links the two pieces share (a real topical signal, not just recency), with
  * a stable fallback so the same page always suggests the same set.
+ *
+ * `currentKind` (not just `current.slug`) excludes self, because guides and
+ * posts are two separate arrays — if a guide and a post ever shared a slug,
+ * filtering by slug alone would incorrectly drop both instead of just the
+ * current one.
+ *
+ * `guides`/`posts` default to the real content arrays; the test suite passes
+ * small fixtures instead, so it exercises this exact function rather than a
+ * reimplementation of its logic.
  */
-export function relatedContent(current: Guide | BlogPost, limit = 3): RelatedEntry[] {
+export function relatedContent(
+  current: Guide | BlogPost,
+  currentKind: 'Guide' | 'Blog',
+  limit = 3,
+  guides: Guide[] = GUIDES,
+  posts: BlogPost[] = BLOG_POSTS,
+): RelatedEntry[] {
   const currentLinks = new Set(current.related.map((r) => r.to))
   const pool = [
-    ...GUIDES.map((item) => ({ item, kind: 'Guide' as const })),
-    ...BLOG_POSTS.map((item) => ({ item, kind: 'Blog' as const })),
-  ].filter(({ item }) => item.slug !== current.slug)
+    ...guides.map((item) => ({ item, kind: 'Guide' as const })),
+    ...posts.map((item) => ({ item, kind: 'Blog' as const })),
+  ].filter(({ item, kind }) => !(item.slug === current.slug && kind === currentKind))
 
   const scored = pool.map(({ item, kind }) => ({
     item,
