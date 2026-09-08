@@ -14,5 +14,7 @@ export const ADS = {
     resultsBottom: { id: 'results-bottom', height: 250, adSlotId: '' },
     /** Full-width strip above the footer. */
     footer: { id: 'footer', height: 90, adSlotId: '' },
+    /** Between the article body and the FAQ/related-links block on a guide or blog page. */
+    articleMid: { id: 'article-mid', height: 250, adSlotId: '' },
   },
 } as const

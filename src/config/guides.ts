@@ -576,4 +576,364 @@ export const GUIDES: Guide[] = [
       { to: '/debt-payoff', label: 'Debt Payoff Planner' },
     ],
   },
+  {
+    slug: 'bnpl-guide',
+    title: 'Buy Now, Pay Later Guide: Free Credit, Until It Isn\'t',
+    description: 'How BNPL plans avoid charging interest, and where the real cost hides once a payment slips.',
+    intro:
+      'Buy Now, Pay Later can be genuinely interest-free — the merchant, not the shopper, usually covers the cost of offering it. The catch only shows up when a payment is missed.',
+    sections: [
+      {
+        heading: 'Why it can be free at all',
+        body: 'BNPL providers typically earn their margin from merchant fees, not shopper interest — as long as every installment lands on schedule, the plan can cost exactly nothing extra.',
+      },
+      {
+        heading: 'Where the cost hides',
+        body: 'Miss a payment and a flat late fee usually applies — on a short repayment schedule, that fee expressed as an annualized rate can be far higher than even a high-APR credit card.',
+      },
+      {
+        heading: 'Comparing it honestly to a loan',
+        body: 'The fair comparison folds in the *probability* of a late fee as an expected cost, rather than assuming every payment lands on time — that\'s the only way to see whether BNPL or a small personal loan is actually cheaper for a given purchase.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does BNPL affect my credit score?',
+        a: 'It depends on the provider — some report to credit bureaus and some don\'t, and policies have been changing across the industry, so check the specific plan\'s terms.',
+      },
+      {
+        q: 'Is BNPL better than a credit card for a big purchase?',
+        a: 'If every installment will be paid on time, BNPL is often cheaper since it\'s frequently interest-free — but the moment a payment risks slipping, the math can flip sharply.',
+      },
+    ],
+    related: [
+      { to: '/bnpl', label: 'BNPL vs Loan Calculator' },
+      { to: '/credit-card', label: 'Credit Card Payoff Calculator' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'loan-comparison-guide',
+    title: 'How to Compare Loan Offers Side by Side (Without Getting Fooled by the Headline Rate)',
+    description: 'What actually differs between two loan offers beyond the interest rate — and how to line them up fairly.',
+    intro:
+      'Two loan offers with the same headline rate can cost very differently once term, fees, and prepayment terms are accounted for. Comparing them fairly means lining up all of it, not just the rate.',
+    sections: [
+      {
+        heading: 'Rate alone isn\'t the comparison',
+        body: 'APR (rate plus fees, annualized) is the fairer number than the bare interest rate — two offers with the same rate but different fees can have meaningfully different APRs.',
+      },
+      {
+        heading: 'Term changes the total cost, not just the payment',
+        body: 'A longer term lowers the monthly payment but usually raises total interest paid — comparing two offers only on monthly payment, without checking the term behind it, misses this entirely.',
+      },
+      {
+        heading: 'Prepayment terms matter more than they look',
+        body: 'A loan that penalizes early payoff can cost more in practice than a slightly higher-rate loan with no such penalty, if there\'s any real chance of paying it off ahead of schedule.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What\'s the single most useful number to compare across offers?',
+        a: 'APR, since it folds fees into an annualized rate — but pair it with total interest paid over the actual term you\'d keep the loan, not just the rate.',
+      },
+      {
+        q: 'How many loan scenarios should I compare at once?',
+        a: 'Two to four is usually enough to see the real tradeoffs clearly — more than that tends to obscure the comparison rather than sharpen it.',
+      },
+    ],
+    related: [
+      { to: '/compare', label: 'Compare Loans' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/refinance', label: 'Refinance Calculator' },
+    ],
+  },
+  {
+    slug: 'amortization-schedule-guide',
+    title: 'How to Read an Amortization Schedule (And What It\'s Actually Telling You)',
+    description: 'Every row of an amortization schedule breaks a payment into interest and principal — here\'s what to look for.',
+    intro:
+      'An amortization schedule lists every payment over a loan\'s life, split into how much covers interest and how much reduces the balance. Reading it well tells you far more than the monthly payment alone.',
+    sections: [
+      {
+        heading: 'The split shifts every month',
+        body: 'Because interest is charged on the outstanding balance, early rows are interest-heavy and later rows are principal-heavy — the fixed payment doesn\'t change, but what it buys does.',
+      },
+      {
+        heading: 'What to look for around a prepayment',
+        body: 'A schedule that reflects a prepayment shows the balance dropping faster than the base schedule and the remaining term shortening — comparing the two schedules side by side is the clearest way to see a prepayment\'s actual effect.',
+      },
+      {
+        heading: 'The payoff date is the schedule\'s real headline',
+        body: 'Two loans with the same monthly payment can have very different total costs if their schedules run different lengths — the schedule\'s final row (and the interest total above it) is the number that matters most.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Why is so little of my early payment going to principal?',
+        a: 'Interest is charged on the full outstanding balance, which is highest at the start — as the balance falls, a growing share of each fixed payment goes to principal instead.',
+      },
+      {
+        q: 'Can I see the effect of a single extra payment on my schedule?',
+        a: 'Yes — model it directly: adding a prepayment field recomputes the whole schedule with that extra amount applied, so you can see the new payoff date and interest total immediately.',
+      },
+    ],
+    related: [
+      { to: '/emi', label: 'EMI Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/emi-calculator-guide', label: 'EMI Calculator Guide' },
+    ],
+  },
+  {
+    slug: 'fixed-vs-variable-rate-guide',
+    title: 'Fixed vs. Variable Rate: What You\'re Actually Trading Away',
+    description: 'A fixed rate trades a potentially lower average cost for certainty — here\'s how to decide which one you need more.',
+    intro:
+      'A fixed rate locks in the same payment for the whole term. A variable (or adjustable) rate can start lower but moves with the market — the choice is really about how much certainty is worth to you.',
+    sections: [
+      {
+        heading: 'What "fixed" actually guarantees',
+        body: 'A fixed rate guarantees the payment amount, not the cheapest possible cost — over the life of the loan, a variable rate can turn out cheaper or more expensive depending on where rates move.',
+      },
+      {
+        heading: 'Why variable rates start lower',
+        body: 'Lenders typically price in a discount for taking on the initial period of a variable-rate loan, since the borrower is accepting the rate-reset risk the lender would otherwise have to price in as certainty.',
+      },
+      {
+        heading: 'How to decide',
+        body: 'Stress-testing a variable-rate loan at its worst-case allowed rate, and comparing that scenario against a fixed rate\'s certain payment, is the concrete way to see whether the initial savings are worth the risk for your situation.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is a variable rate ever the safer choice?',
+        a: 'It can be if you\'re confident you\'ll pay off or refinance before a reset, or if your budget has enough headroom to absorb a worst-case increase comfortably.',
+      },
+      {
+        q: 'Do variable rates always end up more expensive?',
+        a: 'Not always — it depends entirely on how rates move over the loan\'s life, which isn\'t knowable in advance. That uncertainty is the whole tradeoff.',
+      },
+    ],
+    related: [
+      { to: '/arm', label: 'ARM Stress Test Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/arm-guide', label: 'ARM Guide' },
+    ],
+  },
+  {
+    slug: 'debt-consolidation-guide',
+    title: 'Debt Consolidation Guide: When Combining Debts Actually Helps',
+    description: 'Consolidating several debts into one loan can lower the blended rate and simplify payments — but only if the new terms are actually better.',
+    intro:
+      'Debt consolidation replaces several balances with a single new loan. It can genuinely lower cost and complexity, or it can just repackage the same debt at a longer term — the difference is in the details.',
+    sections: [
+      {
+        heading: 'What consolidation actually changes',
+        body: 'A consolidation loan pays off existing balances and replaces them with one new balance, ideally at a lower blended rate than the average of what it replaced — it doesn\'t reduce the debt itself, only its structure.',
+      },
+      {
+        heading: 'The term-extension trap',
+        body: 'A consolidation loan with a lower payment but a much longer term can end up costing more in total interest than the original debts would have, even at a nominally lower rate — always check the total cost, not just the new payment.',
+      },
+      {
+        heading: 'Comparing against snowball or avalanche first',
+        body: 'Before consolidating, running the numbers on an avalanche or snowball payoff plan against the current debts as-is gives a baseline to judge whether the consolidation offer is actually an improvement.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does debt consolidation hurt my credit score?',
+        a: 'There\'s often a small, temporary dip from the new credit inquiry and account, but consolidation can help longer-term if it lowers your credit utilization and keeps payments on time.',
+      },
+      {
+        q: 'Is consolidation the same as a balance transfer?',
+        a: 'They\'re related but not identical — a balance transfer moves credit card debt to a new card (often with a promotional rate), while consolidation typically uses a personal loan to pay off multiple debts of any type.',
+      },
+    ],
+    related: [
+      { to: '/debt-payoff', label: 'Debt Payoff Planner' },
+      { to: '/credit-card', label: 'Credit Card Payoff Calculator' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'prepayment-guide',
+    title: 'Should You Pay Off Your Loan Early? The Prepayment Math',
+    description: 'Lump sums, extra monthly payments, and the biweekly trick all shorten a loan — here\'s how each one compares.',
+    intro:
+      'Prepaying a loan always reduces the principal faster than scheduled, which saves interest — the question is which prepayment method fits your cash flow, and whether the loan even allows it without a penalty.',
+    sections: [
+      {
+        heading: 'Extra monthly vs. lump sum vs. biweekly',
+        body: 'A steady extra amount each month compounds savings the earliest; a lump sum (like a bonus) makes one large dent whenever it arrives; the biweekly trick effectively sneaks in one extra full payment a year by splitting payments in half every two weeks instead of monthly.',
+      },
+      {
+        heading: 'Check for a prepayment penalty first',
+        body: 'Some loans charge a fee for paying off early, specifically to recover interest the lender expected to earn — that fee needs to be weighed against the prepayment\'s interest savings before committing.',
+      },
+      {
+        heading: 'Prepay vs. invest',
+        body: 'If the loan\'s rate is lower than a realistic expected investment return, investing the spare cash instead can come out ahead mathematically — though prepaying carries zero risk, which has its own value.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does the biweekly payment trick actually work?',
+        a: 'Yes — paying half the monthly payment every two weeks results in 26 half-payments a year, equivalent to 13 full monthly payments instead of 12, which shortens the loan without feeling like a big extra expense.',
+      },
+      {
+        q: 'Should I prepay my mortgage or invest the extra money?',
+        a: 'Compare the mortgage\'s rate against a realistic expected return on the investment — if the investment return is meaningfully higher, investing can come out ahead, though prepaying is the risk-free option.',
+      },
+    ],
+    related: [
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/emi', label: 'EMI Calculator' },
+      { to: '/guides/emi-calculator-guide', label: 'EMI Calculator Guide' },
+    ],
+  },
+  {
+    slug: 'credit-score-and-loan-rate-guide',
+    title: 'How Your Credit Score Actually Moves Your Loan Rate',
+    description: 'The same loan, same lender, can carry a very different rate depending on the credit score behind the application.',
+    intro:
+      'Lenders price a loan\'s rate around the risk of default — and credit score is one of the biggest single inputs into that risk estimate, often moving the rate by a percentage point or more between score bands.',
+    sections: [
+      {
+        heading: 'Why score bands matter more than the exact number',
+        body: 'Lenders often price in bands (e.g. "good," "very good," "excellent") rather than a smooth curve — crossing a band threshold can move the offered rate meaningfully even for a small score change.',
+      },
+      {
+        heading: 'What moves the needle fastest',
+        body: 'Payment history and credit utilization typically carry the most weight — paying down revolving balances and keeping payments on time tend to move a score faster than other factors.',
+      },
+      {
+        heading: 'Why it\'s worth checking before applying',
+        body: 'A rate difference of even half a percentage point compounds meaningfully over a loan\'s full term — checking your score and shopping multiple lenders before applying is usually worth more than negotiating after the fact.',
+      },
+    ],
+    faq: [
+      {
+        q: 'How much can my rate improve by raising my credit score?',
+        a: 'It varies by lender and loan type, but moving up a full score band can often shift the rate by a percentage point or more — run both rates through the calculator to see the real payment difference.',
+      },
+      {
+        q: 'Does shopping around for a loan hurt my credit score?',
+        a: 'Multiple loan inquiries within a short window (often 14-45 days depending on the scoring model) are typically counted as a single inquiry for rate-shopping purposes — check the specific model\'s rules.',
+      },
+    ],
+    related: [
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/credit-card', label: 'Credit Card Payoff Calculator' },
+    ],
+  },
+  {
+    slug: 'loan-tenure-guide',
+    title: 'Short Term vs. Long Term: Choosing a Loan\'s Tenure',
+    description: 'A longer tenure lowers the payment but raises total interest — the right length depends on what you\'re optimizing for.',
+    intro:
+      'Tenure — how long a loan runs — is one of the few variables a borrower controls directly. Stretching it lowers the monthly payment; shortening it lowers the total cost. Rarely both.',
+    sections: [
+      {
+        heading: 'The direct tradeoff',
+        body: 'For the same principal and rate, a longer tenure spreads payments thinner but keeps the balance outstanding — and accruing interest — for longer, which is why total interest paid rises with tenure even though the rate hasn\'t changed.',
+      },
+      {
+        heading: 'When a shorter tenure isn\'t actually affordable',
+        body: 'A shorter tenure\'s higher payment only helps if it\'s sustainably affordable — a payment that strains the budget defeats the purpose of saving interest by risking missed payments or no financial cushion.',
+      },
+      {
+        heading: 'A middle path: shorten it later',
+        body: 'Choosing a longer tenure for payment safety, then prepaying opportunistically when cash flow allows, captures some of both benefits — flexibility now, interest savings when affordable.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is a shorter loan tenure always the better financial choice?',
+        a: 'It\'s cheaper in total interest, but only if the higher payment is comfortably affordable — an unaffordable short tenure creates more risk than it saves in interest.',
+      },
+      {
+        q: 'Can I shorten my loan\'s tenure after taking it?',
+        a: 'Prepaying reduces the balance faster than scheduled, which can shorten the effective payoff date even on a loan taken with a longer original tenure — check whether your lender applies extra payments to shorten the term or lower future payments.',
+      },
+    ],
+    related: [
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/prepayment-guide', label: 'Prepayment Guide' },
+    ],
+  },
+  {
+    slug: 'co-borrower-affordability-guide',
+    title: 'Applying With a Co-Borrower: How It Changes What You Can Afford',
+    description: 'Combining incomes on an application can raise how much a lender will approve — but it combines the debt obligation too.',
+    intro:
+      'Adding a co-borrower combines both incomes for affordability purposes, which can raise the approved loan size — but it also means both parties are on the hook for the full debt, not half each.',
+    sections: [
+      {
+        heading: 'Combined income, combined DTI',
+        body: 'A co-borrower\'s income is added to the applicant\'s for affordability purposes, but so is their existing debt — the combined debt-to-income ratio, not just the combined income, is what actually determines the approved amount.',
+      },
+      {
+        heading: 'Joint liability is the real commitment',
+        body: 'Both co-borrowers are typically fully liable for the entire loan, not half each — if one stops paying, the other is on the hook for the full remaining balance, not a proportional share.',
+      },
+      {
+        heading: 'Running the numbers both ways',
+        body: 'Comparing an affordability estimate with and without the co-borrower\'s income and debt shows exactly how much the combined application changes the approved amount — worth checking before assuming it helps as much as expected.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does a co-borrower need to have good credit too?',
+        a: 'Most lenders consider both applicants\' credit profiles, and a weaker co-borrower score can sometimes offset the benefit of their added income — check how the specific lender weighs both.',
+      },
+      {
+        q: 'Is a co-borrower the same as a co-signer?',
+        a: 'No — a co-borrower typically has ownership rights to whatever the loan finances and is fully liable for the debt; a co-signer is usually liable for the debt without any ownership stake.',
+      },
+    ],
+    related: [
+      { to: '/affordability', label: 'Affordability Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/affordability-savings-guide', label: 'Affordability & Savings Guide' },
+    ],
+  },
+  {
+    slug: 'first-time-borrower-guide',
+    title: 'First Loan Ever? A Beginner\'s Guide to Reading the Terms',
+    description: 'APR, term, principal, amortization — a plain-English walkthrough of the terms that show up on every loan offer.',
+    intro:
+      'Every loan offer uses the same handful of terms, whether it\'s a car loan, a mortgage, or a personal loan. Understanding them once means never being confused by an offer again.',
+    sections: [
+      {
+        heading: 'The core four: principal, rate, term, payment',
+        body: 'Principal is what\'s borrowed; the rate is the annual cost of borrowing it; the term is how long you have to repay; the payment is what falls out of combining all three through the amortization formula.',
+      },
+      {
+        heading: 'APR vs. interest rate',
+        body: 'The interest rate prices the borrowing alone; APR folds in fees too, annualized — always compare APRs between offers, not bare rates, since fee structures differ between lenders.',
+      },
+      {
+        heading: 'What to actually check before signing',
+        body: 'The monthly payment, the total interest over the full term, whether there\'s a prepayment penalty, and — for anything with a variable rate — what the worst-case payment looks like after a reset.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What\'s the single most important number on a loan offer?',
+        a: 'APR, since it\'s the only figure that folds fees and rate into one comparable number — but always check the total interest over the full term as well.',
+      },
+      {
+        q: 'Where can I look up terms I don\'t recognize?',
+        a: 'A glossary of loan terms — APR, amortization, PMI, DTI and the rest — in plain English is the fastest way to decode an unfamiliar offer.',
+      },
+    ],
+    related: [
+      { to: '/glossary', label: 'Glossary' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/quiz', label: 'Find My Calculator' },
+    ],
+  },
 ]

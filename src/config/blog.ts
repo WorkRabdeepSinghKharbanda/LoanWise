@@ -327,4 +327,264 @@ export const BLOG_POSTS: BlogPost[] = [
       { to: '/guides/emi-holiday-guide', label: 'EMI Holiday Guide' },
     ],
   },
+  {
+    slug: 'amortization-front-loaded-interest',
+    title: 'Why Your First Loan Payment Is Mostly Interest',
+    description: 'The first payment on a 30-year loan can be over 90% interest — here\'s the mechanism, not just the fact.',
+    date: '2026-05-24',
+    intro:
+      'Look at month one of almost any long-term amortizing loan and the interest portion dwarfs the principal portion. That\'s not a fee or a trick — it\'s a direct consequence of how interest is calculated.',
+    sections: [
+      {
+        heading: 'Interest is priced on the balance, not the payment',
+        body: 'Each month\'s interest charge is the outstanding balance times the monthly rate. In month one, the balance is the full loan amount — the largest it will ever be — so the interest charge is at its peak too.',
+      },
+      {
+        heading: 'The crossover point',
+        body: 'As the balance falls, the interest charge falls with it, and a growing share of the fixed payment goes to principal — there\'s a specific month where the split crosses 50/50, and it comes far earlier than most borrowers expect on a long-term loan.',
+      },
+      {
+        heading: 'Why this matters for prepayment timing',
+        body: 'Because a fixed dollar of prepayment removes that much balance from every remaining month\'s interest calculation, prepaying early — while the balance and remaining months are both still high — captures far more of the available savings than the same prepayment made later.',
+      },
+    ],
+    related: [
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/amortization-schedule-guide', label: 'Amortization Schedule Guide' },
+    ],
+  },
+  {
+    slug: 'fixed-vs-variable-which-to-pick',
+    title: 'Fixed or Variable? A Concrete Way to Decide, Not Just a Gut Call',
+    description: 'Stress-testing the worst-case variable payment against a fixed rate\'s certainty turns a gut call into a number.',
+    date: '2026-05-31',
+    intro:
+      '"Fixed feels safer" and "variable starts cheaper" are both true and both useless on their own. The useful version of the question compares a specific worst case against a specific certain payment.',
+    sections: [
+      {
+        heading: 'Price the worst case, not the best case',
+        body: 'A variable rate\'s appeal is its lower starting payment — but the honest comparison is against its capped worst-case payment after a reset, not the introductory rate that won\'t last.',
+      },
+      {
+        heading: 'Check your budget\'s actual headroom',
+        body: 'If the worst-case variable payment still fits comfortably within budget, the initial savings are close to free optionality. If it would strain the budget, the fixed rate\'s certainty is doing real work, not just psychological comfort.',
+      },
+      {
+        heading: 'Factor in how long you\'ll actually hold the loan',
+        body: 'A variable rate\'s risk only matters if you\'re still holding the loan when a reset happens — if you\'re confident you\'ll sell or refinance well before that, the comparison shifts meaningfully in the variable rate\'s favor.',
+      },
+    ],
+    related: [
+      { to: '/arm', label: 'ARM Stress Test Calculator' },
+      { to: '/guides/fixed-vs-variable-rate-guide', label: 'Fixed vs Variable Rate Guide' },
+    ],
+  },
+  {
+    slug: 'debt-consolidation-when-it-backfires',
+    title: 'When Debt Consolidation Backfires (And How to Spot It Before Signing)',
+    description: 'A lower monthly payment on a consolidation loan can hide a longer term that costs more overall — here\'s the check that catches it.',
+    date: '2026-06-07',
+    intro:
+      'Consolidation offers are pitched on the lower monthly payment. The number that actually decides whether it\'s a good deal is the total interest over the full new term — and that\'s the number the pitch usually leaves out.',
+    sections: [
+      {
+        heading: 'The pitch vs. the math',
+        body: 'A consolidation loan can lower the monthly payment simply by extending the term, even at a similar or lower rate — which can raise, not lower, the total interest paid over the loan\'s life.',
+      },
+      {
+        heading: 'The one number to ask for',
+        body: 'Before accepting, calculate the total interest on the consolidation offer over its full term and compare it against the total interest remaining on the current debts as-is — not just the payment difference.',
+      },
+      {
+        heading: 'A baseline worth having first',
+        body: 'Running an avalanche or snowball payoff plan on the current debts before evaluating any consolidation offer gives a concrete baseline — without it, "lower payment" can look like an improvement when it isn\'t.',
+      },
+    ],
+    related: [
+      { to: '/debt-payoff', label: 'Debt Payoff Planner' },
+      { to: '/guides/debt-consolidation-guide', label: 'Debt Consolidation Guide' },
+    ],
+  },
+  {
+    slug: 'biweekly-payment-trick-explained',
+    title: 'The Biweekly Payment Trick: One Extra Payment a Year, Almost by Accident',
+    description: 'Splitting a monthly payment in half and paying every two weeks quietly adds a 13th payment each year.',
+    date: '2026-06-14',
+    intro:
+      'Paying half your monthly payment every two weeks instead of the full amount once a month doesn\'t sound like it should change much — but the calendar math means it adds an extra full payment every year.',
+    sections: [
+      {
+        heading: 'Where the extra payment comes from',
+        body: 'A year has 52 weeks, so paying every two weeks means 26 payments a year — at half the monthly amount each, that\'s the equivalent of 13 full monthly payments instead of the usual 12.',
+      },
+      {
+        heading: 'Why it feels painless',
+        body: 'Because each individual payment is only half the usual monthly amount, the extra payment arrives gradually rather than as one noticeable lump sum — many borrowers barely notice the change in cash flow.',
+      },
+      {
+        heading: 'What it actually saves',
+        body: 'One extra payment a year, applied as prepayment throughout the loan\'s life, can shorten a 30-year term by several years and cut a meaningful share of total interest — model your specific numbers to see the exact effect.',
+      },
+    ],
+    related: [
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/guides/prepayment-guide', label: 'Prepayment Guide' },
+    ],
+  },
+  {
+    slug: 'credit-score-points-that-move-your-rate',
+    title: 'Which Credit Score Habits Actually Move Your Loan Rate the Most',
+    description: 'Not every credit habit affects your score equally — here\'s what tends to move the needle fastest before applying for a loan.',
+    date: '2026-06-21',
+    intro:
+      'Credit scoring models weigh their inputs unevenly. Knowing which habits move the needle fastest helps prioritize the weeks before a loan application, not just build generically "good" credit over years.',
+    sections: [
+      {
+        heading: 'Payment history and utilization dominate',
+        body: 'On-time payments and how much of your available revolving credit you\'re using typically carry the most weight — paying down balances before applying can move a score faster than most other actions.',
+      },
+      {
+        heading: 'New credit and inquiries matter less than feared',
+        body: 'A single hard inquiry usually has a small, temporary effect — and rate-shopping for the same loan type within a short window is often treated as one inquiry by scoring models, not many.',
+      },
+      {
+        heading: 'Timing it against your application',
+        body: 'Because utilization is based on a snapshot (often the statement date), paying down balances a cycle before applying — not just generally over time — can meaningfully improve the score a lender actually sees.',
+      },
+    ],
+    related: [
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/guides/credit-score-and-loan-rate-guide', label: 'Credit Score & Loan Rate Guide' },
+    ],
+  },
+  {
+    slug: 'short-vs-long-tenure-real-numbers',
+    title: 'Short vs. Long Loan Tenure: The Same Loan, Two Very Different Totals',
+    description: 'Same principal, same rate, different tenure — the total interest gap between a short and long term is often larger than expected.',
+    date: '2026-06-28',
+    intro:
+      'Stretching a loan\'s tenure feels like a small adjustment — a few more years, a smaller payment. The effect on total interest paid is usually bigger than that framing suggests.',
+    sections: [
+      {
+        heading: 'Why the gap compounds',
+        body: 'A longer tenure keeps more of the balance outstanding for more months, and interest is charged on whatever balance remains — the gap between a short and long tenure\'s total cost isn\'t linear, it compounds with every extra month at a materially outstanding balance.',
+      },
+      {
+        heading: 'The payment relief is real too',
+        body: 'The lower payment from a longer tenure isn\'t an illusion — it\'s genuine budget relief, and for a borrower who\'d otherwise be stretched thin, that relief has real value even at a higher total cost.',
+      },
+      {
+        heading: 'A way to get both',
+        body: 'Choosing the longer, safer tenure at signing and prepaying when cash flow allows captures the flexibility of the longer term without necessarily paying its full total-interest cost.',
+      },
+    ],
+    related: [
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/guides/loan-tenure-guide', label: 'Loan Tenure Guide' },
+    ],
+  },
+  {
+    slug: 'co-borrower-income-boosts-approval',
+    title: 'Adding a Co-Borrower Can Raise Your Approved Amount — Here\'s the Actual Math',
+    description: 'Combined income raises what a lender will approve, but combined debt lowers it back down — the net effect isn\'t always what it looks like.',
+    date: '2026-07-05',
+    intro:
+      'A co-borrower\'s income looks like a straightforward boost to how much you can borrow. The combined debt-to-income ratio that goes with it is the part that determines whether that boost is as large as it seems.',
+    sections: [
+      {
+        heading: 'Two numbers move together',
+        body: 'Adding a co-borrower adds their income to the affordability calculation, but it also adds their existing debt obligations — the net effect on debt-to-income ratio, not the income alone, is what actually moves the approved amount.',
+      },
+      {
+        heading: 'A co-borrower with debt can shrink, not grow, the approval',
+        body: 'If the co-borrower carries meaningful existing debt, their addition can lower the combined DTI improvement enough that the approved amount barely moves, or even falls — running the numbers both ways before assuming it helps is worth the five minutes.',
+      },
+      {
+        heading: 'The liability doesn\'t split evenly either',
+        body: 'Both co-borrowers are usually each fully liable for the whole debt, not a proportional share — that\'s a real commitment beyond the affordability math, worth weighing on its own.',
+      },
+    ],
+    related: [
+      { to: '/affordability', label: 'Affordability Calculator' },
+      { to: '/guides/co-borrower-affordability-guide', label: 'Co-Borrower Affordability Guide' },
+    ],
+  },
+  {
+    slug: 'reading-a-loan-offer-red-flags',
+    title: 'Reading a Loan Offer for the First Time? Watch for These',
+    description: 'A few specific things on a loan offer are worth double-checking before signing, especially on a first loan.',
+    date: '2026-07-12',
+    intro:
+      'A loan offer packs a lot into a small amount of space. A handful of specific checks catch most of the surprises a first-time borrower might otherwise miss.',
+    sections: [
+      {
+        heading: 'APR vs. the advertised rate',
+        body: 'If the APR is noticeably higher than the advertised interest rate, that gap is fees — origination charges, points, or closing costs — folded in. A large gap on a small loan is a particular red flag.',
+      },
+      {
+        heading: 'Prepayment penalties',
+        body: 'A fee for paying off the loan early can turn a seemingly better rate into a worse deal if there\'s any real chance of paying ahead of schedule — check for this explicitly, since it\'s not always prominent in the offer.',
+      },
+      {
+        heading: 'What happens at a rate reset, if there is one',
+        body: 'For anything with a variable or adjustable rate, find the cap structure and the worst-case payment after a reset before signing — not just the appealing introductory rate.',
+      },
+    ],
+    related: [
+      { to: '/glossary', label: 'Glossary' },
+      { to: '/guides/first-time-borrower-guide', label: 'First-Time Borrower Guide' },
+    ],
+  },
+  {
+    slug: 'bnpl-late-fee-math',
+    title: 'The BNPL Late Fee That Turns an Interest-Free Plan Expensive',
+    description: 'A single missed BNPL installment can carry an effective rate far higher than a high-APR credit card — here\'s why.',
+    date: '2026-07-19',
+    intro:
+      'Buy Now, Pay Later plans are often genuinely interest-free. A single missed installment\'s flat late fee, expressed as an annualized rate on a short repayment window, tells a very different story.',
+    sections: [
+      {
+        heading: 'A flat fee on a short window',
+        body: 'A fixed late fee applied to a plan that only runs a few weeks or months, when annualized, can equate to an effective rate many times higher than even a high-APR credit card — the short window is what makes the flat fee hit so hard.',
+      },
+      {
+        heading: 'Why this doesn\'t show up in the marketing',
+        body: 'BNPL is marketed on its interest-free case, which is genuinely true when every payment lands on time — the late-fee math only becomes visible once you specifically model the missed-payment scenario.',
+      },
+      {
+        heading: 'The honest comparison to a personal loan',
+        body: 'Folding the realistic probability of a missed payment into an expected cost, rather than assuming it away, is the only fair way to compare BNPL against a small personal loan for the same purchase.',
+      },
+    ],
+    related: [
+      { to: '/bnpl', label: 'BNPL vs Loan Calculator' },
+      { to: '/guides/bnpl-guide', label: 'BNPL Guide' },
+    ],
+  },
+  {
+    slug: 'compare-loans-side-by-side-checklist',
+    title: 'A Short Checklist for Comparing Loan Offers Side by Side',
+    description: 'Five things to line up before picking between two or more loan offers, beyond just the headline rate.',
+    date: '2026-07-26',
+    intro:
+      'A quick side-by-side of a few loan offers is more useful than picking whichever one advertises the lowest rate. A short checklist keeps the comparison fair.',
+    sections: [
+      {
+        heading: 'The checklist',
+        body: 'APR (not just the rate), total interest over the actual term you\'d keep the loan, monthly payment against your real budget, any prepayment penalty, and — for a variable rate — the worst-case payment after a reset.',
+      },
+      {
+        heading: 'Why total interest beats monthly payment as a tiebreaker',
+        body: 'Two offers with similar payments can have very different total costs if their terms differ — total interest over the full term is the number that actually decides which is cheaper.',
+      },
+      {
+        heading: 'Keep the comparison to a few scenarios',
+        body: 'Comparing more than three or four offers at once tends to blur the differences rather than clarify them — narrow to the strongest candidates first, then compare those side by side in detail.',
+      },
+    ],
+    related: [
+      { to: '/compare', label: 'Compare Loans' },
+      { to: '/guides/loan-comparison-guide', label: 'Loan Comparison Guide' },
+    ],
+  },
 ]

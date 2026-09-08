@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
+import { AdSlot } from '../components/AdSlot'
 import { BLOG_POSTS } from '../config/blog'
 
 const SITE_URL = 'https://loan-calculator-ashen-six.vercel.app'
@@ -46,6 +47,8 @@ export function BlogPage() {
             </section>
           ))}
         </div>
+
+        <AdSlot name="articleMid" />
 
         <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-6 dark:border-indigo-900/40 dark:bg-indigo-950/30">
           <h2 className="font-semibold text-slate-900 dark:text-white">Related calculators</h2>

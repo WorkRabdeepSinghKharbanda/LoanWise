@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
+import { AdSlot } from '../components/AdSlot'
 import { GUIDES } from '../config/guides'
 
 const SITE_URL = 'https://loan-calculator-ashen-six.vercel.app'
@@ -53,6 +54,8 @@ export function GuidePage() {
             </section>
           ))}
         </div>
+
+        <AdSlot name="articleMid" />
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <h2 className="font-semibold text-slate-900 dark:text-white">Frequently asked questions</h2>
