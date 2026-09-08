@@ -16,8 +16,9 @@ export function PrivacyPage() {
             <h2 className="font-semibold text-slate-900 dark:text-white">What this site processes</h2>
             <p className="mt-1">
               Every calculation runs entirely in your browser — loan amounts, rates, terms, and every other number you
-              enter never leave your device and are never sent to a server. There is no backend, no account, and no
-              analytics tracking your inputs.
+              enter never leave your device and are never sent to a server. There is no backend and no account. This
+              site does use Google Analytics to see which pages get visited (see "Analytics" below), but calculator
+              inputs are never part of that — they stay local to the calculation itself.
             </p>
           </section>
 
@@ -28,6 +29,24 @@ export function PrivacyPage() {
               to remember things between visits — your currency and language, light/dark theme, saved scenarios and
               notes, recently viewed calculators, comparison scenarios, and your choice on this cookie banner. None of
               it is uploaded anywhere; clearing your browser's site data removes all of it.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-semibold text-slate-900 dark:text-white">Analytics</h2>
+            <p className="mt-1">
+              This site uses Google Analytics to see aggregate traffic — which pages get visited, roughly how many
+              people, which browsers and devices — using cookies of its own. It never sees what you type into a
+              calculator. You can opt out of Google Analytics tracking across sites using the{' '}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+              >
+                Google Analytics opt-out browser add-on
+              </a>
+              .
             </p>
           </section>
 
