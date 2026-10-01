@@ -16,6 +16,16 @@ export function BlogPage() {
 
   const wordCount = (post.intro + ' ' + post.sections.map((s) => s.body).join(' ')).split(/\s+/).length
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: post.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+
   const postingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -39,6 +49,7 @@ export function BlogPage() {
     <PageContainer>
       <Seo title={post.title} description={post.description} />
       <script type="application/ld+json">{JSON.stringify(postingJsonLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
 
       <div className="flex flex-col gap-6">
         <div>
@@ -62,6 +73,18 @@ export function BlogPage() {
         </div>
 
         <AdSlot name="articleMid" />
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="font-semibold text-slate-900 dark:text-white">Frequently asked questions</h2>
+          <dl className="mt-3 flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
+            {post.faq.map((f) => (
+              <div key={f.q} className="py-3 first:pt-0 last:pb-0">
+                <dt className="font-medium text-slate-900 dark:text-white">{f.q}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
 
         <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-6 dark:border-indigo-900/40 dark:bg-indigo-950/30">
           <h2 className="font-semibold text-slate-900 dark:text-white">Related calculators</h2>
