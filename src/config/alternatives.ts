@@ -38,7 +38,7 @@ export const ALTERNATIVES: Alternative[] = [
     whoSearchesThis:
       'People already using Bankrate\'s calculators who want a comparison before committing time to sign-up flows, or anyone searching "bankrate alternative" or "is bankrate reliable" while deciding where to run their numbers.',
     comparison: [
-      { trait: 'Account required to see full results', competitor: 'Not required for basic calculators; some tools prompt for contact details to see full rate offers', us: 'Never — no account, no sign-up, anywhere on the site' },
+      { trait: 'Account required to see full results', competitor: 'Calculators are generally usable without one; its broader rate-shopping products are built around lender-matching, which commonly asks for contact details', us: 'Never — no account, no sign-up, anywhere on the site' },
       { trait: 'Lender rate quotes / lead generation', competitor: 'Yes — core to the product; expect contact prompts', us: 'None — this site has no lender relationships and sells no leads' },
       { trait: 'Data leaves the browser', competitor: 'Contact and loan details submitted for rate quotes', us: 'Never — every calculation runs client-side; nothing is sent anywhere' },
       { trait: 'Full amortization schedule export', competitor: 'Varies by calculator', us: 'CSV and PDF on every amortizing calculator' },
@@ -87,7 +87,7 @@ export const ALTERNATIVES: Alternative[] = [
     whoSearchesThis:
       'People who found a NerdWallet calculator through a search result and want to know if there\'s a comparable tool without the broader platform around it — reflected in real searches like "nerdwallet alternatives" and "is nerdwallet free".',
     comparison: [
-      { trait: 'Account required', competitor: 'Not required for calculators; optional account for saved recommendations', us: 'Never required anywhere' },
+      { trait: 'Account required', competitor: 'Calculators are generally usable without one; the platform\'s recommendation features are typically account-based', us: 'Never required anywhere' },
       { trait: 'Product recommendations / affiliate links', competitor: 'Core to the platform — calculators sit alongside card and loan recommendations', us: 'None — no product recommendations, no affiliate relationships' },
       { trait: 'Scope', competitor: 'Broad personal finance (credit, banking, insurance, investing, loans)', us: 'Loans, mortgages and debt specifically — 24 calculators' },
       { trait: 'Data leaves the browser', competitor: 'Account/profile data if you sign in for personalized recommendations', us: 'Never — fully client-side' },

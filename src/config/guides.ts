@@ -8,8 +8,6 @@ export interface Guide {
   slug: string
   title: string
   description: string
-  /** Matches a NAV_GROUPS title (Property, Loans, Debt, Cars, Shopping) for hub grouping. */
-  category?: string
   intro: string
   sections: { heading: string; body: string }[]
   faq: { q: string; a: string }[]
@@ -943,7 +941,6 @@ export const GUIDES: Guide[] = [
     title: 'Mortgage Points Calculator Guide: The Break-Even Math That Decides If They\'re Worth It',
     description:
       'Buying mortgage points trades an upfront fee for a lower rate — whether that trade pays off depends entirely on one number: the break-even point.',
-    category: 'Property',
     intro:
       'A lender quoting "1 point for 0.25% off your rate" is offering a trade: pay 1% of the loan amount now, pay less every month for the rest of the term. Whether that trade is worth it is not a matter of opinion — it is a single calculation: how many months of lower payments does it take to recover the upfront cost, and will you still hold the loan by then.',
     sections: [
@@ -997,7 +994,6 @@ export const GUIDES: Guide[] = [
     title: 'How Much House Can You Actually Afford? The DTI Math Lenders Use',
     description:
       'Lenders don\'t approve a mortgage based on what feels affordable — they run a debt-to-income ratio. Here\'s exactly how that number is built and what moves it.',
-    category: 'Property',
     intro:
       'The amount a lender will approve has little to do with what a borrower feels comfortable paying. It comes from a formula: debt-to-income ratio, applied against gross monthly income, with hard caps most lenders won\'t cross regardless of credit history or down payment size.',
     sections: [
@@ -1051,7 +1047,6 @@ export const GUIDES: Guide[] = [
     title: 'ARM Payment Shock: What Actually Happens When the Rate Resets',
     description:
       'An adjustable-rate mortgage\'s low introductory rate is temporary by design — here\'s exactly how the reset is calculated, and how to stress-test it before signing.',
-    category: 'Property',
     intro:
       'An adjustable-rate mortgage (ARM) trades a lower initial rate for uncertainty later. The introductory rate is fixed for a set period — commonly five, seven or ten years — then resets based on a market index, within caps that limit how much it can move at once and over the life of the loan.',
     sections: [
@@ -1105,7 +1100,6 @@ export const GUIDES: Guide[] = [
     title: 'Lease vs. Buy a Car: The Real Cost Comparison Beyond the Monthly Payment',
     description:
       'A lease payment is usually lower than a loan payment on the same car — but comparing them on monthly payment alone misses where the real cost difference actually lives.',
-    category: 'Cars',
     intro:
       'Leasing and financing the same car almost always produce different monthly payments, with leasing typically lower — but the monthly number alone is a misleading comparison. The honest comparison has to account for what each side owns at the end, and what happens if you want out early.',
     sections: [
