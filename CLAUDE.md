@@ -105,8 +105,9 @@ Each of these is a self-contained slice — math in one of the two math modules,
 | i18n (partial) | `src/i18n/translations.ts` | `useT()` in `SettingsContext` | See **i18n** below — chrome only, not page prose |
 | Chart PNG export | `src/utils/exportChart.ts` | `ChartDownloadButton` | Every chart is inline SVG (SplitBar/CostBreakdownBar were rewritten from divs specifically so this works everywhere) |
 | Printable report | — | `PrintReport`, `LoanPrintReport`, `PrintButton` | Print-only (`hidden print:flex`); every calculator page has either an `AmortizationTable` (own print/PDF button) or an explicit `PrintButton` |
-| Landing guides | `src/config/guides.ts` | `GuidesIndexPage`, `GuidePage` | Long-form SEO content, distinct from the 24 calculators — one dynamic `/guides/:slug` page renders any entry; each ships Article + FAQPage JSON-LD and links back to its related calculators |
-| Blog | `src/config/blog.ts` | `BlogIndexPage`, `BlogPage` | Shorter, dated posts at `/blog/:slug` — same one-dynamic-page pattern as guides, `BlogPosting` JSON-LD instead of Article+FAQ |
+| Landing guides | `src/config/guides.ts` | `GuidesIndexPage`, `GuidePage` | Long-form SEO content, distinct from the 24 calculators — one dynamic `/guides/:slug` page renders any entry; each ships Article + FAQPage JSON-LD (with image/wordCount/author/publisher+logo/mainEntityOfPage) and links back to its related calculators |
+| Blog | `src/config/blog.ts` | `BlogIndexPage`, `BlogPage` | Shorter, dated posts at `/blog/:slug` — same one-dynamic-page pattern as guides, `BlogPosting` JSON-LD (datePublished/dateModified, image, wordCount, author, publisher+logo, mainEntityOfPage) instead of Article+FAQ |
+| Alternatives | `src/config/alternatives.ts` | `AlternativesIndexPage`, `AlternativePage` | "X alternative" comparison pages at `/alternatives/:slug` — same one-dynamic-page pattern, factual nominative comparison table + Article+FAQPage JSON-LD. Keyword demand backing each one is in `.claude/brain/seo/keyword-index.md` |
 | Command palette | — | `CommandPalette` (⌘K) | Built from `ALL_NAV`; also toggles theme |
 | Shortcuts sheet | — | `ShortcutsSheet` (`?` key) | Lists the palette shortcut |
 | Recently viewed | `src/utils/recentlyViewed.ts` | `RecentlyViewed` (Home only) | Recorded on every route change in `Layout` |
@@ -133,7 +134,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 | Debt | `/credit-card`, `/debt-payoff`, `/student-loan` |
 | Cars | `/lease-vs-buy`, `/car-cost` |
 | Shopping | `/bnpl` |
-| Tools | `/compare`, `/saved`, `/quiz`, `/glossary`, `/guides`, `/guides/:slug`, `/blog`, `/blog/:slug` |
+| Tools | `/compare`, `/saved`, `/quiz`, `/glossary`, `/guides`, `/guides/:slug`, `/blog`, `/blog/:slug`, `/alternatives`, `/alternatives/:slug` |
 | — | `/` landing, `*` → redirect home |
 
 ## Conventions
@@ -142,6 +143,8 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 - **Adding a whole calculator**: pure function + tests in `advancedMath.ts` **first**, then the page, then a route in `App.tsx`, then an entry in `navigation.ts`, then a row in `PAGES` in [src/App.test.tsx](./src/App.test.tsx). If the page has no `AmortizationTable`, add a `<PrintReport>` + `<PrintButton>` so it still has an export path — see the **Feature index** row for print.
 - **Adding a landing guide**: it's just a new entry in the `GUIDES` array in [src/config/guides.ts](./src/config/guides.ts) — `GuidePage` renders it at `/guides/:slug` for free, and it's picked up by the sitemap, `llms.txt`, and the guide-page smoke test in `App.test.tsx` automatically. Never hand-write a page for this case.
 - **Adding a blog post**: same pattern — a new entry in `BLOG_POSTS` in [src/config/blog.ts](./src/config/blog.ts), rendered at `/blog/:slug` by `BlogPage`. Guides are broad reference content; blog posts are shorter, dated, narrower-angle pieces — pick the array that matches which one you're writing.
+- **Adding an "alternative to X" page**: a new entry in `ALTERNATIVES` in [src/config/alternatives.ts](./src/config/alternatives.ts), rendered at `/alternatives/:slug` by `AlternativePage`. Only add one where [keyword research](./.claude/brain/seo/keyword-index.md) confirms real "X alternative" search demand — these are nominative, factual comparisons (a traits table, an honest "when X is still better" section), never disparaging.
+- **SEO content cadence**: this compounds over months, not days — periodically re-run the autocomplete fetch described in [keyword-index.md](./.claude/brain/seo/keyword-index.md) and extend `GUIDES`/`BLOG_POSTS`/`ALTERNATIVES` from whatever gaps it surfaces.
 - **Money on screen** always goes through `useFormat().money()` (or `.compact()` for axis ticks) so the currency selector works. Never hardcode a currency in a component; never inline `toFixed` for money.
 - **UI text** that's part of shared chrome goes through `useT()` (see **i18n**); page-specific prose stays plain English for now — don't half-translate a single page, it's inconsistent with the rest.
 - **Numeric inputs** use [NumberField](./src/components/NumberField.tsx), never a raw `<input type="number">` — the number type adds spinners, rejects partially typed values, and turns an empty field into 0. NumberField holds raw keystrokes locally, validates against min/max, and only reports valid numbers upward. Pass `slider` for a drag control.

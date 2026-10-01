@@ -14,14 +14,25 @@ export function BlogPage() {
   const post = BLOG_POSTS.find((p) => p.slug === slug)
   if (!post) return <Navigate to="/blog" replace />
 
+  const wordCount = (post.intro + ' ' + post.sections.map((s) => s.body).join(' ')).split(/\s+/).length
+
   const postingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.description,
+    image: `${SITE_URL}/og-image.png`,
     datePublished: post.date,
+    dateModified: post.updated ?? post.date,
     url: `${SITE_URL}/blog/${post.slug}`,
-    publisher: { '@type': 'Organization', name: 'LoanWise' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug}` },
+    wordCount,
+    author: { '@type': 'Organization', name: 'LoanWise' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'LoanWise',
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon-512x512.png` },
+    },
   }
 
   return (

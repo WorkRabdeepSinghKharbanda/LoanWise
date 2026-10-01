@@ -29,6 +29,8 @@ import { GuidesIndexPage } from './pages/GuidesIndexPage'
 import { GuidePage } from './pages/GuidePage'
 import { BlogIndexPage } from './pages/BlogIndexPage'
 import { BlogPage } from './pages/BlogPage'
+import { AlternativesIndexPage } from './pages/AlternativesIndexPage'
+import { AlternativePage } from './pages/AlternativePage'
 import { LOAN_TYPES } from './config/loanTypes'
 
 function App() {
@@ -68,6 +70,8 @@ function App() {
               <Route path="/guides/:slug" element={<GuidePage />} />
               <Route path="/blog" element={<BlogIndexPage />} />
               <Route path="/blog/:slug" element={<BlogPage />} />
+              <Route path="/alternatives" element={<AlternativesIndexPage />} />
+              <Route path="/alternatives/:slug" element={<AlternativePage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

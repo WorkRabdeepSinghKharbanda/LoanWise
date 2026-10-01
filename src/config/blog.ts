@@ -8,6 +8,8 @@ export interface BlogPost {
   title: string
   description: string
   date: string // ISO yyyy-mm-dd
+  /** ISO yyyy-mm-dd — set only when a post's content was substantively revised after publishing. */
+  updated?: string
   intro: string
   sections: { heading: string; body: string }[]
   related: { to: string; label: string }[]

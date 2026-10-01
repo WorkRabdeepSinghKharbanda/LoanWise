@@ -24,13 +24,23 @@ export function GuidePage() {
     })),
   }
 
+  const wordCount = (guide.intro + ' ' + guide.sections.map((s) => s.body).join(' ')).split(/\s+/).length
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: guide.title,
     description: guide.description,
+    image: `${SITE_URL}/og-image.png`,
     url: `${SITE_URL}/guides/${guide.slug}`,
-    publisher: { '@type': 'Organization', name: 'LoanWise' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/guides/${guide.slug}` },
+    wordCount,
+    author: { '@type': 'Organization', name: 'LoanWise' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'LoanWise',
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon-512x512.png` },
+    },
   }
 
   return (

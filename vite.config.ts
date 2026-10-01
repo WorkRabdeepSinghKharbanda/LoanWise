@@ -6,6 +6,7 @@ import { defineConfig } from 'vitest/config'
 import { ALL_NAV } from './src/config/navigation.ts'
 import { GUIDES } from './src/config/guides.ts'
 import { BLOG_POSTS } from './src/config/blog.ts'
+import { ALTERNATIVES } from './src/config/alternatives.ts'
 
 const SITE = 'https://loan-calculator-ashen-six.vercel.app'
 
@@ -26,6 +27,8 @@ function sitemap() {
         ...ALL_NAV.filter((item) => !item.noIndex).map((item) => item.to),
         ...GUIDES.map((g) => `/guides/${g.slug}`),
         ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
+        '/alternatives',
+        ...ALTERNATIVES.map((a) => `/alternatives/${a.slug}`),
       ]
       const body = urls
         .map(
@@ -57,6 +60,9 @@ function llmsTxt() {
     .join('\n')
   const guides = GUIDES.map((g) => `- [${g.title}](${SITE}/guides/${g.slug}): ${g.description}`).join('\n')
   const posts = BLOG_POSTS.map((p) => `- [${p.title}](${SITE}/blog/${p.slug}): ${p.description}`).join('\n')
+  const alternatives = ALTERNATIVES.map(
+    (a) => `- [${a.title}](${SITE}/alternatives/${a.slug}): ${a.description}`,
+  ).join('\n')
 
   return `# LoanWise
 
@@ -70,6 +76,9 @@ ${guides}
 
 ## Blog
 ${posts}
+
+## Alternatives
+${alternatives}
 
 ## Other
 - [Privacy policy](${SITE}/privacy)

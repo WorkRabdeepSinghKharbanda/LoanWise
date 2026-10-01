@@ -30,9 +30,12 @@ import { GuidesIndexPage } from './pages/GuidesIndexPage'
 import { GuidePage } from './pages/GuidePage'
 import { BlogIndexPage } from './pages/BlogIndexPage'
 import { BlogPage } from './pages/BlogPage'
+import { AlternativesIndexPage } from './pages/AlternativesIndexPage'
+import { AlternativePage } from './pages/AlternativePage'
 import { LOAN_TYPES } from './config/loanTypes'
 import { GUIDES } from './config/guides'
 import { BLOG_POSTS } from './config/blog'
+import { ALTERNATIVES } from './config/alternatives'
 
 /**
  * Render smoke tests: every page mounted for real, so a runtime crash
@@ -78,6 +81,7 @@ const PAGES: [string, React.ReactNode][] = [
   ['Privacy', <PrivacyPage />],
   ['Guides index', <GuidesIndexPage />],
   ['Blog index', <BlogIndexPage />],
+  ['Alternatives index', <AlternativesIndexPage />],
   ...Object.values(LOAN_TYPES).map(
     (config) => [config.label, <GenericLoanPage config={config} />] as [string, React.ReactNode],
   ),
@@ -126,6 +130,17 @@ describe('blog posts', () => {
 
   it('redirects to /blog for an unknown slug', () => {
     expect(() => renderAtParam('/blog/:slug', '/blog/does-not-exist', <BlogPage />)).not.toThrow()
+  })
+})
+
+describe('alternative pages', () => {
+  it.each(ALTERNATIVES.map((a) => [a.slug] as const))('%s mounts without crashing', (slug) => {
+    const { container } = renderAtParam('/alternatives/:slug', `/alternatives/${slug}`, <AlternativePage />)
+    expect(container.querySelector('h1, h2')).not.toBeNull()
+  })
+
+  it('redirects to /alternatives for an unknown slug', () => {
+    expect(() => renderAtParam('/alternatives/:slug', '/alternatives/does-not-exist', <AlternativePage />)).not.toThrow()
   })
 })
 

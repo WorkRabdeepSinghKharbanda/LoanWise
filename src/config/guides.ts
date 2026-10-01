@@ -8,6 +8,8 @@ export interface Guide {
   slug: string
   title: string
   description: string
+  /** Matches a NAV_GROUPS title (Property, Loans, Debt, Cars, Shopping) for hub grouping. */
+  category?: string
   intro: string
   sections: { heading: string; body: string }[]
   faq: { q: string; a: string }[]
@@ -934,6 +936,222 @@ export const GUIDES: Guide[] = [
       { to: '/glossary', label: 'Glossary' },
       { to: '/loan/personal', label: 'Personal Loan Calculator' },
       { to: '/quiz', label: 'Find My Calculator' },
+    ],
+  },
+  {
+    slug: 'mortgage-points-break-even-guide',
+    title: 'Mortgage Points Calculator Guide: The Break-Even Math That Decides If They\'re Worth It',
+    description:
+      'Buying mortgage points trades an upfront fee for a lower rate — whether that trade pays off depends entirely on one number: the break-even point.',
+    category: 'Property',
+    intro:
+      'A lender quoting "1 point for 0.25% off your rate" is offering a trade: pay 1% of the loan amount now, pay less every month for the rest of the term. Whether that trade is worth it is not a matter of opinion — it is a single calculation: how many months of lower payments does it take to recover the upfront cost, and will you still hold the loan by then.',
+    sections: [
+      {
+        heading: 'What a point actually costs and buys',
+        body: 'One mortgage point costs 1% of the loan principal, paid at closing. In exchange, the lender lowers the interest rate — commonly by somewhere around 0.25%, though the exact trade varies by lender and isn\'t fixed by any rule. Multiple points can usually be bought, each one further lowering the rate, with diminishing effect per point.',
+      },
+      {
+        heading: 'The break-even calculation',
+        body: 'Break-even in months = (upfront cost of the points) ÷ (monthly payment savings from the lower rate). If one point costs $3,000 and lowers the monthly payment by $50, break-even is 60 months — five years. Hold the loan past that point and the points were a net win; sell or refinance before it and they were a net loss.',
+      },
+      {
+        heading: 'Why the holding-period question matters more than the rate',
+        body: 'The rate reduction is fixed the day you close. Whether it pays off depends entirely on a number nobody can promise in advance: how long you\'ll actually keep this exact loan. A move, a refinance, or paying off the loan early all reset the clock before break-even, turning the points into a straightforward loss of the upfront fee.',
+      },
+      {
+        heading: 'Points vs. putting that cash elsewhere',
+        body: 'The upfront cost of points is cash that could instead go toward a larger down payment (which lowers the principal directly, and may clear a PMI threshold) or extra principal prepayment (which saves interest with no fixed break-even — it starts working from month one). Points are rarely the only place that cash could go, and the comparison matters more than the points break-even math in isolation.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is buying points ever a bad idea even past the break-even point?',
+        a: 'If the alternative use of that cash — a larger down payment, or paying down higher-rate debt elsewhere — would have saved more, then yes. Break-even measures only whether the points beat not buying them, not whether they beat every other use of the money.',
+      },
+      {
+        q: 'Do points show up in the APR?',
+        a: 'Yes — APR is specifically designed to fold upfront costs like points into a single annualized number, which is why comparing APRs (not bare rates) is the fair way to compare a points-heavy offer against a points-free one.',
+      },
+      {
+        q: 'Can points be negative — i.e. a rebate instead of a cost?',
+        a: 'Yes, some lenders offer "negative points" (lender credits): a higher rate in exchange for a credit toward closing costs — the inverse trade, useful for a borrower short on upfront cash who plans to refinance or sell before the higher rate costs more than the credit was worth.',
+      },
+      {
+        q: 'Does the break-even calculation change on an adjustable-rate mortgage?',
+        a: 'Yes — points only lower the rate for the period they apply to. On an ARM, if the discounted rate only holds through the initial fixed period, the break-even math needs to account for the rate reset, not just the current payment.',
+      },
+      {
+        q: 'How many points can I buy?',
+        a: 'Most lenders cap it, often around 3-4 points, though this varies by lender and loan program. Each additional point typically buys a smaller rate reduction than the last.',
+      },
+    ],
+    related: [
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/refinance', label: 'Refinance Calculator' },
+      { to: '/guides/mortgage-home-loan-guide', label: 'Mortgage & Home Loan Guide' },
+    ],
+  },
+  {
+    slug: 'how-much-house-can-you-afford-guide',
+    title: 'How Much House Can You Actually Afford? The DTI Math Lenders Use',
+    description:
+      'Lenders don\'t approve a mortgage based on what feels affordable — they run a debt-to-income ratio. Here\'s exactly how that number is built and what moves it.',
+    category: 'Property',
+    intro:
+      'The amount a lender will approve has little to do with what a borrower feels comfortable paying. It comes from a formula: debt-to-income ratio, applied against gross monthly income, with hard caps most lenders won\'t cross regardless of credit history or down payment size.',
+    sections: [
+      {
+        heading: 'What debt-to-income (DTI) actually measures',
+        body: 'DTI is total monthly debt obligations — including the new mortgage payment — divided by gross (pre-tax) monthly income. Lenders typically look at two versions: front-end DTI (housing costs alone) and back-end DTI (housing plus every other debt payment: car loans, student loans, credit card minimums).',
+      },
+      {
+        heading: 'The caps that actually gate approval',
+        body: 'Conventional lending commonly caps back-end DTI around 36-43%, though government-backed programs and individual lenders vary. Crossing the cap doesn\'t always mean automatic rejection, but it usually means a smaller approved loan amount, a higher rate, or a request for a larger down payment to bring the math back under the line.',
+      },
+      {
+        heading: 'Income that counts — and income that\'s discounted',
+        body: 'Salaried, verifiable income counts in full. Variable income (bonuses, overtime, self-employment) is often averaged over one to two years and sometimes discounted, since lenders weight stability. A co-borrower\'s income can be combined to raise the qualifying amount, but so can their existing debt.',
+      },
+      {
+        heading: 'What actually raises how much you qualify for',
+        body: 'Paying down existing debt lowers the denominator-side obligations before applying, directly raising how much mortgage fits under the same DTI cap. A larger down payment lowers the loan amount needed, which lowers the monthly payment being tested against the cap. Neither changes the DTI formula — both change what it\'s being measured against.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is 28% housing cost the standard rule of thumb?',
+        a: 'It\'s a commonly cited guideline for front-end DTI (housing cost ÷ gross income), but it\'s a guideline, not a lender requirement — actual approval depends on the specific lender\'s back-end DTI cap and the borrower\'s full debt picture.',
+      },
+      {
+        q: 'Does rent count against DTI the same way a mortgage would?',
+        a: 'Current rent isn\'t counted once you\'re applying for a mortgage to replace it — the new mortgage payment is what gets tested, not what you currently pay.',
+      },
+      {
+        q: 'Do property tax and insurance count toward the DTI housing figure?',
+        a: 'Yes — front-end DTI typically includes principal, interest, taxes and insurance (and PMI, where applicable) as the full housing payment, not just principal and interest.',
+      },
+      {
+        q: 'What\'s the fastest lever to qualify for more?',
+        a: 'Paying off a car loan or a large credit card balance usually moves the needle faster than trying to increase income, since it removes a fixed monthly obligation immediately rather than waiting on a raise.',
+      },
+      {
+        q: 'Can a co-borrower\'s debt hurt the application?',
+        a: 'Yes — combining incomes raises the numerator\'s allowance, but combining debts raises what\'s being tested against it. A co-borrower only helps if their income-to-debt ratio is better than, or close to, the primary borrower\'s.',
+      },
+    ],
+    related: [
+      { to: '/affordability', label: 'Affordability Calculator' },
+      { to: '/savings-goal', label: 'Savings Goal Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+    ],
+  },
+  {
+    slug: 'arm-payment-shock-guide',
+    title: 'ARM Payment Shock: What Actually Happens When the Rate Resets',
+    description:
+      'An adjustable-rate mortgage\'s low introductory rate is temporary by design — here\'s exactly how the reset is calculated, and how to stress-test it before signing.',
+    category: 'Property',
+    intro:
+      'An adjustable-rate mortgage (ARM) trades a lower initial rate for uncertainty later. The introductory rate is fixed for a set period — commonly five, seven or ten years — then resets based on a market index, within caps that limit how much it can move at once and over the life of the loan.',
+    sections: [
+      {
+        heading: 'How the reset rate is actually calculated',
+        body: 'At reset, the new rate is typically the current value of a reference index (historically something like SOFR or a Treasury-based index) plus a fixed margin set at origination. The margin never changes; the index does — so the reset rate moves with whatever the broader rate environment looks like at that moment, not at origination.',
+      },
+      {
+        heading: 'What caps actually limit',
+        body: 'ARMs come with caps on three things: how much the rate can jump at the first reset, how much it can jump at each subsequent reset, and a lifetime cap on how high it can ever go. These caps bound the worst case, but the worst case is still usually a meaningfully higher payment than the introductory one — caps limit the damage, they don\'t prevent it.',
+      },
+      {
+        heading: 'Recasting the payment after a reset',
+        body: 'When the rate resets, the payment is recalculated to fully amortize the remaining balance over the remaining term at the new rate — not simply the original payment adjusted proportionally. A jump from 4% to 7% on the remaining balance can raise the payment by a larger percentage than the rate increase itself, especially earlier in the loan when the balance is still high.',
+      },
+      {
+        heading: 'When an ARM is a reasonable bet, and when it isn\'t',
+        body: 'An ARM can make sense if the loan will likely be sold, refinanced, or paid off before the first reset — the introductory discount is captured with little reset risk. It\'s riskiest for a borrower planning to hold the loan long-term and stretched thin enough at the introductory payment that the capped worst-case reset wouldn\'t be affordable.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is a 5/1 ARM fixed for 5 years then changes every year after?',
+        a: 'Yes — the first number is the years the introductory rate holds; the second is how often it can adjust afterward (every 1 year, in a 5/1 ARM).',
+      },
+      {
+        q: 'Can the rate go down at reset, not just up?',
+        a: 'Yes — the reset is tied to a market index, so if the index has fallen since origination, the new rate can be lower than the introductory one, though this isn\'t something to plan around.',
+      },
+      {
+        q: 'What\'s the single most important thing to check before taking an ARM?',
+        a: 'The worst-case payment at the lifetime rate cap, run against the same income and expenses used to qualify for the introductory payment — if that worst case isn\'t affordable, the ARM is a bet on refinancing or moving before it hits.',
+      },
+      {
+        q: 'Do ARMs always start cheaper than a fixed-rate mortgage?',
+        a: 'Usually, yes — that initial discount is the core trade being offered. But it\'s not guaranteed by rule, and the gap between ARM and fixed rates varies with market conditions.',
+      },
+      {
+        q: 'Does refinancing before the reset avoid the risk entirely?',
+        a: 'It avoids this loan\'s reset, but a refinance resets closing costs and is itself dependent on qualifying for a new loan at whatever rates exist at that future point — not a risk-free guarantee, just a different bet.',
+      },
+    ],
+    related: [
+      { to: '/arm', label: 'ARM Stress Test Calculator' },
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/refinance', label: 'Refinance Calculator' },
+    ],
+  },
+  {
+    slug: 'lease-vs-buy-car-guide',
+    title: 'Lease vs. Buy a Car: The Real Cost Comparison Beyond the Monthly Payment',
+    description:
+      'A lease payment is usually lower than a loan payment on the same car — but comparing them on monthly payment alone misses where the real cost difference actually lives.',
+    category: 'Cars',
+    intro:
+      'Leasing and financing the same car almost always produce different monthly payments, with leasing typically lower — but the monthly number alone is a misleading comparison. The honest comparison has to account for what each side owns at the end, and what happens if you want out early.',
+    sections: [
+      {
+        heading: 'Why lease payments are structured lower',
+        body: 'A lease payment is based on the vehicle\'s expected depreciation over the lease term, plus a finance charge, divided across the lease months. A loan payment amortizes the entire vehicle price. Since a lease only charges for the depreciation you\'ll actually "use up" during the lease, not the full value of the car, the monthly number comes out lower for the same vehicle.',
+      },
+      {
+        heading: 'What buying gets you that leasing doesn\'t',
+        body: 'At the end of a loan, the car is owned outright — a tradeable or sellable asset worth whatever its residual value is. At the end of a standard lease, the car is returned with nothing to show for the payments made, unless the lease includes a purchase option at a predetermined residual price.',
+      },
+      {
+        heading: 'Mileage limits and wear-and-tear charges',
+        body: 'Leases typically cap annual mileage (commonly 10,000-15,000 miles) with a per-mile charge for going over, plus wear-and-tear assessments at return. A buyer has no such cap — the tradeoff is that a buyer also bears 100% of the depreciation from heavy use, where a lease-returner only bears the overage fee.',
+      },
+      {
+        heading: 'The true comparison: total cost over the period you\'ll actually have a car',
+        body: 'The fair comparison isn\'t lease-payment vs. loan-payment — it\'s total cost of leasing repeatedly (if that\'s the plan) vs. total cost of buying and holding, including the eventual resale or trade-in value netted against what was paid. Buying usually wins on total cost if the car is kept well past loan payoff; leasing usually wins for someone who wants a new car every few years and dislikes resale hassle.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Is leasing always more expensive in the long run?',
+        a: 'If you lease back-to-back, indefinitely, yes — you never stop paying and never build equity. If you lease once and then buy the car outright at lease-end (where the lease includes that option), the comparison is closer, and depends on the specific residual price offered.',
+      },
+      {
+        q: 'Can you negotiate a lease the same way you negotiate a purchase price?',
+        a: 'Yes — the vehicle\'s negotiated selling price (called the "capitalized cost" in a lease) still affects the lease payment, even though it isn\'t the loan amount. A lower negotiated price lowers the lease payment the same way it lowers a loan payment.',
+      },
+      {
+        q: 'What happens if you need to end a lease early?',
+        a: 'Early lease termination usually carries a specific, often substantial fee, since the lessor priced the deal assuming the full term. Early loan payoff, by contrast, usually has no penalty (verify this isn\'t a feature of your specific loan) and simply ends the interest accrual sooner.',
+      },
+      {
+        q: 'Does leasing make sense for someone who drives a lot?',
+        a: 'Usually not — high mileage either requires paying for an expensive higher-mileage lease upfront or paying steep per-mile overage fees at return, both of which erode the lease\'s lower-payment advantage.',
+      },
+      {
+        q: 'Is the total cost of ownership the same thing as the lease vs. buy comparison?',
+        a: 'Related but distinct — total cost of ownership (fuel, insurance, maintenance, depreciation) applies to a car you own either way; lease vs. buy is specifically about the financing structure and what you\'re left with at the end.',
+      },
+    ],
+    related: [
+      { to: '/lease-vs-buy', label: 'Lease vs Buy Calculator' },
+      { to: '/car-cost', label: 'True Cost of Ownership Calculator' },
+      { to: '/loan/car', label: 'Car Loan Calculator' },
     ],
   },
 ]
