@@ -3,6 +3,7 @@ import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AdSlot } from '../components/AdSlot'
 import { RelatedPosts } from '../components/RelatedPosts'
+import { BlogDiagram } from '../components/BlogDiagram'
 import { BLOG_POSTS } from '../config/blog'
 import { relatedContent } from '../utils/relatedContent'
 
@@ -62,6 +63,8 @@ export function BlogPage() {
           </time>
           <p className="mt-2 text-slate-600 dark:text-slate-300">{post.intro}</p>
         </div>
+
+        {post.diagram && <BlogDiagram spec={post.diagram} />}
 
         <div className="flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
           {post.sections.map((s) => (
