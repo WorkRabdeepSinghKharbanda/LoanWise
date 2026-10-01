@@ -1037,7 +1037,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'A worked example of two offers',
-        body: 'Offer A: 7% rate, 4-year term, $450/month. Offer B: 6.5% rate, 5-year term, $410/month. Offer B\'s lower monthly payment looks appealing, but running the full schedule might show Offer A totals around $21,600 over its term while Offer B totals around $24,600 over its longer one — Offer B\'s lower rate didn\'t survive the extra year added to the term. The monthly payment alone would have picked the more expensive offer.',
+        body: 'Both offers are for the same $20,000 loan. Offer A: 7% rate, 4-year term, works out to about $479/month — $22,984 total. Offer B: 6.5% rate, 5-year term, works out to about $391/month — $23,478 total. Offer B\'s lower monthly payment looks appealing, and its rate is genuinely lower too, but the extra year added to the term still ends up costing about $494 more overall. The monthly payment alone would have picked the slightly more expensive offer.',
       },
       {
         heading: 'Keep the comparison to a few scenarios',
