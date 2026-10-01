@@ -1072,7 +1072,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: 'Finding the exact crossover month',
-        body: 'On the $300,000, 6%, 30-year example above, working through the balance month by month shows the interest and principal portions of the payment cross exactly 50/50 around month 221 — a little over 18 years into a 30-year term. That means for roughly the first 60% of the loan\'s duration, interest makes up more than half of every payment; only in the final third or so does principal start dominating each check. Many borrowers, asked to guess, assume the crossover happens somewhere in the middle of the term, or even that it\'s roughly even throughout — the reality that nearly two-thirds of the term passes before principal takes the larger share is a common surprise once the actual schedule is examined.',
+        body: 'On the $300,000, 6%, 30-year example above, working through the balance month by month shows the interest and principal portions of the payment cross almost exactly 50/50 around month 222 — a little over 18 years into a 30-year term. That means for roughly the first 60% of the loan\'s duration, interest makes up more than half of every payment; only in the final third or so does principal start dominating each check. Many borrowers, asked to guess, assume the crossover happens somewhere in the middle of the term, or even that it\'s roughly even throughout — the reality that nearly two-thirds of the term passes before principal takes the larger share is a common surprise once the actual schedule is examined.',
       },
       {
         heading: 'Why total interest paid can exceed the amount borrowed',
@@ -1086,8 +1086,8 @@ export const BLOG_POSTS: BlogPost[] = [
     diagram: {
       kind: 'curve',
       title: 'Interest vs. principal share of the payment over time',
-      caption: '$300,000, 6%, 30-year loan — the two lines cross around month 221',
-      xLabels: ['Month 1', 'Month 100', 'Month 221', 'Month 360'],
+      caption: '$300,000, 6%, 30-year loan — the two lines cross around month 222',
+      xLabels: ['Month 1', 'Month 100', 'Month 222', 'Month 360'],
       series: [
         { label: 'Interest share (%)', role: 2, points: [83, 62, 50, 2] },
         { label: 'Principal share (%)', role: 1, points: [17, 38, 50, 98] },
