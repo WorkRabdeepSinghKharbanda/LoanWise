@@ -159,6 +159,18 @@ describe('topic pages', () => {
   })
 })
 
+describe('SEO meta description length', () => {
+  const allDescriptions = [
+    ...GUIDES.map((g) => [`guide:${g.slug}`, g.description] as const),
+    ...BLOG_POSTS.map((p) => [`blog:${p.slug}`, p.description] as const),
+    ...ALTERNATIVES.map((a) => [`alternative:${a.slug}`, a.description] as const),
+  ]
+
+  it.each(allDescriptions)('%s description is 160 chars or fewer (SERP snippet limit)', (_label, description) => {
+    expect(description.length).toBeLessThanOrEqual(160)
+  })
+})
+
 describe('layout', () => {
   it('shows the brand and the theme toggle', () => {
     renderPage(<Home />)

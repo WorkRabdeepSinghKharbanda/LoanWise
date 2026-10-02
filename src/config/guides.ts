@@ -523,7 +523,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'gold-loan-guide',
-    topics: ['car-loans'],
+    topics: ['loan-basics'],
     title: 'Gold Loan Guide: Fast, Secured, and Usually Short-Term',
     description: 'How gold loans price against unsecured borrowing, and what to watch for in the term and repayment structure.',
     intro:
@@ -1184,7 +1184,7 @@ export const GUIDES: Guide[] = [
     topics: ['mortgage'],
     title: 'The Complete Mortgage Guide: Rates, PMI, Points, ARMs, and Affordability in One Place',
     description:
-      'Every major mortgage question answered in one place — payment calculation, PMI drop-off, points, ARM resets, refinancing, and how much house you can actually afford — each linked to its calculator.',
+      'Every major mortgage question in one place — payment, PMI, points, ARM resets, refinancing, and how much house you can afford — each linked to its calculator.',
     intro:
       'A mortgage touches more moving parts than any other loan most people take out: the rate, the term, PMI, property tax and insurance escrow, maybe points, maybe an adjustable rate, maybe a future refinance. This guide pulls every one of those pieces into a single reference, with the specific calculator for each decision.',
     sections: [
@@ -1277,7 +1277,7 @@ export const GUIDES: Guide[] = [
     topics: ['emi'],
     title: 'The Complete EMI Guide: Formula, Prepayment, Step-Up, and Every Common Question Answered',
     description:
-      'How EMI is calculated, why the interest/principal split shifts, step-up EMIs, prepayment, biweekly payments, and EMI holidays — all in one place, each linked to its calculator.',
+      'How EMI is calculated, why the interest/principal split shifts, step-up EMIs, prepayment, biweekly payments, and EMI holidays — each linked to its calculator.',
     intro:
       'EMI (Equated Monthly Installment) questions tend to cluster around a handful of real decisions: how the number is calculated, whether prepaying is worth it, whether a step-up EMI fits your income trajectory, and what happens if you need to pause payments. This guide covers all of them, each with the calculator that runs your specific numbers.',
     sections: [

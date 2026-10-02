@@ -567,7 +567,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'gold-loan-vs-personal-loan',
-    topics: ['car-loans', 'loan-basics'],
+    topics: ['loan-basics'],
     title: 'Gold Loan vs. Personal Loan: Same Need, Very Different Pricing',
     description: 'Why a gold loan usually beats a personal loan on rate — and where that comparison breaks down.',
     date: '2026-04-12',
