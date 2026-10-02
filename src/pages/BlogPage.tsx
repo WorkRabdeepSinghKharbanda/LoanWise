@@ -5,6 +5,7 @@ import { AdSlot } from '../components/AdSlot'
 import { RelatedPosts } from '../components/RelatedPosts'
 import { BlogDiagram } from '../components/BlogDiagram'
 import { BLOG_POSTS } from '../config/blog'
+import { TOPICS } from '../config/topics'
 import { relatedContent } from '../utils/relatedContent'
 
 const SITE_URL = 'https://loan-calculator-ashen-six.vercel.app'
@@ -16,16 +17,20 @@ export function BlogPage() {
   if (!post) return <Navigate to="/blog" replace />
 
   const wordCount = (post.intro + ' ' + post.sections.map((s) => s.body).join(' ')).split(/\s+/).length
+  const topics = TOPICS.filter((t) => post.topics.includes(t.slug))
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: post.faq.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  }
+  const faqJsonLd =
+    post.faq.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: post.faq.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }
+      : null
 
   const postingJsonLd = {
     '@context': 'https://schema.org',
@@ -50,7 +55,7 @@ export function BlogPage() {
     <PageContainer>
       <Seo title={post.title} description={post.description} />
       <script type="application/ld+json">{JSON.stringify(postingJsonLd)}</script>
-      <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+      {faqJsonLd && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
 
       <div className="flex flex-col gap-6">
         <div>
@@ -104,6 +109,20 @@ export function BlogPage() {
             ))}
           </ul>
         </div>
+
+        {topics.length > 0 && (
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            Part of:{' '}
+            {topics.map((t, i) => (
+              <span key={t.slug}>
+                <Link to={`/topics/${t.slug}`} className="text-indigo-600 hover:underline dark:text-indigo-400">
+                  {t.label}
+                </Link>
+                {i < topics.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </p>
+        )}
 
         <RelatedPosts items={relatedContent(post, 'Blog')} />
       </div>

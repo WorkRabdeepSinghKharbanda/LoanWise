@@ -3,6 +3,7 @@ import { PageContainer } from '../components/PageContainer'
 import { Seo } from '../components/Seo'
 import { AdSlot } from '../components/AdSlot'
 import { ALTERNATIVES } from '../config/alternatives'
+import { TOPICS } from '../config/topics'
 
 const SITE_URL = 'https://loan-calculator-ashen-six.vercel.app'
 
@@ -12,15 +13,18 @@ export function AlternativePage() {
   const alt = ALTERNATIVES.find((a) => a.slug === slug)
   if (!alt) return <Navigate to="/alternatives" replace />
 
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: alt.faq.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  }
+  const faqJsonLd =
+    alt.faq.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: alt.faq.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }
+      : null
 
   const wordCount = (
     alt.intro +
@@ -31,6 +35,7 @@ export function AlternativePage() {
     ' ' +
     alt.howToSwitch.join(' ')
   ).split(/\s+/).length
+  const topics = TOPICS.filter((t) => alt.topics.includes(t.slug))
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -53,7 +58,7 @@ export function AlternativePage() {
     <PageContainer>
       <Seo title={alt.title} description={alt.description} />
       <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
-      <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+      {faqJsonLd && <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>}
 
       <div className="flex flex-col gap-6">
         <div>
@@ -138,6 +143,20 @@ export function AlternativePage() {
             ))}
           </ul>
         </div>
+
+        {topics.length > 0 && (
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            Part of:{' '}
+            {topics.map((t, i) => (
+              <span key={t.slug}>
+                <Link to={`/topics/${t.slug}`} className="text-indigo-600 hover:underline dark:text-indigo-400">
+                  {t.label}
+                </Link>
+                {i < topics.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </p>
+        )}
       </div>
     </PageContainer>
   )

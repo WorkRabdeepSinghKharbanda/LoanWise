@@ -7,6 +7,7 @@ import { ALL_NAV } from './src/config/navigation.ts'
 import { GUIDES } from './src/config/guides.ts'
 import { BLOG_POSTS } from './src/config/blog.ts'
 import { ALTERNATIVES } from './src/config/alternatives.ts'
+import { TOPICS } from './src/config/topics.ts'
 
 const SITE = 'https://loan-calculator-ashen-six.vercel.app'
 
@@ -29,6 +30,7 @@ function sitemap() {
         ...BLOG_POSTS.map((p) => `/blog/${p.slug}`),
         '/alternatives',
         ...ALTERNATIVES.map((a) => `/alternatives/${a.slug}`),
+        ...TOPICS.map((t) => `/topics/${t.slug}`),
       ]
       const body = urls
         .map(
@@ -63,6 +65,7 @@ function llmsTxt() {
   const alternatives = ALTERNATIVES.map(
     (a) => `- [${a.title}](${SITE}/alternatives/${a.slug}): ${a.description}`,
   ).join('\n')
+  const topics = TOPICS.map((t) => `- [${t.label}](${SITE}/topics/${t.slug}): ${t.intro}`).join('\n')
 
   return `# LoanWise
 
@@ -79,6 +82,9 @@ ${posts}
 
 ## Alternatives
 ${alternatives}
+
+## Topics
+${topics}
 
 ## Other
 - [Privacy policy](${SITE}/privacy)

@@ -13,6 +13,8 @@
  */
 export interface Alternative {
   slug: string
+  /** Topic slugs from TOPICS (src/config/topics.ts) this page belongs to — powers /topics/:slug hub pages. */
+  topics: string[]
   competitor: string
   title: string
   description: string
@@ -29,6 +31,7 @@ export interface Alternative {
 export const ALTERNATIVES: Alternative[] = [
   {
     slug: 'bankrate-alternative',
+    topics: ['alternatives'],
     competitor: 'Bankrate',
     title: 'Bankrate Alternative: A Free, No-Account Loan & Mortgage Calculator Suite',
     description:
@@ -78,10 +81,11 @@ export const ALTERNATIVES: Alternative[] = [
   },
   {
     slug: 'nerdwallet-alternative',
+    topics: ['alternatives'],
     competitor: 'NerdWallet',
     title: 'NerdWallet Alternative: Loan Calculators Without an Account or Lead Forms',
     description:
-      'NerdWallet\'s calculators sit inside a broader personal-finance platform with product recommendations. Here\'s a factual comparison for a calculator-only need.',
+      'NerdWallet\'s calculators sit inside a broader personal-finance platform with product recommendations — a factual comparison for a calculator-only need.',
     intro:
       'NerdWallet is a personal-finance platform covering credit cards, banking, insurance and loans, with calculators embedded alongside product recommendations and affiliate-linked offers. For someone who wants only the calculator — not the surrounding recommendation engine — the comparison is worth making explicit.',
     whoSearchesThis:
@@ -123,6 +127,7 @@ export const ALTERNATIVES: Alternative[] = [
   },
   {
     slug: 'calculator-net-alternative',
+    topics: ['alternatives'],
     competitor: 'Calculator.net',
     title: 'Calculator.net Alternative: Modern Loan Calculators With Amortization Export',
     description:

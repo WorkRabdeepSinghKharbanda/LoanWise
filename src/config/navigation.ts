@@ -54,6 +54,7 @@ export const UTILITY_NAV: NavItem[] = [
   { to: '/guides', label: 'Guides', icon: '📚', desc: 'In-depth guides on EMI, mortgages, and debt payoff.', keywords: 'guide article learn how to explain' },
   { to: '/blog', label: 'Blog', icon: '✍️', desc: 'Short reads on the fine print that changes what a loan costs.', keywords: 'blog article post news' },
   { to: '/alternatives', label: 'Alternatives', icon: '🔀', desc: 'How this compares to other loan calculators.', keywords: 'bankrate nerdwallet calculator.net alternative comparison' },
+  { to: '/topics', label: 'Topics', icon: '🗂️', desc: 'Every guide, post, and comparison grouped by subject.', keywords: 'topic category browse hub' },
 ]
 
 export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [

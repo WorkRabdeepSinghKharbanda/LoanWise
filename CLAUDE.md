@@ -108,6 +108,7 @@ Each of these is a self-contained slice — math in one of the two math modules,
 | Landing guides | `src/config/guides.ts` | `GuidesIndexPage`, `GuidePage` | Long-form SEO content, distinct from the 24 calculators — one dynamic `/guides/:slug` page renders any entry; each ships Article + FAQPage JSON-LD (with image/wordCount/author/publisher+logo/mainEntityOfPage) and links back to its related calculators |
 | Blog | `src/config/blog.ts` | `BlogIndexPage`, `BlogPage` | Shorter, dated posts at `/blog/:slug` — same one-dynamic-page pattern as guides, `BlogPosting` JSON-LD (datePublished/dateModified, image, wordCount, author, publisher+logo, mainEntityOfPage) instead of Article+FAQ |
 | Alternatives | `src/config/alternatives.ts` | `AlternativesIndexPage`, `AlternativePage` | "X alternative" comparison pages at `/alternatives/:slug` — same one-dynamic-page pattern, factual nominative comparison table + Article+FAQPage JSON-LD. Keyword demand backing each one is in `.claude/brain/seo/keyword-index.md` |
+| Topics | `src/config/topics.ts` | `TopicsIndexPage`, `TopicPage` | Hub pages at `/topics/:slug` grouping every `Guide`/`BlogPost`/`Alternative` tagged with that topic slug (each content type carries a required `topics: string[]` field). A `Topic` can set `pillarSlug` pointing at one `GUIDES` entry that's the comprehensive "start here" answer for that topic — featured above the plain link list, not just another list item. Deepens internal linking beyond the flat index pages + RelatedPosts widget |
 | Command palette | — | `CommandPalette` (⌘K) | Built from `ALL_NAV`; also toggles theme |
 | Shortcuts sheet | — | `ShortcutsSheet` (`?` key) | Lists the palette shortcut |
 | Recently viewed | `src/utils/recentlyViewed.ts` | `RecentlyViewed` (Home only) | Recorded on every route change in `Layout` |
@@ -134,7 +135,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 | Debt | `/credit-card`, `/debt-payoff`, `/student-loan` |
 | Cars | `/lease-vs-buy`, `/car-cost` |
 | Shopping | `/bnpl` |
-| Tools | `/compare`, `/saved`, `/quiz`, `/glossary`, `/guides`, `/guides/:slug`, `/blog`, `/blog/:slug`, `/alternatives`, `/alternatives/:slug` |
+| Tools | `/compare`, `/saved`, `/quiz`, `/glossary`, `/guides`, `/guides/:slug`, `/blog`, `/blog/:slug`, `/alternatives`, `/alternatives/:slug`, `/topics`, `/topics/:slug` |
 | — | `/` landing, `*` → redirect home |
 
 ## Conventions
@@ -145,6 +146,7 @@ Registered in `App.tsx`; presented from `src/config/navigation.ts`. 24 calculato
 - **Adding a blog post**: same pattern — a new entry in `BLOG_POSTS` in [src/config/blog.ts](./src/config/blog.ts), rendered at `/blog/:slug` by `BlogPage`. Guides are broad reference content; blog posts are shorter, dated, narrower-angle pieces — pick the array that matches which one you're writing.
 - **Adding an "alternative to X" page**: a new entry in `ALTERNATIVES` in [src/config/alternatives.ts](./src/config/alternatives.ts), rendered at `/alternatives/:slug` by `AlternativePage`. Only add one where [keyword research](./.claude/brain/seo/keyword-index.md) confirms real "X alternative" search demand — these are nominative, factual comparisons (a traits table, an honest "when X is still better" section), never disparaging.
 - **SEO content cadence**: this compounds over months, not days — periodically re-run the autocomplete fetch described in [keyword-index.md](./.claude/brain/seo/keyword-index.md) and extend `GUIDES`/`BLOG_POSTS`/`ALTERNATIVES` from whatever gaps it surfaces.
+- **Per-new-content-page checklist** (guide, blog post, or alternative): (1) sitemap/`llms.txt`/robots.txt need zero manual edits — fully automatic from the arrays; (2) keep title under ~55 chars and description under ~155 chars so neither truncates in search results; (3) set at least one entry in `topics: string[]` so it lands in a `/topics/:slug` hub, not just the flat index; (4) ship a non-empty `faq` array (the JSON-LD guard skips an empty one safely, but non-empty is the actual goal for FAQ rich-result eligibility); (5) link out to its topic hub(s) and 2+ related calculators.
 - **Money on screen** always goes through `useFormat().money()` (or `.compact()` for axis ticks) so the currency selector works. Never hardcode a currency in a component; never inline `toFixed` for money.
 - **UI text** that's part of shared chrome goes through `useT()` (see **i18n**); page-specific prose stays plain English for now — don't half-translate a single page, it's inconsistent with the rest.
 - **Numeric inputs** use [NumberField](./src/components/NumberField.tsx), never a raw `<input type="number">` — the number type adds spinners, rejects partially typed values, and turns an empty field into 0. NumberField holds raw keystrokes locally, validates against min/max, and only reports valid numbers upward. Pass `slider` for a drag control.

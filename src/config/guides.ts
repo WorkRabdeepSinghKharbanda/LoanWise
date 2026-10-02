@@ -6,6 +6,8 @@
  */
 export interface Guide {
   slug: string
+  /** Topic slugs from TOPICS (src/config/topics.ts) this guide belongs to — powers /topics/:slug hub pages. */
+  topics: string[]
   title: string
   description: string
   intro: string
@@ -17,6 +19,7 @@ export interface Guide {
 export const GUIDES: Guide[] = [
   {
     slug: 'emi-calculator-guide',
+    topics: ['emi'],
     title: 'EMI Calculator Guide: How Your Monthly Payment Is Actually Calculated',
     description:
       'How EMI (Equated Monthly Installment) is calculated, why the interest-to-principal split changes every month, and how prepayment shortens a loan.',
@@ -58,6 +61,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'mortgage-home-loan-guide',
+    topics: ['mortgage'],
     title: 'Mortgage & Home Loan Guide: Rates, PMI, and the Real Monthly Cost',
     description:
       'What actually makes up a mortgage payment beyond principal and interest — PMI, escrow, and how points and refinancing change the math.',
@@ -104,9 +108,10 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'debt-payoff-guide',
+    topics: ['debt'],
     title: 'Debt Payoff Guide: Snowball vs. Avalanche, and Escaping the Minimum-Payment Trap',
     description:
-      'How the snowball and avalanche debt payoff methods differ, why credit card minimum payments barely dent the balance, and how to pick a strategy for multiple debts.',
+      'How snowball and avalanche debt payoff methods differ, why minimum payments barely dent the balance, and how to pick a strategy for multiple debts.',
     intro:
       'Paying off multiple debts is a sequencing problem: which one do you attack first with any spare cash, while paying the minimum on the rest? Two strategies dominate, and they optimize for different things.',
     sections: [
@@ -149,6 +154,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'car-loan-guide',
+    topics: ['car-loans'],
     title: 'Car Loan Guide: Financing, Leasing, and the True Cost of Owning',
     description:
       'How a car loan compares to leasing, and why depreciation — not the loan interest — is usually the biggest cost of owning a car.',
@@ -186,6 +192,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'affordability-savings-guide',
+    topics: ['mortgage'],
     title: 'How Much Can I Borrow? Affordability and Saving for a Down Payment',
     description:
       'How lenders size up how much you can borrow, and how to plan a savings timeline for a down payment.',
@@ -223,6 +230,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'arm-guide',
+    topics: ['mortgage'],
     title: 'Adjustable-Rate Mortgage (ARM) Guide: What Happens When the Rate Resets',
     description: 'How an ARM\'s introductory rate, caps, and reset schedule work, and how to stress-test the payment shock before it happens.',
     intro:
@@ -259,6 +267,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'refinance-guide',
+    topics: ['mortgage'],
     title: 'Refinance Guide: When Closing Costs Actually Pay for Themselves',
     description: 'How to find a refinance\'s break-even point, and why "rates dropped" isn\'t reason enough on its own.',
     intro:
@@ -295,6 +304,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'rent-vs-buy-guide',
+    topics: ['mortgage'],
     title: 'Rent vs. Buy Guide: Finding the Real Crossover Point',
     description: 'Why comparing rent to a mortgage payment alone misses most of the real cost of either choice.',
     intro:
@@ -331,6 +341,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'student-loan-guide',
+    topics: ['student-loan'],
     title: 'Student Loan Guide: Income-Driven Repayment and Forgiveness, Explained',
     description: 'How income-driven repayment plans size your payment, and how negative amortization and forgiveness interact.',
     intro:
@@ -366,6 +377,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'credit-card-payoff-guide',
+    topics: ['debt'],
     title: 'Credit Card Payoff Guide: Escaping the Minimum-Payment Trap',
     description: 'Why minimum payments barely move the balance, and what it actually takes to pay a card off on purpose.',
     intro:
@@ -402,6 +414,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'interest-only-balloon-guide',
+    topics: ['loan-basics'],
     title: 'Interest-Only and Balloon Loans: The Payment Is Lower Because the Bill Is Later',
     description: 'How interest-only and balloon loans defer principal — and what the payment jump (or lump sum) at the end actually looks like.',
     intro:
@@ -437,6 +450,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'emi-holiday-guide',
+    topics: ['emi'],
     title: 'EMI Holiday (Moratorium) Guide: The Real Cost of Pausing Payments',
     description: 'What a payment moratorium actually does to a loan\'s total life and cost, once the pause ends.',
     intro:
@@ -472,6 +486,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'step-up-emi-guide',
+    topics: ['emi'],
     title: 'Step-Up EMI Guide: Starting Lower and Rising With Your Income',
     description: 'How a step-up EMI schedule works, and who it actually suits.',
     intro:
@@ -508,6 +523,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'gold-loan-guide',
+    topics: ['car-loans'],
     title: 'Gold Loan Guide: Fast, Secured, and Usually Short-Term',
     description: 'How gold loans price against unsecured borrowing, and what to watch for in the term and repayment structure.',
     intro:
@@ -543,6 +559,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'personal-loan-guide',
+    topics: ['loan-basics'],
     title: 'Personal Loan Guide: Unsecured Borrowing, Priced for the Risk',
     description: 'Why personal loans carry higher rates than secured borrowing, and how to size one against what it\'s actually for.',
     intro:
@@ -578,6 +595,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'bnpl-guide',
+    topics: ['bnpl'],
     title: 'Buy Now, Pay Later Guide: Free Credit, Until It Isn\'t',
     description: 'How BNPL plans avoid charging interest, and where the real cost hides once a payment slips.',
     intro:
@@ -614,6 +632,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'loan-comparison-guide',
+    topics: ['loan-basics'],
     title: 'How to Compare Loan Offers Side by Side (Without Getting Fooled by the Headline Rate)',
     description: 'What actually differs between two loan offers beyond the interest rate — and how to line them up fairly.',
     intro:
@@ -650,6 +669,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'amortization-schedule-guide',
+    topics: ['emi'],
     title: 'How to Read an Amortization Schedule (And What It\'s Actually Telling You)',
     description: 'Every row of an amortization schedule breaks a payment into interest and principal — here\'s what to look for.',
     intro:
@@ -686,6 +706,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'fixed-vs-variable-rate-guide',
+    topics: ['loan-basics'],
     title: 'Fixed vs. Variable Rate: What You\'re Actually Trading Away',
     description: 'A fixed rate trades a potentially lower average cost for certainty — here\'s how to decide which one you need more.',
     intro:
@@ -722,6 +743,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'debt-consolidation-guide',
+    topics: ['debt'],
     title: 'Debt Consolidation Guide: When Combining Debts Actually Helps',
     description: 'Consolidating several debts into one loan can lower the blended rate and simplify payments — but only if the new terms are actually better.',
     intro:
@@ -758,6 +780,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'prepayment-guide',
+    topics: ['emi'],
     title: 'Should You Pay Off Your Loan Early? The Prepayment Math',
     description: 'Lump sums, extra monthly payments, and the biweekly trick all shorten a loan — here\'s how each one compares.',
     intro:
@@ -794,6 +817,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'credit-score-and-loan-rate-guide',
+    topics: ['debt'],
     title: 'How Your Credit Score Actually Moves Your Loan Rate',
     description: 'The same loan, same lender, can carry a very different rate depending on the credit score behind the application.',
     intro:
@@ -830,6 +854,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'loan-tenure-guide',
+    topics: ['loan-basics'],
     title: 'Short Term vs. Long Term: Choosing a Loan\'s Tenure',
     description: 'A longer tenure lowers the payment but raises total interest — the right length depends on what you\'re optimizing for.',
     intro:
@@ -866,6 +891,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'co-borrower-affordability-guide',
+    topics: ['mortgage'],
     title: 'Applying With a Co-Borrower: How It Changes What You Can Afford',
     description: 'Combining incomes on an application can raise how much a lender will approve — but it combines the debt obligation too.',
     intro:
@@ -902,6 +928,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'first-time-borrower-guide',
+    topics: ['loan-basics'],
     title: 'First Loan Ever? A Beginner\'s Guide to Reading the Terms',
     description: 'APR, term, principal, amortization — a plain-English walkthrough of the terms that show up on every loan offer.',
     intro:
@@ -938,6 +965,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'mortgage-points-break-even-guide',
+    topics: ['mortgage'],
     title: 'Mortgage Points Calculator Guide: The Break-Even Math That Decides If They\'re Worth It',
     description:
       'Buying mortgage points trades an upfront fee for a lower rate — whether that trade pays off depends entirely on one number: the break-even point.',
@@ -991,6 +1019,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'how-much-house-can-you-afford-guide',
+    topics: ['mortgage'],
     title: 'How Much House Can You Actually Afford? The DTI Math Lenders Use',
     description:
       'Lenders don\'t approve a mortgage based on what feels affordable — they run a debt-to-income ratio. Here\'s exactly how that number is built and what moves it.',
@@ -1044,9 +1073,10 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'arm-payment-shock-guide',
+    topics: ['mortgage'],
     title: 'ARM Payment Shock: What Actually Happens When the Rate Resets',
     description:
-      'An adjustable-rate mortgage\'s low introductory rate is temporary by design — here\'s exactly how the reset is calculated, and how to stress-test it before signing.',
+      'An adjustable-rate mortgage\'s low intro rate is temporary by design — exactly how the reset is calculated, and how to stress-test it before signing.',
     intro:
       'An adjustable-rate mortgage (ARM) trades a lower initial rate for uncertainty later. The introductory rate is fixed for a set period — commonly five, seven or ten years — then resets based on a market index, within caps that limit how much it can move at once and over the life of the loan.',
     sections: [
@@ -1097,9 +1127,10 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'lease-vs-buy-car-guide',
+    topics: ['car-loans'],
     title: 'Lease vs. Buy a Car: The Real Cost Comparison Beyond the Monthly Payment',
     description:
-      'A lease payment is usually lower than a loan payment on the same car — but comparing them on monthly payment alone misses where the real cost difference actually lives.',
+      'A lease payment is usually lower than a loan payment on the same car — but comparing monthly payment alone misses where the real cost difference lives.',
     intro:
       'Leasing and financing the same car almost always produce different monthly payments, with leasing typically lower — but the monthly number alone is a misleading comparison. The honest comparison has to account for what each side owns at the end, and what happens if you want out early.',
     sections: [
@@ -1146,6 +1177,187 @@ export const GUIDES: Guide[] = [
       { to: '/lease-vs-buy', label: 'Lease vs Buy Calculator' },
       { to: '/car-cost', label: 'True Cost of Ownership Calculator' },
       { to: '/loan/car', label: 'Car Loan Calculator' },
+    ],
+  },
+  {
+    slug: 'mortgage-complete-guide',
+    topics: ['mortgage'],
+    title: 'The Complete Mortgage Guide: Rates, PMI, Points, ARMs, and Affordability in One Place',
+    description:
+      'Every major mortgage question answered in one place — payment calculation, PMI drop-off, points, ARM resets, refinancing, and how much house you can actually afford — each linked to its calculator.',
+    intro:
+      'A mortgage touches more moving parts than any other loan most people take out: the rate, the term, PMI, property tax and insurance escrow, maybe points, maybe an adjustable rate, maybe a future refinance. This guide pulls every one of those pieces into a single reference, with the specific calculator for each decision.',
+    sections: [
+      {
+        heading: 'How your monthly payment is actually built',
+        body: 'A mortgage payment usually bundles four things: principal and interest (the amortizing loan itself), property tax, homeowners insurance, and PMI if the down payment is under 20%. The Mortgage Calculator (/mortgage) breaks out all four separately rather than quoting one blended number, so you can see which piece is driving the cost. Principal and interest shrink as a share of the payment only when PMI drops off or the loan is paid down — tax and insurance scale with the home\'s value, not the loan balance.',
+      },
+      {
+        heading: 'PMI: what it costs and when it goes away',
+        body: 'PMI protects the lender, not you, and is required whenever the down payment is under 20% of the home\'s value. It\'s typically 0.5-1.5% of the loan balance per year, added to the monthly payment. It cancels automatically once the balance reaches 78% of the original home value under federal law, but you can request cancellation earlier, at 80%, once you\'ve built that equity — see the PMI drop-off guide for the exact mechanics and how prepayment speeds it up.',
+      },
+      {
+        heading: 'Mortgage points: when the upfront cost pays for itself',
+        body: 'A point costs 1% of the loan amount upfront in exchange for a lower rate, usually around 0.25% off per point. Whether that trade is worth it depends entirely on how long you keep the loan — the break-even is the month where cumulative monthly savings catch up to the upfront cost. The Points Buydown Calculator (on /mortgage) runs this math for your specific numbers; see the Mortgage Points break-even guide for the full walkthrough and common mistakes (like paying for points on a loan you refinance away within a couple of years).',
+      },
+      {
+        heading: 'Adjustable-rate mortgages: what happens when the rate resets',
+        body: 'An ARM trades a lower introductory rate for uncertainty later — the rate adjusts to a market index plus a margin, within caps, at set intervals after the intro period ends. The ARM Stress Test (/arm) recasts your payment at the worst-case capped rate so you can see the real ceiling before signing, not just the appealing teaser number. See the ARM Payment Shock guide for how the caps actually work and how to budget for the reset.',
+      },
+      {
+        heading: 'Refinancing: when the closing costs actually pay for themselves',
+        body: 'Refinancing replaces your mortgage with a new one, usually at a lower rate, but it resets closing costs (typically 2-5% of the loan) that need to be recovered through lower payments before it\'s a net win. The Refinance Calculator (/refinance) computes the exact break-even month and flags the case where a longer new term lowers the payment but raises total lifetime interest — a trade worth seeing explicitly, not assuming away.',
+      },
+      {
+        heading: 'How much house you can actually afford',
+        body: 'Lenders don\'t approve a mortgage based on what feels comfortable — they run a debt-to-income ratio, typically capping total housing + debt payments around 36-43% of gross monthly income depending on the loan program. The Affordability Calculator (/affordability) runs that same math, combining income (including a co-borrower\'s, if applicable) against existing debts to show a realistic price range before you start house-hunting, not after an offer falls through on financing.',
+      },
+      {
+        heading: 'Renting vs. buying: the comparison that isn\'t just rent vs. payment',
+        body: 'Comparing a mortgage payment to rent misses most of the real cost difference: buying carries maintenance, tax, insurance, and closing costs, but builds equity and nets out any appreciation at sale; renting carries none of the ownership costs but builds no equity. The Rent vs. Buy Calculator (/rent-vs-buy) nets out equity built against the full cost of ownership over however long you plan to stay, which is usually the single biggest variable in which option wins.',
+      },
+      {
+        heading: 'Saving for the down payment',
+        body: 'Before any of the above matters, there\'s the down payment itself. The Savings Goal Calculator (/savings-goal) solves both directions of that problem — given a monthly savings amount, when you\'ll hit a down payment target, or given a deadline, how much you need to save each month to get there.',
+      },
+    ],
+    faq: [
+      {
+        q: 'What credit score do I need for a mortgage?',
+        a: 'Conventional loans typically want 620+, with the best rates reserved for 740+; government-backed programs (FHA) can go lower, often 580 with a higher down payment requirement below that. Your rate, not just your approval odds, moves with score.',
+      },
+      {
+        q: 'How much do I need for a down payment?',
+        a: 'Conventional loans can go as low as 3-5% down with PMI; 20% avoids PMI entirely. There\'s no universal "right" amount — more down payment means a smaller loan and no PMI, but ties up more cash that could otherwise be invested or kept as a buffer.',
+      },
+      {
+        q: 'What\'s included in closing costs?',
+        a: 'Typically 2-5% of the loan amount: loan origination fees, appraisal, title insurance, attorney fees, and prepaid items like the first months of tax/insurance escrow. The Refinance Calculator\'s break-even logic applies to a purchase mortgage\'s closing costs the same way.',
+      },
+      {
+        q: 'Is a 15-year or 30-year mortgage better?',
+        a: 'A 15-year term has a higher monthly payment but dramatically less total interest, since less time means less balance outstanding at any given rate. A 30-year term maximizes monthly affordability. There\'s no universally correct answer — it depends on whether the lower payment or the lower total cost matters more to your situation.',
+      },
+      {
+        q: 'Can I remove PMI before the automatic cancellation point?',
+        a: 'Yes — once you\'ve reached 80% loan-to-value (through paydown, appreciation, or both), you can request cancellation rather than waiting for the 78% automatic cutoff. This usually requires a written request and sometimes a new appraisal to confirm the value.',
+      },
+      {
+        q: 'What\'s the difference between a rate and APR on a mortgage?',
+        a: 'The interest rate is what\'s applied to the principal; the APR folds in points and certain fees to express the "all-in" cost as a yearly rate, which is why APR is usually slightly higher and is the better number for comparing offers with different fee structures.',
+      },
+      {
+        q: 'Should I buy points when I take out my mortgage?',
+        a: 'Only if you\'re confident you\'ll keep the loan (not sell or refinance) past the break-even month — run your actual numbers through the Points Buydown Calculator rather than assuming the discounted rate is automatically worth the upfront cost.',
+      },
+      {
+        q: 'How does an ARM\'s rate cap actually work?',
+        a: 'ARMs typically have three caps: how much the rate can jump at the first adjustment, how much at each adjustment after that, and a lifetime cap over the life of the loan. The Payment Shock guide walks through stress-testing your specific ARM against all three.',
+      },
+      {
+        q: 'Is it ever worth refinancing to a longer term?',
+        a: 'It can lower your monthly payment, which matters if cash flow is the binding constraint — but it usually increases total lifetime interest even at a lower rate, since more months accrue interest. The Refinance Calculator flags this trade-off explicitly rather than only showing the payment drop.',
+      },
+      {
+        q: 'How much income do I need to afford a given home price?',
+        a: 'It depends on your other debts, the rate, the term, and the lender\'s DTI threshold — there\'s no fixed multiple of income that applies universally. Run your actual numbers through the Affordability Calculator rather than relying on a rule of thumb like "3x income."',
+      },
+    ],
+    related: [
+      { to: '/mortgage', label: 'Mortgage Calculator' },
+      { to: '/arm', label: 'ARM Stress Test' },
+      { to: '/affordability', label: 'Affordability Calculator' },
+      { to: '/refinance', label: 'Refinance Calculator' },
+      { to: '/rent-vs-buy', label: 'Rent vs Buy Calculator' },
+      { to: '/savings-goal', label: 'Savings Goal Calculator' },
+    ],
+  },
+  {
+    slug: 'emi-complete-guide',
+    topics: ['emi'],
+    title: 'The Complete EMI Guide: Formula, Prepayment, Step-Up, and Every Common Question Answered',
+    description:
+      'How EMI is calculated, why the interest/principal split shifts, step-up EMIs, prepayment, biweekly payments, and EMI holidays — all in one place, each linked to its calculator.',
+    intro:
+      'EMI (Equated Monthly Installment) questions tend to cluster around a handful of real decisions: how the number is calculated, whether prepaying is worth it, whether a step-up EMI fits your income trajectory, and what happens if you need to pause payments. This guide covers all of them, each with the calculator that runs your specific numbers.',
+    sections: [
+      {
+        heading: 'The EMI formula, in plain terms',
+        body: 'EMI = P × r × (1+r)^n / ((1+r)^n − 1), where P is the principal, r is the monthly rate (annual rate ÷ 12), and n is the number of months. Every calculator on this site that quotes a monthly payment — EMI (/emi), the four loan types, Mortgage — runs this exact formula. It\'s a reducing-balance calculation: interest is charged only on what\'s still owed, not the original principal, which is why the interest portion shrinks every month even though the EMI itself never changes.',
+      },
+      {
+        heading: 'Why the interest/principal split shifts over time',
+        body: 'Interest accrues on the outstanding balance, which is highest at the start of the loan — so early EMIs are interest-heavy, and later ones are principal-heavy, even though the payment is flat. This is also why an extra payment made early in the loan saves more total interest than the same extra payment made later: it removes principal while the balance (and the interest charged on it) is at its highest.',
+      },
+      {
+        heading: 'Prepayment: lump sum vs. recurring extra',
+        body: 'A lump-sum prepayment and a recurring extra-monthly-payment both reduce principal directly, which compounds forward as less interest on every remaining month — but they shorten the loan differently. The EMI Calculator\'s prepayment panel (/emi) lets you model either (or both) and see the exact new payoff date and total interest saved, rather than estimating.',
+      },
+      {
+        heading: 'The biweekly payment trick',
+        body: 'Paying half your EMI every two weeks instead of the full EMI monthly results in 26 half-payments a year — the equivalent of 13 monthly payments instead of 12, extra payment that happens almost by accident due to the payment cadence rather than a deliberate lump sum. It\'s a genuine way to prepay for people who find a lump sum harder to commit to than a payment-schedule change.',
+      },
+      {
+        heading: 'Step-up EMI: starting lower, rising with income',
+        body: 'A step-up EMI starts below the standard flat EMI and increases on a schedule (often annually), designed for early-career borrowers who expect their income to grow. The Step-Up EMI Calculator (/emi/step-up) models the full schedule against a standard flat EMI so you can see the total interest trade-off — a step-up EMI usually costs more in total interest than a flat EMI at the same rate, since the balance is paid down more slowly at the start.',
+      },
+      {
+        heading: 'EMI holidays (moratoriums): what pausing actually costs',
+        body: 'An EMI holiday pauses payments for an agreed period, but interest keeps accruing on the outstanding balance during that pause — it extends the loan\'s total life by the holiday length rather than shrinking the remaining term. The Moratorium Calculator (/moratorium) shows exactly how much is added to the total repayment, so the decision to pause is made with the real cost visible, not just the short-term relief.',
+      },
+      {
+        heading: 'Choosing a loan tenure',
+        body: 'A longer tenure lowers the EMI but increases total interest paid, since the balance stays outstanding (and accruing interest) for longer; a shorter tenure does the reverse. There\'s no single right answer — it depends on whether monthly affordability or total cost is the binding constraint for your situation. Compare both directly using the EMI Calculator at different term lengths before committing.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Does a longer tenure always mean a smaller EMI?',
+        a: 'Yes, but a smaller EMI over a longer term usually means more total interest paid, since the balance stays higher for longer and accrues interest for more months.',
+      },
+      {
+        q: 'What is a reducing-balance EMI, and is that what most loans use?',
+        a: 'Almost all EMIs today are reducing-balance: interest is charged only on what\'s still owed, so the interest portion of a flat EMI shrinks every month even though the EMI itself stays the same.',
+      },
+      {
+        q: 'Can I change my EMI amount after the loan starts?',
+        a: 'The lender won\'t let you change the scheduled EMI directly, but a prepayment shortens the remaining term (or can lower future EMIs, depending on what the lender offers) for the same outstanding balance.',
+      },
+      {
+        q: 'How is EMI different from a flat-rate interest calculation?',
+        a: 'A flat-rate calculation charges interest on the original principal for the full term, which is significantly more expensive than reducing-balance — always confirm which method a lender is actually using before comparing rates across offers.',
+      },
+      {
+        q: 'Is prepaying a home loan EMI always worth it?',
+        a: 'Usually yes in pure interest-saved terms, but compare the loan\'s rate against what that money could earn invested elsewhere — prepaying is a guaranteed return equal to the loan rate, which may or may not beat your next-best alternative.',
+      },
+      {
+        q: 'What happens to my EMI if I make a one-time lump-sum prepayment?',
+        a: 'Depending on the lender\'s policy, you can usually choose to either reduce the EMI (keeping the same tenure) or reduce the tenure (keeping the same EMI) — the latter saves more total interest since it shortens how long the balance accrues interest.',
+      },
+      {
+        q: 'Is a step-up EMI a good idea for a fixed, non-increasing salary?',
+        a: 'Generally not — a step-up EMI is a bet on rising income, and without that growth the later, higher installments can strain a budget that a flat EMI at the same starting payment would have kept level throughout.',
+      },
+      {
+        q: 'Does an EMI holiday hurt my credit score?',
+        a: 'A moratorium agreed with the lender (not a missed payment) typically doesn\'t count as a default, but it does add to the total interest owed — check the specific terms your lender is offering before assuming it\'s cost-free.',
+      },
+      {
+        q: 'How much can I actually save with the biweekly payment trick?',
+        a: 'It depends on the loan\'s rate and remaining term, but the effect is equivalent to one extra full monthly payment per year — model your specific loan through the prepayment panel to see the exact interest and time saved.',
+      },
+      {
+        q: 'What\'s the fastest way to lower total interest without changing my monthly budget?',
+        a: 'Any lump sum you can direct toward principal — a bonus, tax refund, or one-time windfall — saves more the earlier in the loan it\'s applied, since it removes principal while the balance (and the interest charged on it) is at its highest.',
+      },
+    ],
+    related: [
+      { to: '/emi', label: 'EMI Calculator' },
+      { to: '/emi/step-up', label: 'Step-Up EMI Calculator' },
+      { to: '/moratorium', label: 'EMI Holiday Calculator' },
+      { to: '/loan/personal', label: 'Personal Loan Calculator' },
+      { to: '/loan/home', label: 'Home Loan Calculator' },
     ],
   },
 ]

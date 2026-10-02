@@ -31,6 +31,8 @@ export type BlogDiagramSpec =
  */
 export interface BlogPost {
   slug: string
+  /** Topic slugs from TOPICS (src/config/topics.ts) this post belongs to — powers /topics/:slug hub pages. */
+  topics: string[]
   title: string
   description: string
   date: string // ISO yyyy-mm-dd
@@ -48,6 +50,7 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'why-extra-payments-save-more-early',
+    topics: ['emi'],
     title: 'Why an Extra Payment in Year 1 Saves More Than the Same Payment in Year 10',
     description: 'The same extra payment on a loan saves far more interest early in the term than late — here\'s the mechanism, with the numbers.',
     date: '2026-01-15',
@@ -143,6 +146,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'apr-vs-interest-rate',
+    topics: ['loan-basics'],
     title: 'APR vs. Interest Rate: The Number Lenders Advertise Isn\'t the Number That Matters',
     description: 'Two loans quoting the same interest rate can cost very different amounts once fees are included — APR is what actually makes them comparable.',
     date: '2026-02-03',
@@ -227,6 +231,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'true-cost-of-bnpl',
+    topics: ['bnpl'],
     title: 'The True Cost of Buy Now, Pay Later — When It\'s Free and When It Isn\'t',
     description: 'BNPL plans are often genuinely interest-free, but late fees and missed installments turn them into one of the most expensive ways to borrow.',
     date: '2026-03-10',
@@ -310,6 +315,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'how-pmi-drop-off-works',
+    topics: ['mortgage'],
     title: 'How PMI Drop-Off Actually Works — And How to Make It Happen Sooner',
     description: 'PMI isn\'t forever: here\'s exactly when it\'s required to end, and what shortens the wait.',
     date: '2026-03-20',
@@ -392,6 +398,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'refinance-break-even-explained',
+    topics: ['mortgage'],
     title: 'The Refinance Break-Even Number Everyone Skips',
     description: 'One number decides whether a refinance is worth it, and it\'s not the new interest rate.',
     date: '2026-03-28',
@@ -476,6 +483,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'debt-avalanche-vs-snowball-real-numbers',
+    topics: ['debt'],
     title: 'Avalanche vs. Snowball: Running the Actual Numbers on Three Debts',
     description: 'The two debt-payoff strategies compared with concrete balances and rates, not just the theory.',
     date: '2026-04-05',
@@ -559,6 +567,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'gold-loan-vs-personal-loan',
+    topics: ['car-loans', 'loan-basics'],
     title: 'Gold Loan vs. Personal Loan: Same Need, Very Different Pricing',
     description: 'Why a gold loan usually beats a personal loan on rate — and where that comparison breaks down.',
     date: '2026-04-12',
@@ -638,6 +647,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'step-up-emi-for-first-time-earners',
+    topics: ['emi'],
     title: 'Step-Up EMI: A Good Fit for a First Job, a Risky One for a Flat Salary',
     description: 'Step-up EMI matches payments to a rising income curve — here\'s when that curve is realistic and when it isn\'t.',
     date: '2026-04-19',
@@ -720,6 +730,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'student-loan-forgiveness-what-counts',
+    topics: ['student-loan'],
     title: 'Student Loan Forgiveness: What Actually Counts Toward It',
     description: 'Forgiveness timelines sound simple until a payment, a plan switch, or a forbearance period doesn\'t count.',
     date: '2026-04-26',
@@ -802,6 +813,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'rent-vs-buy-hidden-costs',
+    topics: ['mortgage'],
     title: 'The Rent vs. Buy Costs Nobody Puts in the Headline Comparison',
     description: 'Maintenance, transaction costs, and opportunity cost rarely make it into a quick rent-vs-buy comparison — they should.',
     date: '2026-05-03',
@@ -884,6 +896,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'interest-only-loans-risk',
+    topics: ['loan-basics'],
     title: 'Interest-Only Loans: The Payment Looks Fine Until the Balance Doesn\'t Move',
     description: 'A lower monthly payment on an interest-only loan hides a balance that never falls during the interest-only period.',
     date: '2026-05-10',
@@ -966,6 +979,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'emi-holiday-during-job-loss',
+    topics: ['emi'],
     title: 'Taking an EMI Holiday During a Job Loss: What It Actually Buys You',
     description: 'A payment pause can be the right call during a genuine income gap — as long as you know what it costs on the other side.',
     date: '2026-05-17',
@@ -1048,6 +1062,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'amortization-front-loaded-interest',
+    topics: ['emi'],
     title: 'Why Your First Loan Payment Is Mostly Interest',
     description: 'The first payment on a 30-year loan can be over 80% interest — here\'s the mechanism, not just the fact.',
     date: '2026-05-24',
@@ -1126,6 +1141,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'fixed-vs-variable-which-to-pick',
+    topics: ['loan-basics'],
     title: 'Fixed or Variable? A Concrete Way to Decide, Not Just a Gut Call',
     description: 'Stress-testing the worst-case variable payment against a fixed rate\'s certainty turns a gut call into a number.',
     date: '2026-05-31',
@@ -1209,6 +1225,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'debt-consolidation-when-it-backfires',
+    topics: ['debt'],
     title: 'When Debt Consolidation Backfires (And How to Spot It Before Signing)',
     description: 'A lower monthly payment on a consolidation loan can hide a longer term that costs more overall — here\'s the check that catches it.',
     date: '2026-06-07',
@@ -1291,6 +1308,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'biweekly-payment-trick-explained',
+    topics: ['emi'],
     title: 'The Biweekly Payment Trick: One Extra Payment a Year, Almost by Accident',
     description: 'Splitting a monthly payment in half and paying every two weeks quietly adds a 13th payment each year.',
     date: '2026-06-14',
@@ -1374,6 +1392,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'credit-score-points-that-move-your-rate',
+    topics: ['debt'],
     title: 'Which Credit Score Habits Actually Move Your Loan Rate the Most',
     description: 'Not every credit habit affects your score equally — here\'s what tends to move the needle fastest before applying for a loan.',
     date: '2026-06-21',
@@ -1455,6 +1474,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'short-vs-long-tenure-real-numbers',
+    topics: ['loan-basics'],
     title: 'Short vs. Long Loan Tenure: The Same Loan, Two Very Different Totals',
     description: 'Same principal, same rate, different tenure — the total interest gap between a short and long term is often larger than expected.',
     date: '2026-06-28',
@@ -1537,6 +1557,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'co-borrower-income-boosts-approval',
+    topics: ['mortgage', 'loan-basics'],
     title: 'Adding a Co-Borrower Can Raise Your Approved Amount — Here\'s the Actual Math',
     description: 'Combined income raises what a lender will approve, but combined debt lowers it back down — the net effect isn\'t always what it looks like.',
     date: '2026-07-05',
@@ -1620,6 +1641,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'reading-a-loan-offer-red-flags',
+    topics: ['loan-basics'],
     title: 'Reading a Loan Offer for the First Time? Watch for These',
     description: 'A few specific things on a loan offer are worth double-checking before signing, especially on a first loan.',
     date: '2026-07-12',
@@ -1704,6 +1726,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'bnpl-late-fee-math',
+    topics: ['bnpl'],
     title: 'The BNPL Late Fee That Turns an Interest-Free Plan Expensive',
     description: 'A single missed BNPL installment can carry an effective rate far higher than a high-APR credit card — here\'s why.',
     date: '2026-07-19',
@@ -1787,6 +1810,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'compare-loans-side-by-side-checklist',
+    topics: ['loan-basics'],
     title: 'A Short Checklist for Comparing Loan Offers Side by Side',
     description: 'Five things to line up before picking between two or more loan offers, beyond just the headline rate.',
     date: '2026-07-26',
